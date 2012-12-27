@@ -1,8 +1,14 @@
 Cuis-Swazoo
 ===========
 
-Cuis port of Swazoo.
+Swazoo for Cuis 4.1
 
-Very early port, just a first packaging in Cuis format.
+*** This is still work in progress ***
 
-*** Work in Progress ***
+Ported from:
+
+	http://www.squeaksource.com/Swazoo
+	http://www.squeaksource.com/Swazoo/Swazoo-2.3beta3.1.mcz
+	
+	Details on mail with subject: "Porting Sport and Swazoo to Cuis" on 
+	AidaWeb list 27/12/2012.

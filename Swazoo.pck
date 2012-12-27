@@ -1,4 +1,4 @@
-'From Cuis 4.0 of 21 April 2012 [latest update: #1270] on 3 May 2012 at 6:33:14 pm'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1522] on 27 December 2012 at 1:13:39 pm'!
 'Description Please enter a description for this package '!
 !classDefinition: #CompositeResourceTest category: #'Swazoo-Tests'!
 TestCase subclass: #CompositeResourceTest
@@ -900,6 +900,16 @@ FileMappingResource subclass: #FileResource
 FileResource class
 	instanceVariableNames: ''!
 
+!classDefinition: #HelloWorldResource category: #'Swazoo-Resources'!
+SwazooResource subclass: #HelloWorldResource
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Resources'!
+!classDefinition: 'HelloWorldResource class' category: #'Swazoo-Resources'!
+HelloWorldResource class
+	instanceVariableNames: ''!
+
 !classDefinition: #HomeResource category: #'Swazoo-Fileserver'!
 FileResource subclass: #HomeResource
 	instanceVariableNames: ''
@@ -932,7 +942,7 @@ ServerRootComposite class
 
 !classDefinition: #SwazooServer category: #'Swazoo-Core'!
 Object subclass: #SwazooServer
-	instanceVariableNames: 'sites servers watchdog'
+	instanceVariableNames: 'sites servers other'
 	classVariableNames: 'Singleton'
 	poolDictionaries: ''
 	category: 'Swazoo-Core'!
@@ -1062,7 +1072,7 @@ SwazooURITest class
 
 !classDefinition: #SwazooWebSocket category: #'Swazoo-HTTP'!
 Object subclass: #SwazooWebSocket
-	instanceVariableNames: 'connection recBlock'
+	instanceVariableNames: 'version connection recBlock'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Swazoo-HTTP'!
@@ -1190,7 +1200,7 @@ HTTPPut rfc26216 section 9.6   The PUT method requests that the enclosed ent
 !HTTPRefererField commentStamp: '<historical>' prior: 0!
 RFC 2616: 14.36 Referer   The Referer[sic] request-header field allows the client to specify,   for the server's benefit, the address (URI) of the resource from   which the Request-URI was obtained (the "referrer", although the   header field is misspelled.) The Referer request-header allows a   server to generate lists of back-links to resources for interest,   logging, optimized caching, etc. It also allows obsolete or mistyped   links to be traced for maintenance. The Referer field MUST NOT be   sent if the Request-URI was obtained from a source that does not have   its own URI, such as input from the user keyboard.       Referer        = "Referer" ":" ( absoluteURI | relativeURI )   Example:       Referer: http://www.w3.org/hypertext/DataSources/Overview.html   If the field value is a relative URI, it SHOULD be interpreted   relative to the Request-URI. The URI MUST NOT include a fragment. See   section 15.1.3 for security considerations.!
 
-!HTTPStreamedResponse commentStamp: '<historical>' prior: 0!
+!HTTPStreamedResponse commentStamp: 'mivsek 12/31/2007 15:41' prior: 0!
 HTTPStreamedResponse HTTP/1.1 	no length   	chunkedHTTP/1.1	length		streamed directly, with contentLengthHTTP/1.0	no length   	simulated streaming: into entity first, then sent as normal response (not yet impl.)HTTP/1.0  	length 		streamed directly, with content lengthInstance Variables:	stream		<SwazooStream> where to stream a response	count		<Integer> 		how many bytes already streamed	length		<Integer>		announced length of response, optional	state		<Symbol>		#header #streaming #closed				semaphore	<Semaphore>	to signal end of response!
 
 !HTTPString commentStamp: '<historical>' prior: 0!
@@ -1205,20 +1215,23 @@ RFC 2616: 14.43 User-Agent   The User-Agent request-header field contains info
 !SwazooBenchmarks commentStamp: '<historical>' prior: 0!
 SwazooBenchmarks stores several benchmarks and performance routines!
 
-!SwazooBuffer commentStamp: '<historical>' prior: 0!
+!SwazooBuffer commentStamp: 'janko 7/26/2008 18:23' prior: 0!
 SwazooBuffer is used for efficient buffering of receiving or sending data to TCP socket. Efficiency is achieved with reusing of stream content array instead of initializing it everytime buffer is emptied, as was in previous Swazoo versions. SwazooBuffer is a subclass of ReadWriteStream, with additional #clear to empty buffer.!
 
-!SwazooResource commentStamp: '<historical>' prior: 0!
+!SwazooResource commentStamp: 'JM 6/6/2007 13:49' prior: 0!
 Resource is an abstract class for all so called web resources. Such resource has its url address and can serve with responding to web requests. Every resource need to #answerTo: aHTTPRequest with aHTTPResponse. Site is a subclass of a Resource. You can subclass it with your own implementation. There is also a CompositeResource, which can hold many subresources. Site is also aCopmpositeResource and therefore you can add your own resources to your site.!
 
-!SwazooServer commentStamp: '<historical>' prior: 0!
+!SwazooServer commentStamp: 'mivsek 12/31/2007 16:37' prior: 0!
 SwazooServer is where all begins in Swazoo!!SwazooServer singleton : return one and only one server which holds the Sites. Also used to start and stop all sites ato once, to add new sited etc. When running, a collection of HTTPServers is also stored in SwazooServer singleton.SwazooServer demoStart  will create and run a demo site on http://localhost:8888 which                               returns a web page with 'Hello World!!'!
 
-!SwazooSite commentStamp: '<historical>' prior: 0!
+!SwazooSite commentStamp: 'JM 6/6/2007 13:49' prior: 0!
 Site : Swazoo can serve many sites at once (virtual sites). Class Site is therefore a main class to start configuring your server. It holds an IP, port and hostname of your site.!
 
 !SwazooTask commentStamp: '<historical>' prior: 0!
 A SwazooTask is simply a request-response pair.  This class just makes the task (ha!!) of dealing with requests and responses a bit easier.!
+
+!SwazooWebSocket commentStamp: 'hmm 6/6/2012 12:46' prior: 0!
+This class implements the WebSocket handshake protocol as defined in RFC 6455 (WebSocket version 13)!
 
 !TestPseudoSocket commentStamp: '<historical>' prior: 0!
 TestPseudoSocket is a drop in replacement for a SwazooSocket that can be used during testing to feed bytes into a running SwazooHTTPServer and grab the responses without having to start a real socket pair.So, to the HTTP server it must look like a server socket.  To the tester it must look like a write stream (to send bytes to the HTTP server) and a read stream (to read the HTTP responses).!
@@ -1361,14 +1374,14 @@ uriPattern: aString filePath: aFilePath 	^(self uriPattern: aString) filePath: 
 !FileMappingResource class methodsFor: 'instance creation' stamp: ' 14/4/07 23:10'!
 uriPattern: aString filePath: aFilePath directoryIndex: anotherString 	^(self uriPattern: aString)		filePath: aFilePath;		directoryIndex: anotherString! !
 
-!FileResource methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-contentTypeFor: aString 	^ContentTypes at: aString ifAbsent: ['application/octet-stream']! !
+!FileResource methodsFor: 'private'!
+contentTypeFor: aString 	^ContentTypes 		at: aString asLowercase 		ifAbsent: ['application/octet-stream']! !
 
 !FileResource methodsFor: 'private' stamp: ' 14/4/07 23:10'!
 file: aFilename answerTo: aRequest 	| cacheControl response |	cacheControl := SwazooCacheControl new request: aRequest				cacheTarget: aFilename.	response := cacheControl isNotModified 				ifTrue: [HTTPResponse notModified]				ifFalse: 					[FileResponse ok entity: ((MimeObject new)								value: aFilename;								contentType: (self contentTypeFor: aFilename extension))].	cacheControl addResponseHeaders: response.	^response! !
 
-!FileResource class methodsFor: 'class initialization' stamp: ' 14/4/07 23:10'!
-initialize	"self initialize"	ContentTypes := (Dictionary new)				add: '.txt' -> 'text/plain';				add: '.html' -> 'text/html';				add: '.htm' -> 'text/html';				add: '.css' -> 'text/css';				add: '.png' -> 'image/png';				add: '.gif' -> 'image/gif';				add: '.jpg' -> 'image/jpeg';				add: '.m3u' -> 'audio/mpegurl';				add: '.ico' -> 'image/x-icon';				add: '.pdf' -> 'application/pdf';				yourself! !
+!FileResource class methodsFor: 'class initialization' stamp: 'hmm 6/9/2012 21:46'!
+initialize	"self initialize"	ContentTypes := (Dictionary new)				add: '.txt' -> 'text/plain';				add: '.html' -> 'text/html';				add: '.htm' -> 'text/html';				add: '.css' -> 'text/css';				add: '.xml' -> 'text/xml';				add: '.js' -> 'text/javascript';				add: '.png' -> 'image/png';				add: '.gif' -> 'image/gif';				add: '.jpg' -> 'image/jpeg';				add: '.m3u' -> 'audio/mpegurl';				add: '.ico' -> 'image/x-icon';				add: '.pdf' -> 'application/pdf';				yourself! !
 
 !FileResourceTest methodsFor: 'running' stamp: 'mivsek 8/16/2007 22:09'!
 setUp	| directory firstFile ws |	directory := SpFilename named: 'fResTest'.	directory exists ifFalse: [directory makeDirectory].	firstFile :=  (SpFilename named: 'fResTest') construct: 'abc.html'.	ws := firstFile writeStream.	[ws nextPutAll: 'hello'] ensure: [ws close].	resource := FileResource uriPattern: 'foo' filePath: 'fResTest'! !
@@ -1403,14 +1416,14 @@ testSafeConstruct	| request response |	request := HTTPGet request: 'foo/../abc
 !FileResponse methodsFor: 'accessing-headers' stamp: ' 14/4/07 23:10'!
 contentType	^self entity contentType! !
 
-!FileResponse methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-entity: aMimeObject 	entity := aMimeObject! !
+!FileResponse methodsFor: 'accessing' stamp: 'hmm 6/5/2012 15:44'!
+entity: aMimeObject 	body := aMimeObject! !
 
 !FileResponse methodsFor: 'private-printing' stamp: ' 14/4/07 23:10'!
 printContentLengthOn: aStream 	self entity isNil 		ifFalse: 			[aStream				nextPutAll: 'Content-Length: ';				print: self entity value fileSize.			self crlfOn: aStream]! !
 
-!FileResponse methodsFor: 'private-printing' stamp: ' 14/4/07 23:10'!
-printEntityOn: aStream 	| rs |	self entity isNil 		ifFalse: 			[rs := self entity value readStream.			rs lineEndTransparent.			SpExceptionContext 				for: 					[[[rs atEnd] whileFalse: [aStream nextPutAll: (rs nextAvailable: 2000)]] 						ensure: [rs close]]				on: SpError				do: [:ex | ex return]]! !
+!FileResponse methodsFor: 'private-printing' stamp: 'hmm 6/9/2012 19:50'!
+printEntityOn: aStream 	| rs |	self entity isNil 		ifFalse: 			[rs := self entity value readStream.			rs binary.			SpExceptionContext 				for: 					[[[rs atEnd] whileFalse: [aStream nextPutAll: (rs nextAvailable: 4096)]] 						ensure: [rs close]]				on: SpError				do: [:ex | ex return]]! !
 
 !FileResponse methodsFor: 'private-printing' stamp: ' 14/4/07 23:10'!
 printHeadersOn: aStream 	self contentType: self entity contentType.	super printHeadersOn: aStream! !
@@ -1538,11 +1551,11 @@ writePublicOrPrivateTo: aStream 	"^selfI write the either the public or the pr
 !HTTPCacheControlField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
 fieldName	^'Cache-Control'! !
 
-!HTTPConnection methodsFor: 'serving' stamp: 'janko 6/22/2011 13:06'!
-close	self stream notNil ifTrue: [self stream close. stream := nil].	self server notNil ifTrue: [self server removeConnection: self].	self loop notNil ifTrue: 		[ | process | 		process := loop. loop := nil. 		process terminate]! !
+!HTTPConnection methodsFor: 'serving'!
+close	self stream notNil ifTrue: [self stream close. stream := nil].	self server notNil ifTrue: 		[self server removeConnection: self.		self server: nil].	self loop notNil ifTrue: 		[ | process | 		process := loop. loop := nil. 		process terminate]! !
 
-!HTTPConnection methodsFor: 'serving' stamp: 'jm 11/30/2010 13:07'!
-getAndDispatchMessages	self stream anyDataReady  "wait for data and if anything read, proceed"		ifTrue:			[self task: (SwazooTask newOn: self).			self readRequestFor: self task.			self produceResponseFor: self task.			self task request wantsConnectionClose ifTrue: [self close].			self task request isHttp10 ifTrue: [self close]. "well, we won't complicate here"			self mustUpgrade ifTrue: [self upgradeConnection] ] "like to WebSocket"		ifFalse: 			[self keepAliveTimeout ifTrue: [^self close].			(Delay forMilliseconds: 100) wait. "to finish sending, if any"			self close].! !
+!HTTPConnection methodsFor: 'serving'!
+getAndDispatchMessages	self stream anyDataReady  "wait for data and if anything read, proceed"		ifTrue:			[self task: (SwazooTask newOn: self).			self readRequestFor: self task.			(self isAllowedRequest: self task request) ifFalse: [self close]. "filtering out malicious reqs"			self produceResponseFor: self task.			self task request wantsConnectionClose ifTrue: [self close].			(self task request isHttp10 and: [self task request isKeepAlive not] ) ifTrue: [self close].			self mustUpgrade ifTrue: [self upgradeConnection] ] "like to WebSocket"		ifFalse: 			[self keepAliveTimeout ifTrue: [^self close].			(Delay forMilliseconds: 100) wait. "to finish sending, if any"			self close].! !
 
 !HTTPConnection methodsFor: 'initialize-release'!
 initOther	other := Dictionary new! !
@@ -1550,11 +1563,17 @@ initOther	other := Dictionary new! !
 !HTTPConnection methodsFor: 'serving' stamp: 'janko 7/13/2011 17:49'!
 interact	"longer description is below method"	| interactionBlock |	interactionBlock := 		[[	[ [true] whileTrue: 				[self getAndDispatchMessages.				Processor yield] 			]			on: Error			do: [:ex | "just ignore"] ]		ifCurtailed: [ 			(Delay forMilliseconds: 50) wait. "to finish sending, if any"			self close] ].	self server isMultiThreading 		ifTrue: [self loop: (interactionBlock forkAt: Processor userBackgroundPriority)]		ifFalse: [interactionBlock value].	^self"I represent a specifc connection with an HTTP client (a browser, probably) over which will come an HTTP request.  Here, I fork the handling of the request so that the current thread (which is most likely the HTTP server main loop) can carry on with the next request.  This means that more than one request may being handled in the image at a time, and that means that the application developer must worry about thread safety - e.g the problem of a given business object being updated by more than one HTTP request thread.For a GemStone implementation of Swazoo, one may want only one request is handled at a time, multi-threadedness being handled by having multiple gems.  This is a nice option because the application developer does not have to worry about thread safety in this case - GemStone handles the hard stuff.*And* the thing called a loop that was in this method was no such thing.  In all circumstances, >>getAndDispatchMessages handles exactly one requst and then closes the socket!! (very non-HTTP1.1).  Anyway, for now I'm just going to make that explicit.  This needs to be re-visited to support HTTP 1.1."! !
 
+!HTTPConnection methodsFor: 'filtering'!
+isAllowedRequest: aHTTPRequest	 "Peer IP is not on blacklist or is on whitelist"	(self server isPeerIPAlwaysAllowed: self) ifTrue: [^true]. "from this IPs is kind of 'root' access"	^(self isUrlBlacklisted: aHTTPRequest) not! !
+
 !HTTPConnection methodsFor: 'testing'!
 isHTTPConnection	^true! !
 
 !HTTPConnection methodsFor: 'testing' stamp: 'janko 7/26/2008 13:20'!
 isOpen	"not yet closed"	^self stream notNil! !
+
+!HTTPConnection methodsFor: 'filtering'!
+isUrlBlacklisted: aHTTPRequest	 "Absolute Url pattern"	| srv fullUrl |	srv := SwazooServer singleton.	srv urlBlacklist isEmpty ifTrue: [^false].  "in case there is no blacklist"	fullUrl := aHTTPRequest uri protocol, '://',      "warning, without port!! "		aHTTPRequest host, aHTTPRequest uri asString. 	^srv urlBlacklist contains: [:ipString | ipString match: fullUrl]! !
 
 !HTTPConnection methodsFor: 'testing'!
 isWebSocketConnection	^false! !
@@ -1595,11 +1614,11 @@ otherAt: aSymbol ifAbsentPut: aBlock	self other isNil ifTrue: [self initOther].
 !HTTPConnection methodsFor: 'private-other'!
 otherAt: aSymbol put: anObject	self other isNil ifTrue: [self initOther].	^self other at: aSymbol put: anObject! !
 
-!HTTPConnection methodsFor: 'serving' stamp: 'janko 3/16/2008 23:48'!
-produceResponseFor: aSwazooTask 	"Given the request in aTask I try to make a response.  If there are any unhandled 	exceptions, respond with an internal server error."	aSwazooTask request isNil ifTrue: [^nil].	"SpExceptionContext for: 		["aSwazooTask response: (self server answerTo: aSwazooTask request).		aSwazooTask request ensureFullRead. "in case if defered parsing not done in HTTPost"		aSwazooTask request wantsConnectionClose 			ifTrue: [aSwazooTask response informConnectionClose]			ifFalse: [aSwazooTask request isKeepAlive 				ifTrue: [aSwazooTask response informConnectionKeepAlive] ].		aSwazooTask response isStreamed 			ifFalse: "streamed ones did that by themselves"				[self nextPutResponse: aSwazooTask response toRequest: aSwazooTask request]			ifTrue: [aSwazooTask response waitClose]. "to be sure all is sent"		aSwazooTask request isGet ifFalse: [self close]  "to avoid strange 200 bad requests 			after two consecutive POSTs, but it is really a hack and original reason 			must be found!!""	onAnyExceptionDo: 		[:ex | 		self halt.		self nextPutError: HTTPResponse internalServerError.		ex defaultAction. ""usually raise an UHE window""		self close]"! !
+!HTTPConnection methodsFor: 'serving'!
+produceResponseFor: aSwazooTask 	aSwazooTask request isNil ifTrue: [^nil].	aSwazooTask response: (self server answerTo: aSwazooTask request).	aSwazooTask request ensureFullRead. "in case if defered parsing not done in HTTPost"	aSwazooTask request wantsConnectionClose 		ifTrue: [aSwazooTask response informConnectionClose]		ifFalse: [aSwazooTask request isKeepAlive 			ifTrue: [aSwazooTask response informConnectionKeepAlive] ].	aSwazooTask response isStreamed 		ifFalse: "streamed ones did that by themselves"			[self nextPutResponse: aSwazooTask response toRequest: aSwazooTask request]		ifTrue: [aSwazooTask response waitClose]. "to be sure all is sent"	aSwazooTask request isGet ifFalse: [self close]  "to avoid strange 200 bad requests after two consecutive POSTs, but it is really a hack and original reason must be found!!" "jan11: do we still need this?"! !
 
-!HTTPConnection methodsFor: 'serving' stamp: 'jm 11/30/2010 13:06'!
-readRequestFor: aSwazooTask 	"I read the next request from my socket and add it to aSwazooTask.  If I have any 	problems and need to force a bad request (400) response, I add this response to aSwazooTask."	| request |	SpExceptionContext for: 		[request := HTTPRequest readFrom: self stream.		request uri port: self server port.		(request httpVersion last = 1 			and: [(request headers includesFieldOfClass: HTTPHostField) not]) 				ifTrue: [aSwazooTask response: HTTPResponse badRequest].		[request peer: self stream socket remoteAddress]			on: Error do: [:ex | "do nothing for now"].		request			ip: self stream socket localAddress;			setTimestamp.		aSwazooTask request: request]	on: SpError, HTTPException	do: [:ex | 		aSwazooTask response: HTTPResponse badRequest.		self nextPutError: aSwazooTask response.		self close].! !
+!HTTPConnection methodsFor: 'serving' stamp: 'janko 10/30/2012 11:13'!
+readRequestFor: aSwazooTask 	| request |	SpExceptionContext for: 		[request := HTTPRequest readFrom: self stream.		request uri port: self server port.		(request httpVersion last = 1 			and: [(request headers includesFieldOfClass: HTTPHostField) not]) 				ifTrue: [aSwazooTask response: HTTPResponse badRequest].		[request peer: self stream socket remoteAddress]			on: Error do: [:ex | "do nothing for now"].		request			ip: self stream socket localAddress;			setTimestamp.		aSwazooTask request: request]	on: SpError, HTTPException	do: [:ex | 		aSwazooTask response: HTTPResponse badRequest.		[self nextPutError: aSwazooTask response]			on: Error			do: [:ex2 | "ignore" ].		self close].! !
 
 !HTTPConnection methodsFor: 'private' stamp: ' 14/4/07 23:09'!
 server	^server! !
@@ -1629,7 +1648,7 @@ upgradeConnection	"from HTTP to some other protocol, like WebSocket"	self must
 upgradeConnectionAfterResponse	"wait to finish sending response, then upgrade"	self otherAt: #Upgrade put: true! !
 
 !HTTPConnection methodsFor: 'websocket'!
-upgradeToWebSocket	"Upgrade HTTP connection to a WebSocket one"	self become: (self as: WebSocketConnection)! !
+upgradeToWebSocket	"Upgrade HTTP connection to a WebSocket one"	self become: (self as: WebSocketConnection).! !
 
 !HTTPConnection methodsFor: 'websocket'!
 upgradeToWebSocketAfterResponse	"let we first finish sending response, then upgrade"	self otherAt: #UpgradeToWebSocket put: true.	self upgradeConnectionAfterResponse! !
@@ -1642,6 +1661,9 @@ webSocket: aWebSocektResource	"only one WebSocket per connection!!"	self other
 
 !HTTPConnection class methodsFor: 'instance creation' stamp: ' 14/4/07 23:09'!
 socket: aSocket 	^self new stream: aSocket stream! !
+
+!HTTPConnectionField methodsFor: 'services'!
+combineWith: aConnectionHeaderField	self connectionToken: 		self connectionToken, ', ' , aConnectionHeaderField connectionToken.! !
 
 !HTTPConnectionField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
 connectionToken	"^a StringCommon values are 'close' and 'keep-alive'."	^connectionToken! !
@@ -1660,6 +1682,9 @@ setToClose	self connectionToken: 'close'.	^self! !
 
 !HTTPConnectionField methodsFor: 'services' stamp: 'mivsek 12/31/2007 14:00'!
 setToKeepAlive	self connectionToken: 'keep-alive'.	^self! !
+
+!HTTPConnectionField methodsFor: 'services'!
+setToUpgrade	self connectionToken: 'Upgrade'.	^self! !
 
 !HTTPConnectionField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
 valuesAsStringOn: aStream 	aStream nextPutAll: connectionToken.	^self! !
@@ -2417,8 +2442,8 @@ isAuthenticated	^self authenticated isNil not! !
 !HTTPRequest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
 isClose	| connectionField |	connectionField := self headers fieldOfClass: HTTPConnectionField				ifNone: [nil].	^connectionField notNil and: [connectionField connectionTokenIsClose]! !
 
-!HTTPRequest methodsFor: 'testing'!
-isConnectionUpgrade	^(self headerAt: 'Connection' ifAbsent: [^false]) connectionToken = 'Upgrade'! !
+!HTTPRequest methodsFor: 'testing' stamp: 'janko 10/31/2012 17:30'!
+isConnectionUpgrade	((self headerAt: 'Connection' ifAbsent: [^false]) 		connectionToken tokensBasedOn: $,) do: [:each |			each trimBlanks = 'Upgrade' ifTrue: [^true]].	^ false! !
 
 !HTTPRequest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
 isDelete	^false! !
@@ -2466,7 +2491,7 @@ isPut	^false! !
 isTrace	^false! !
 
 !HTTPRequest methodsFor: 'testing'!
-isWebSocketRequest	"upgrade connection to WebSocket request. See http://www.swazoo.org/websocket for more"	^self isConnectionUpgrade 		and: [self upgrade =  'WebSocket']! !
+isWebSocketRequest	"upgrade connection to WebSocket request. See http://www.swazoo.org/websocket for more"	^self isConnectionUpgrade 		and: [self upgrade asLowercase =  'websocket']! !
 
 !HTTPRequest methodsFor: 'accessing-headers' stamp: 'mivsek 12/31/2007 15:44'!
 keepAlive	"how many seconds a connection must be kept alive"	^(self headers fieldNamed: 'KeepAlive' ifNone: [^nil]) value! !
@@ -2484,7 +2509,7 @@ peer: anObject	peer := anObject! !
 port	"^an IntegerI return the port number to which the request was directed."	| host |	host := self headers fieldOfClass: HTTPHostField.	^(host notNil and: [(self httpVersion at: 2) = 1])		ifTrue: [host portNumber]		ifFalse: [self requestLine requestURI port]! !
 
 !HTTPRequest methodsFor: 'private'!
-printOn: aStream 	aStream nextPutAll: 'a HTTPRequest ', self methodName.	self isHttp10 ifTrue: [aStream nextPutAll: ' HTTP/1.0'].	self peer notNil ifTrue: [aStream cr; tab; nextPutAll: ' from: '; nextPutAll: self peer].	aStream cr; tab; nextPutAll: ' at: '. aStream nextPutAll: self timestamp printString.	aStream cr; tab; nextPutAll: ' host: '; nextPutAll: (self headerAt: 'Host' ifAbsent: ['']) hostName.	aStream cr; tab; nextPutAll: ' url: '. self uri printOn: aStream.	self userAgent notNil ifTrue: [aStream cr; tab; nextPutAll: ' browser: '; nextPutAll: self userAgent].	self connection notNil ifTrue: [aStream cr; tab; nextPutAll: ' connection: '; nextPutAll: self connection].	self keepAlive notNil ifTrue: [aStream cr; tab; nextPutAll: ' keep-alive: '; nextPutAll: self keepAlive].	^self! !
+printOn: aStream 	| isAjax |	isAjax := (self headerAt: 'X-Requested-With' ifAbsent: [nil->nil]) value = 'XMLHttpRequest'.	aStream nextPutAll: 'a HTTPRequest ', (isAjax ifTrue: ['AJAX '] ifFalse: ['']), self methodName.	self isHttp10 ifTrue: [aStream nextPutAll: ' HTTP/1.0'].	self peer notNil ifTrue: [aStream cr; tab; nextPutAll: ' from: '; nextPutAll: self peer].	aStream cr; tab; nextPutAll: ' at: '. aStream nextPutAll: 		self timestamp printString, '.', self timestamp milliseconds printString.	aStream cr; tab; nextPutAll: ' host: '; nextPutAll: (self headerAt: 'Host' ifAbsent: ['']) hostName.	aStream cr; tab; nextPutAll: ' url: '. self uri printOn: aStream.	self referer notNil ifTrue:		[aStream cr; tab; nextPutAll: ' referer: '. self referer printOn: aStream].	self userAgent notNil ifTrue: [aStream cr; tab; nextPutAll: ' browser: '; nextPutAll: self userAgent].	self connection notNil ifTrue: [aStream cr; tab; nextPutAll: ' connection: '; nextPutAll: self connection].	self keepAlive notNil ifTrue: [aStream cr; tab; nextPutAll: ' keep-alive: '; nextPutAll: self keepAlive].	self isPost ifTrue:		[self postData notEmpty ifTrue:			[aStream cr; tab; nextPutAll: 'postData: '.			self postData keysAndValuesDo: [:key :value | 				aStream cr; tab; tab; nextPutAll: key, '='; nextPutAll: value value.] ].		self entityBody notNil ifTrue:			[aStream cr; tab; nextPutAll: 'entityBody: '.			aStream nextPutAll: self entityBody ] ].	^self! !
 
 !HTTPRequest methodsFor: 'private' stamp: ' 14/4/07 23:10'!
 queries	^self uri queries! !
@@ -2681,9 +2706,6 @@ testGetMultiValueHeader	| header |	request := self getMultiValueHeader.	heade
 !HTTPRequestTest methodsFor: 'testing-other' stamp: ' 14/4/07 23:10'!
 testHeaderAtIfPresent	request := self basicGet.	self assert: (request headers 				fieldOfClass: HTTPIfRangeField				ifPresent: [:header | header == (request headers fieldOfClass: HTTPIfRangeField)]				ifAbsent: [true]).	self assert: (request headers 				fieldOfClass: HTTPHostField				ifPresent: [:header | header == (request headers fieldOfClass: HTTPHostField)]				ifAbsent: [false])! !
 
-!HTTPRequestTest methodsFor: 'testing-other' stamp: 'mivsek 7/21/2007 22:52'!
-testMissingContentType	| requestStream result |	requestStream := SwazooStream on: String new.	requestStream		nextPutLine: 'POST /foobar HTTP/1.0';		nextPutLine: 'Host: foo.com';"	      nextPutLine: 'Content-Type: text/plain'. <-- this is missing!! - and should be for this test"		nextPutLine: 'Content-Length: 12';		crlf;		nextPutLine: 'Hello, World'.	result := SpExceptionContext 		for: [(HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)) 				ensureFullRead] "because of defered post data parsing"		on: SpError		do: [:ex | ex].	self assert: result class == SwazooHTTPPostError.	^self! !
-
 !HTTPRequestTest methodsFor: 'testing-other' stamp: ' 14/4/07 23:10'!
 testNo11ConnectionClose	request := self basicGet.	self deny: request wantsConnectionClose! !
 
@@ -2759,8 +2781,8 @@ expires: aSpTimestamp  "from SPort "	self headers addField: (HTTPExpiresField n
 !HTTPResponse methodsFor: 'private' stamp: ' 14/4/07 23:10'!
 informConnectionClose	self headers 		fieldOfClass: HTTPConnectionField		ifPresent: [:field | field setToClose]		ifAbsent: [self headers addField: HTTPConnectionField new setToClose].	^self! !
 
-!HTTPResponse methodsFor: 'private' stamp: 'mivsek 12/31/2007 15:52'!
-informConnectionKeepAlive	self headers 		fieldOfClass: HTTPConnectionField		ifPresent: [:field | field setToKeepAlive]		ifAbsent: [self headers addField: HTTPConnectionField new setToKeepAlive].	^self! !
+!HTTPResponse methodsFor: 'private'!
+informConnectionKeepAlive	self headers addField: HTTPConnectionField new setToKeepAlive.! !
 
 !HTTPResponse methodsFor: 'testing'!
 isBadRequest	^self statusCode = 400! !
@@ -2919,7 +2941,7 @@ testOK	| ws rs |	response := HTTPResponse ok.	ws := SwazooStream on: String n
 testResponseTypes	self assert: (HTTPResponse badRequest) isBadRequest.	self assert: (HTTPResponse found) isFound.	self assert: (HTTPResponse internalServerError) isInternalServerError.	self assert: (HTTPResponse movedPermanently) isMovedPermanently.	self assert: (HTTPResponse notFound) isNotFound.	self assert: (HTTPResponse notImplemented) isNotImplemented.	self assert: (HTTPResponse notModified) isNotModified.	self assert: (HTTPResponse ok) isOk.	self assert: (HTTPResponse redirectLink) isRedirectLink.	self assert: (HTTPResponse seeOther) isSeeOther.! !
 
 !HTTPServer methodsFor: 'private'!
-acceptConnection	| clientConnection |	clientConnection := SpExceptionContext 		for: [HTTPConnection socket: self socket accept]		on: SpError		do: [:ex | 			Transcript cr; cr; show: '*** HTTPServer accept error: ' , ex errorString, 				', restarting on ', self ip, ':', self port printString; cr; cr. 			(Delay forMilliseconds: 1000) wait. "to avoid endless loop"			[(Delay forSeconds: 1) wait. 			self restart]   "in case of broken socket"				fork.			^self].	self addConnection: clientConnection.	clientConnection interact.! !
+acceptConnection	| clientConnection |	clientConnection := SpExceptionContext 		for: [HTTPConnection socket: self socket accept]		on: SpError		do: [:ex | 			Transcript cr; cr; show: '*** HTTPServer accept error: ' , ex errorString, 				', restarting on ', self ip, ':', self port printString; cr; cr. 			(Delay forMilliseconds: 1000) wait. "to avoid endless loop"			[(Delay forSeconds: 1) wait. 			self restart]   "in case of broken socket"				fork.			^self].	(self isAllowedConnection: clientConnection) "IP is not on blacklist or is on whitelist"		ifTrue: 			[self addConnection: clientConnection.			clientConnection interact]		ifFalse: [clientConnection close].! !
 
 !HTTPServer methodsFor: 'private' stamp: ' 14/4/07 23:09'!
 addConnection: aConnection 	self connections add: aConnection.	aConnection server: self! !
@@ -2954,8 +2976,20 @@ ip: anIPString 	ip := anIPString! !
 !HTTPServer methodsFor: 'private-initialize' stamp: 'mivsek 11/15/2007 13:50'!
 ipCorrected	"in case of '*' always return '0.0.0.0'"	^self ip = '*' 		ifTrue: ['0.0.0.0'] 		ifFalse: [self ip]! !
 
+!HTTPServer methodsFor: 'filtering'!
+isAllowedConnection: aHTTPConnection	 "Peer IP is not on blacklist or is on whitelist"	(self isPeerIPAlwaysAllowed: aHTTPConnection) ifTrue: [^true]. "from this IPs is kind of 'root' access"	^(self isPeerIPWhitelisted: aHTTPConnection) and:		[(self isPeerIPBlacklisted: aHTTPConnection) not]! !
+
 !HTTPServer methodsFor: 'multithreading' stamp: ' 14/4/07 23:09'!
 isMultiThreading	"^a BooleanI return true if each inbound HTTP connection will be handled in its own thread.  See the senders of this message to see where that is important.  Note that the default mode is mult-threaded because this is how Swazoo has worked so far.  This is tricky for the application programmer, though, as they must ensure that they work in a thread safe way (e.g. avoid the many threads updating the same object).  For those deploying to GemStone, you wil find things much easier if you do *not* run multithreaded, but rather run many gems each with a single-threaded Swazoo instance (and your app logic) in each.  Also in GemStone, run the main loop in the foreground, c.f. >>mainLoopInForeground"	isMultiThreading isNil ifTrue: [self setMultiThreading].	^isMultiThreading! !
+
+!HTTPServer methodsFor: 'filtering'!
+isPeerIPAlwaysAllowed: aHTTPConnection	 "Peer IP is on always allowed list (a collection of IP patterns like '222.123.*' "	| peerIP |	self server ipAllowedList isEmpty ifTrue: [^false].  "in case there is noone on allowed list"	peerIP := [aHTTPConnection socket remoteAddress]		on: Error		do: [:ex | ^false]. "mailformed requests are blacklisted by default"	^self server ipAllowedList contains: [:ipString | ipString match: peerIP]! !
+
+!HTTPServer methodsFor: 'filtering'!
+isPeerIPBlacklisted: aHTTPConnection	 "Peer IP is on blacklist (a collection of IP patterns like '222.123.*' "	| peerIP |	self server ipBlacklist isEmpty ifTrue: [^false].  "in case there is no blacklist"	peerIP := [aHTTPConnection socket remoteAddress] 		on: Error		do: [:ex | ^true]. "mailformed requests are blacklisted by default"	^self server ipBlacklist contains: [:ipString | ipString match: peerIP]! !
+
+!HTTPServer methodsFor: 'filtering'!
+isPeerIPWhitelisted: aHTTPConnection	 "Peer IP is on whitelist (a collection of IP patterns like '222.123.*' "	| peerIP |	self server ipWhitelist isEmpty ifTrue: [^true].  "in case there is no whitelist"	peerIP := [aHTTPConnection socket remoteAddress]		on: Error		do: [:ex | ^false]. "mailformed requests are blacklisted by default"	^(self server ipWhitelist contains: [:ipString | ipString match: peerIP]) not! !
 
 !HTTPServer methodsFor: 'testing' stamp: ' 14/4/07 23:09'!
 isServing	^self loop notNil! !
@@ -2983,6 +3017,9 @@ removeSite: aSite 	aSite parent: nil.	^self sites removeResource: aSite! !
 
 !HTTPServer methodsFor: 'start/stop' stamp: 'mivsek 11/15/2007 13:51'!
 restart	"usefull after image startup, when socket is probably not valid anymore"	self stop.	self start.! !
+
+!HTTPServer methodsFor: 'private'!
+server	"a SwazooServer on which we are running"	^SwazooServer singleton! !
 
 !HTTPServer methodsFor: 'multithreading' stamp: ' 14/4/07 23:09'!
 setMultiThreading	"^selfI record that this HTTP server is to operate in a multi-threaded mode.  c.f. isMultiThreading"	isMultiThreading := true.	^self! !
@@ -3257,6 +3294,9 @@ testContentTypeMultiple	"   HTTP/1.1 header field values can be folded onto mul
 !HeaderFieldTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
 testValues	"Entity tags are held internally as simple strings.  Any necessary leading and trailing double quotes are added by the header fields as needed.  Note that it is OK to have a comma in an entity tag - see the second of the group of 3 tags below."	| header |	header := HeaderField fromLine: 'If-Match: "xyzzy" '.	self assert: header name = 'If-Match'.	self assert: header entityTags first = 'xyzzy'.	header := HeaderField 				fromLine: 'If-Match: "xyzzy", "r2d2,xxxx", "c3piozzzz" '.	self assert: header name = 'If-Match'.	self assert: header entityTags first = 'xyzzy'.	self assert: (header entityTags at: 2) = 'r2d2,xxxx'.	self assert: header entityTags last = 'c3piozzzz'! !
 
+!HelloWorldResource methodsFor: 'serving' stamp: 'janko 11/1/2012 19:27'!
+answerTo: aRequest 	| response |	response := HTTPResponse ok.	response		contentType: 'text/html';		entity: '<html><head><title>Hello World</title></head><body>Hello World!!</body></html>'.	^response! !
+
 !HelloWorldResourceTest methodsFor: 'running' stamp: 'JM 4/18/2007 18:00'!
 setUp	hello := HelloWorldResource uriPattern: 'hello.html'! !
 
@@ -3431,11 +3471,14 @@ testCurrentUrl	site currentUrl = 'http://swazoo.org:8200'.	self addSecondAlias
 !SiteTest methodsFor: 'testing' stamp: 'jm 2/8/2009 13:52'!
 testCurrentUrl80	| aSite |	aSite := SwazooSite new.	aSite addAlias: (SiteIdentifier			host: 'swazoo.org'			ip: '127.0.0.1'			port: 80).	aSite currentUrl = 'http://swazoo.org'.	aSite currentUrl = 'http://swazoo.org'! !
 
-!SpEnvironment class methodsFor: '*Swazoo-Extensions-testing' stamp: 'jm 2/7/2011 13:18'!
-onUnix	"we are running on Unix, yes or no?"	^Smalltalk os platformName platformName = 'unix'! !
+!SpEnvironment class methodsFor: '*Swazoo-Extensions-testing' stamp: 'janko 10/31/2012 19:25'!
+onUnix	"we are running on Unix, yes or no?"	^Smalltalk os platformName = 'unix'! !
 
 !SpEnvironment class methodsFor: '*Swazoo-Extensions-testing' stamp: 'jm 2/7/2011 13:18'!
 onWindows	"we are running on Windows, yes or no?"	^Smalltalk os platformName asLowercase = 'win32'! !
+
+!SpFileStream methodsFor: '*Swazoo' stamp: 'janko 10/30/2012 10:57'!
+nextAvailable: aNumber    ^underlyingStream nextAvailable: aNumber! !
 
 !SpFilename methodsFor: '*Swazoo-accessing' stamp: 'pete 5/28/2008 15:11'!
 asAbsoluteFilename	"Answer a Filename pointing to the same file using absolute path.	The method may answer the receiver it it is already absolute."	^self isAbsolute		ifTrue: [self]		ifFalse: [self class named: 			(FileDirectory default pathName, (String with: self separator), 				(SpEnvironment onWindows					ifTrue: [self asString copyReplaceAll: '.\' with: ''] "windows only"					ifFalse: [self asString copyReplaceAll: './' with: ''] "unix only!!"))]! !
@@ -3482,8 +3525,8 @@ isDirectory	^FileDirectory default directoryExists: self asString! !
 !SpFilename methodsFor: '*Swazoo-testing' stamp: 'JM 4/18/2007 13:00'!
 isRelative	"Answer true if this name must be interpreted relative to some directory."	^self isAbsolute not! !
 
-!SpFilename methodsFor: '*Swazoo-accessing' stamp: 'JM 4/18/2007 16:22'!
-lastModified"	| info |	info := self dates at: #modified. 	^SpTimestamp fromDate: info first andTime: info last"	^SpTimestamp now.! !
+!SpFilename methodsFor: '*Swazoo-accessing' stamp: 'hmm 6/5/2012 16:30'!
+lastModified	^self modifiedTimestamp! !
 
 !SpFilename methodsFor: '*Swazoo-private' stamp: 'JM 4/18/2007 15:07'!
 lastSeparatorIndex	^self asString lastIndexOf: self separator ifAbsent: [nil]! !
@@ -3499,6 +3542,9 @@ separator	"Answer the platform's filename component separator."	^FileDirector
 
 !SpFilename methodsFor: '*Swazoo-accessing' stamp: 'JM 4/18/2007 15:06'!
 tail	"Answer the filename suffix as a String."	| index nm |	nm := self asString.	(index := self lastSeparatorIndex) notNil		ifTrue:	[^nm copyFrom: index+1 to: nm size]		ifFalse:	[^nm copy]! !
+
+!SpTimestamp methodsFor: '*Swazoo' stamp: 'janko 10/30/2012 10:54'!
+milliseconds	"Squeak specific"	^self underlyingTimestamp nanoSecond // 1000			"SpTimestamp now milliseconds"! !
 
 !SpecificHeaderField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
 name	^self class fieldName! !
@@ -3526,6 +3572,9 @@ newForFieldName: fieldNameString withValueFrom: fieldValueString 	^self newWith
 
 !SpecificHeaderField class methodsFor: 'private' stamp: ' 14/4/07 23:10'!
 newWithValueFrom: fieldValueString 	^self new valueFrom: fieldValueString! !
+
+!String methodsFor: '*Swazoo' stamp: 'janko 10/31/2012 17:25'!
+tokensBasedOn: aChar	"Answer an array of the substrings that compose the receiver."	| result end begin |	result := WriteStream on: (Array new: 10).	begin := 1.	"find one substring each time through this loop"	"find the beginning of the next substring"	[end := self indexOf: aChar startingAt: begin ifAbsent: [ nil ].	end ~~ nil ]		whileTrue: [			result nextPut: (self copyFrom: begin to: end - 1).			begin := end + 1].	result nextPut: (self copyFrom: begin to: self size).	^result contents " '12, 34, 56' tokensBasedOn: $, "! !
 
 !SwazooAuthNonce class methodsFor: 'instance creation'!
 new	^super new initialize! !
@@ -3929,6 +3978,9 @@ hasSiteOnAllInterfacesOnPort: aNumber	"only one site per port is allowed when l
 !SwazooServer methodsFor: 'private' stamp: 'mivsek 12/31/2007 16:30'!
 hasSiteOnPort: aNumber	^self sites contains: [:each | each port = aNumber ]! !
 
+!SwazooServer methodsFor: 'initialize-release'!
+initOther	other := Dictionary new.! !
+
 !SwazooServer methodsFor: 'initialize-release' stamp: ' 14/4/07 23:09'!
 initServers	servers := Set new.! !
 
@@ -3938,6 +3990,15 @@ initSites	sites := OrderedCollection new.! !
 !SwazooServer methodsFor: 'initialize-release' stamp: ' 14/4/07 23:09'!
 initialize	self initSites.	self initServers.! !
 
+!SwazooServer methodsFor: 'filtering'!
+ipAllowedList	"A list of IP address patterns from where access is always allowed, not to mix with ipWhitelist!! "	"these IP patterns have kind of  'root' access, they overpass all other filters"	^self otherAt: #ipAllowedList ifAbsentPut: [OrderedCollection new]! !
+
+!SwazooServer methodsFor: 'filtering'!
+ipBlacklist	"A list of IP addresses to deny opening a connection"	"A collection of strings,  also with * pattern like: '89.112.*' "	^self otherAt: #IPBlacklist ifAbsentPut: [OrderedCollection new]! !
+
+!SwazooServer methodsFor: 'filtering'!
+ipWhitelist	"A list of IP addresses to allow opening a connection. Other are denied"	"A collection of strings, also with * pattern like: '89.112.*' "	^self otherAt: #IPWhitelist ifAbsentPut: [OrderedCollection new]! !
+
 !SwazooServer methodsFor: 'testing' stamp: 'janko 11/30/2008 22:56'!
 isServing	"any site running currently?"	^self servers notEmpty! !
 
@@ -3946,6 +4007,21 @@ isWatchdogRunning	^self watchdog notNil "and: [self watchdog is not].  ?!!?"! !
 
 !SwazooServer methodsFor: 'private-servers' stamp: ' 14/4/07 23:09'!
 newServerFor: aSiteIdentifier	^ aSiteIdentifier newServer.! !
+
+!SwazooServer methodsFor: 'private-other'!
+other	^other! !
+
+!SwazooServer methodsFor: 'private-other'!
+otherAt: aSymbol	"other values"	^self otherAt: aSymbol ifAbsent: [nil]! !
+
+!SwazooServer methodsFor: 'private-other'!
+otherAt: aSymbol ifAbsent: aBlock	"other values"	self other isNil ifTrue: [^aBlock value].	^self other at: aSymbol ifAbsent: aBlock! !
+
+!SwazooServer methodsFor: 'private-other'!
+otherAt: aSymbol ifAbsentPut: aBlock	self other isNil ifTrue: [self initOther].	^self other at: aSymbol ifAbsent: [self other at: aSymbol put: aBlock value]! !
+
+!SwazooServer methodsFor: 'private-other'!
+otherAt: aSymbol put: anObject	self other isNil ifTrue: [self initOther].	^self other at: aSymbol put: anObject! !
 
 !SwazooServer methodsFor: 'private'!
 prepareDemoSite	"on http://localhost:8888 to return 'Hello Word' "	"on http://localhost:8888/websocket to upgrade to WebSocket bidirectional 	messaging (echo by default)"	| site |	site := SwazooDemoSite newNamed: 'swazoodemo'. "which is now also added to SwazoServer"	site host: '*' ip: '*' port: 8888.	^site! !
@@ -3998,8 +4074,8 @@ startSite: aString	"start site with that name"	| site |	site := self siteName
 !SwazooServer methodsFor: 'private-watchdog' stamp: 'jm 2/9/2009 12:00'!
 startWatchdog	"SwazooServer singleton startWatchdog"	self isWatchdogRunning ifTrue: [self stopWatchdog].	self watchdog: ([ [true] whileTrue:		[(self respondsTo: #watchdogSites) ifTrue: [self watchdogSites].		(self respondsTo: #watchdogOther) ifTrue: [self watchdogOther]. "if any"		(Delay forSeconds: self watchdogPeriod) wait. ]	] forkAt: Processor lowIOPriority)! !
 
-!SwazooServer methodsFor: 'start/stop' stamp: 'janko 6/7/2008 18:06'!
-stop	self sites do: [:site | site stop].	self servers do: [:server | server stop].	self initServers.	self stopWatchdog.! !
+!SwazooServer methodsFor: 'start/stop'!
+stop	self sites do: [:site | site stop].	self servers do: [:server | server stop].	self initServers.	self stopWatchdog.	HTTPServer allInstances do: [:each | each stop; initSites] "to be sure"! !
 
 !SwazooServer methodsFor: 'start/stop' stamp: 'mivsek 12/31/2007 16:25'!
 stopOn: aPortNumber	"stop a site on that port, if any running on all ip interfaces and accepting all hosts"	| site |	site := self siteAnyHostAllInterfacesOnPort: aPortNumber.	^site notNil ifTrue: [site stop. site] ifFalse: [nil].! !
@@ -4010,11 +4086,14 @@ stopSite: aString	"stop site with that name"	| site |	site := self siteNamed:
 !SwazooServer methodsFor: 'private-watchdog' stamp: 'mivsek 1/10/2008 23:40'!
 stopWatchdog	self watchdog notNil ifTrue: 		[self watchdog terminate.		self watchdog: nil].! !
 
-!SwazooServer methodsFor: 'private-watchdog' stamp: 'mivsek 1/10/2008 23:41'!
-watchdog	^watchdog! !
+!SwazooServer methodsFor: 'filtering'!
+urlBlacklist	"A list of absolute Url patterns (host included) to deny access - close connection immediatelly"	"Example: 'http://www.swazoo.org/admin*' "	^self otherAt: #UrlBlacklist ifAbsentPut: [OrderedCollection new]! !
 
-!SwazooServer methodsFor: 'private-watchdog' stamp: 'mivsek 1/10/2008 23:41'!
-watchdog: aProcess	watchdog := aProcess! !
+!SwazooServer methodsFor: 'private-watchdog'!
+watchdog	^self otherAt: #Watchdog! !
+
+!SwazooServer methodsFor: 'private-watchdog'!
+watchdog: aProcess	^self otherAt: #Watchdog put: aProcess! !
 
 !SwazooServer methodsFor: 'private-watchdog' stamp: 'mivsek 1/10/2008 23:41'!
 watchdogPeriod	^10  "seconds"! !
@@ -4286,8 +4365,8 @@ testReadTimeout	"on Squeak doesn't come back, and also we don't need it for now
 !SwazooSocketTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
 testReadWrite	| bytes |	bytes := ByteArray withAll: #(1 2 3 4 5).	self assert: (input write: bytes) = 5.	self assert: (output read: 5) = bytes.	bytes := ByteArray with: 4.	self assert: (input write: bytes) = 1.	self assert: (output read: 1) = bytes! !
 
-!SwazooStream methodsFor: 'accessing-reading' stamp: 'janko 7/26/2008 18:33'!
-anyDataReady	"wait for data and return true if any data ready. On VW somethimes happen that data       receipt is signaled but no data is actually received"	self readBuffer atEnd ifFalse: [^true]. "data is there from before"	self fillBuffer.	^self readBuffer atEnd not! !
+!SwazooStream methodsFor: 'accessing-reading' stamp: 'janko 10/30/2012 10:43'!
+anyDataReady	"wait for data and return true if any data ready. On VW somethimes happen that data       receipt is signaled but no data is actually received"	self readBuffer atEnd ifFalse: [^true]. "data is there from before"	[self fillBuffer]		on: SpError		do: [:ex | "do nothing"].	^self readBuffer atEnd not! !
 
 !SwazooStream methodsFor: 'accessing-reading' stamp: ' 14/8/07 21:49'!
 atEnd	"TCP socket data never ends!!"	^false! !
@@ -4336,6 +4415,9 @@ nextBytes: aNumber 	| array |	array := ByteArray new: aNumber.	1 to: aNumber 
 
 !SwazooStream methodsFor: 'accessing-reading' stamp: 'janko 7/26/2008 18:36'!
 nextLine	| stream |	stream := WriteStream on: (String new: 50).	self writeNextLineTo: stream.	^stream contents! !
+
+!SwazooStream methodsFor: 'accessing-writing' stamp: 'hmm 6/6/2012 16:08'!
+nextNumber: n put: v 	"copied from PositionableStream, needed for WebSocket support"	1 to: n do: [:i | self nextPut: (v digitAt: n+1-i)].	^ v! !
 
 !SwazooStream methodsFor: 'accessing-writing' stamp: ' 14/8/07 21:49'!
 nextPut: aCharacterOrInteger	self nextPutByte: aCharacterOrInteger asInteger.	^aCharacterOrInteger! !
@@ -4556,17 +4638,17 @@ queryAt: aString 	^self queryAt: aString ifAbsent: [nil]! !
 !SwazooURI methodsFor: 'accessing-queries' stamp: ' 14/4/07 23:09'!
 queryAt: aString ifAbsent: aBlock 	"^aStringI return the value of the first query I find with the key aString.  If there are none I execute aBlock."	| result |	result := self queries detect: [:aQuery | aQuery key = aString]				ifNone: [aBlock].	^result == aBlock ifTrue: [aBlock value] ifFalse: [result value]! !
 
-!SwazooURI methodsFor: 'private' stamp: ' 14/4/07 23:09'!
-readHostFrom: aStream 	"^selfI read the host name from the URI presumed to be in aStream.  The stream should be positioned right at the start, or just after the '//' of the protocol.  The host name is terminated by one of $:, $/, $? or the end of the stream depending on wether there is a port, path, query or nothing following the host.  If the host name is of zero length, I record a nil host name.  The stream is left positioned at the terminating character."	| hostnameStream |	hostnameStream := WriteStream on: String new.	[|nextCharacter| 	nextCharacter := aStream peek.	#($: $/ $? nil) includes: nextCharacter]		whileFalse: [hostnameStream nextPut: aStream next].	 hostnameStream contents isEmpty ifFalse: [hostname := hostnameStream contents].	^self! !
+!SwazooURI methodsFor: 'private'!
+readHostFrom: aStream 	"^selfI read the host name from the URI presumed to be in aStream.  The stream should be positioned right at the start, or just after the '//' of the protocol.  The host name is terminated by one of $:, $/, $? or the end of the stream depending on wether there is a port, path, query or nothing following the host.  If the host name is of zero length, I record a nil host name.  The stream is left positioned at the terminating character."	| hostnameStream |	aStream peek = $/ ifTrue: [^self]. "obivously no host in this stream"	hostnameStream := WriteStream on: String new.	[|nextCharacter| 	nextCharacter := aStream peek.	#($: $/ $? nil) includes: nextCharacter]		whileFalse: [hostnameStream nextPut: aStream next].	 hostnameStream contents isEmpty ifFalse: [hostname := hostnameStream contents].	^self! !
 
 !SwazooURI methodsFor: 'private' stamp: ' 14/4/07 23:09'!
 readIdentifierFrom: sourceStream 	self identifier: (sourceStream upTo: $?).	^self! !
 
-!SwazooURI methodsFor: 'private' stamp: ' 14/4/07 23:09'!
-readPortFrom: aStream 	"^selfI read the port nnumber from the URI presumed to be in aStream.  If a port number has been specified, the stream should be positioned right at before a $: charcter.  So, if the next chacter is a :, we have a port number.  I read up to one of $/, $? or the end of the stream depending on wether there is a path, query or nothing following the host.  The stream is left positioned at the terminating character."	| targetStream |	targetStream := WriteStream on: String new.	aStream peek == $: 		ifTrue: 			[| terminators |			terminators := Array 						with: $/						with: $?						with: nil.			aStream next.						[| nextCharacter |			nextCharacter := aStream peek.			terminators includes: nextCharacter] 					whileFalse: 						[| nextDigit |						nextDigit := aStream next.						nextDigit isDigit ifTrue: [targetStream nextPut: nextDigit]].			targetStream contents isEmpty 				ifFalse: [port := targetStream contents asNumber]].	^self! !
+!SwazooURI methodsFor: 'private'!
+readPortFrom: aStream 	"^selfI read the port nnumber from the URI presumed to be in aStream.  If a port number has been specified, the stream should be positioned right at before a $: charcter.  So, if the next chacter is a :, we have a port number.  I read up to one of $/, $? or the end of the stream depending on wether there is a path, query or nothing following the host.  The stream is left positioned at the terminating character."	| targetStream |	aStream peek = $/ ifTrue: [^self]. "obivously no port in this stream"	targetStream := WriteStream on: String new.	aStream peek == $: 		ifTrue: 			[| terminators |			terminators := Array 						with: $/						with: $?						with: nil.			aStream next.						[| nextCharacter |			nextCharacter := aStream peek.			terminators includes: nextCharacter] 					whileFalse: 						[| nextDigit |						nextDigit := aStream next.						nextDigit isDigit ifTrue: [targetStream nextPut: nextDigit]].			targetStream contents isEmpty 				ifFalse: [port := targetStream contents asNumber]].	^self! !
 
-!SwazooURI methodsFor: 'private' stamp: ' 14/4/07 23:09'!
-readProtocolFrom: aStream 	"^selfI read the protocol from the URI presumed to be in aStream.  The protocol preceeds '://' in the URI.  I leave the stream position either right after the '//' if there is a protocol, otherwise I reset the position to the start of the stream."	| candidateProtocol |	candidateProtocol := aStream upTo: $:.	(aStream size - aStream position >= 2 		and: [aStream next == $/ and: [aStream next == $/]]) 			ifTrue: [self protocol: candidateProtocol]			ifFalse: [aStream reset].	^self! !
+!SwazooURI methodsFor: 'private'!
+readProtocolFrom: aStream 	"^selfI read the protocol from the URI presumed to be in aStream.  The protocol preceeds '://' in the URI.  I leave the stream position either right after the '//' if there is a protocol, otherwise I reset the position to the start of the stream."	| candidateProtocol |	self protocol: 'http'. "by default"	aStream peek = $/ ifTrue: [^self]. "obviously no protocol in this stream"	candidateProtocol := aStream upTo: $:.	(aStream size - aStream position >= 2 		and: [aStream next == $/ and: [aStream next == $/]]) 			ifTrue: [self protocol: candidateProtocol]			ifFalse: [aStream reset].	^self! !
 
 !SwazooURI methodsFor: 'private' stamp: ' 14/4/07 23:09'!
 readQueryFrom: sourceStream 	[sourceStream atEnd] whileFalse: 		[| nameValue name value |		nameValue := sourceStream upTo: $& .		name := nameValue copyUpTo: $= .		value := nameValue readStream upTo: $= "if any"; upToEnd.		self queries add: name -> (HTTPString decodedHTTPFrom: value)].	^self! !
@@ -4610,11 +4692,14 @@ answerTo: aHTTPRequest	aHTTPRequest isConnectionUpgrade ifFalse: [^HTTPResponse
 !SwazooWebSocket methodsFor: 'private'!
 asByteArray: anInteger	"32bit integer into 4 bytes, big endian"	"Implemented here because VW 7.8 depreceate that method because it is ambigious. Agreed!!"	| stream |	stream := ByteArray new writeStream.	anInteger digitLength to: 1 by: -1 do: [:digitIndex |		stream nextPut: (anInteger digitAt: digitIndex)].	^ stream contents"(SwazooWebSocket new asByteArray: 420453648) = #[25 15 157 16] "! !
 
+!SwazooWebSocket methodsFor: 'private-handshake' stamp: 'janko 10/30/2012 10:32'!
+base64From: aByteArray 	"Squeak specific"	^(Base64MimeConverter mimeEncode: aByteArray readStream) contents"SwazooWebSocket new base64From: (SwazooWebSocket new shaHashFrom: ' 258EAFA5')"! !
+
 !SwazooWebSocket methodsFor: 'private-handshake'!
-calculateChallengeFrom:  aHTTPRequest	| key1 key2 n1 n2 spaces1 spaces2 an1 an2 fill1 fill2 challenge |	key1 := (aHTTPRequest headerAt: 'Sec-WebSocket-Key1' ifAbsent: []) value.	key2 := (aHTTPRequest headerAt: 'Sec-WebSocket-Key2' ifAbsent: []) value.	n1 := (key1 select: [:ch | ch isDigit]) asInteger. 	n2 := (key2 select: [:ch | ch isDigit]) asInteger.	spaces1 := key1 count: [:ch | ch = $ "space"].	spaces2 := key2 count: [:ch | ch = $ "space"].	an1 := self asByteArray: (n1 / spaces1). fill1 := ByteArray new: (4 - an1 size) withAll: 16r00.	an2 := self asByteArray: (n2 / spaces2). fill2 := ByteArray new: (4 - an2 size) withAll: 16r00.	challenge := fill1, an1, fill2, an2, aHTTPRequest body asByteArray.	^self md5HashFrom: challenge.! !
+calculateAcceptValueFrom:  aHTTPRequest	| key string hash |	key := (aHTTPRequest headerAt: 'Sec-WebSocket-Key' ifAbsent: []) value.	key = nil ifTrue: [^nil].	string := key, '258EAFA5-E914-47DA-95CA-C5AB0DC85B11'.	hash := self shaHashFrom: string.	^self base64From: hash! !
 
 !SwazooWebSocket methodsFor: 'sending-receiving'!
-close	self connection notNil ifTrue: 		[self connection close. 		self connection: nil]! !
+close	self connection notNil ifTrue: 		[self connection close. 		self connection: nil].	self receiveBlock: nil.! !
 
 !SwazooWebSocket methodsFor: 'accessing'!
 connection	"a WebSocket connection to send and receive messages"	^connection! !
@@ -4626,13 +4711,10 @@ connection: aWebSocketConnection	connection := aWebSocketConnection! !
 defaultReceiveBlock	"echo every message received"	^[:message | self send: message]! !
 
 !SwazooWebSocket methodsFor: 'private-handshake'!
-handshakeResponseTo: aHTTPRequest	| response protocolHeader |	response := HTTPResponse webSocketHandshake.	response addHeaderName: 'Upgrade' value: 'WebSocket'.	response addHeaderName: 'Connection' value: 'Upgrade'.	response addHeaderName: 'Sec-WebSocket-Origin' value: (aHTTPRequest headerValueAt: 'Origin').	response addHeaderName: 'Sec-WebSocket-Location' value: (self prepareLocationFrom: aHTTPRequest). 	protocolHeader := aHTTPRequest headerValueAt: 'Sec-WebSocket-Protocol'.	protocolHeader notNil ifTrue: 		[response addHeaderName: 'Sec-WebSocket-Protocol' value: protocolHeader value].	response entity: (self calculateChallengeFrom: aHTTPRequest).	^response! !
+handshakeResponseTo: aHTTPRequest	"this implementation only supports version 13"	| response header |	header := (aHTTPRequest headerValueAt: 'Sec-WebSocket-Version').	header notNil ifTrue: [self version:  header asNumber].	self version = 13 ifFalse: [  "only version 13 (final RFC) currently supported!!" 		response := HTTPResponse badRequest.		response addHeaderName: 'Sec-WebSocket-Version' value: '13'.		^response].	response := HTTPResponse webSocketHandshake.	response addHeaderName: 'Upgrade' value: 'websocket'.	response headers addField: (HTTPConnectionField new setToUpgrade)."	response addHeaderName: 'Sec-WebSocket-Origin' value: (aHTTPRequest headerValueAt: 'Origin'). ""	response addHeaderName: 'Sec-WebSocket-Location' value: (self prepareLocationFrom: aHTTPRequest).  "	header := aHTTPRequest headerValueAt: 'Sec-WebSocket-Protocol'.	header notNil ifTrue: 		[response addHeaderName: 'Sec-WebSocket-Protocol' value: header value].	response addHeaderName: 'Sec-WebSocket-Accept' value: (self calculateAcceptValueFrom: aHTTPRequest).	response body: ''.	^response! !
 
 !SwazooWebSocket methodsFor: 'testing'!
 isOpen	"is WebSocket connection open?"	^self connection notNil and: [self connection isOpen]! !
-
-!SwazooWebSocket methodsFor: 'private' stamp: 'jm 12/1/2010 14:24'!
-md5HashFrom: aByteArray "128 bit"	"Squeak specific"	^MD5 new hashStream: aByteArray readStream.! !
 
 !SwazooWebSocket methodsFor: 'private-handshake'!
 prepareLocationFrom: aHTTPRequest	| portString |	portString := (aHTTPRequest port ~= 80)		ifTrue: [':', aHTTPRequest port printString]		ifFalse: [''].	^'ws://', aHTTPRequest host, portString, aHTTPRequest urlString.! !
@@ -4641,10 +4723,19 @@ prepareLocationFrom: aHTTPRequest	| portString |	portString := (aHTTPRequest p
 receiveBlock	recBlock ifNil: [self receiveBlock: self defaultReceiveBlock].	^recBlock! !
 
 !SwazooWebSocket methodsFor: 'sending-receiving'!
-receiveBlock: aBlock	"register a block to handle a message received"	" [:message | do something with that message (plain UTF8 string) "	recBlock := aBlock! !
+receiveBlock: aBlock	"register a block to handle a message received"	" [:message | do something with that message, plain Unicode text string]"	recBlock := aBlock! !
 
 !SwazooWebSocket methodsFor: 'sending-receiving'!
-send: aString "UTF8 encoded!!"	^self connection sendMessage: aString! !
+send: aString 	"an Unicode string (don't UTF8 encode it in advance!!)"	^self connection sendMessage: aString! !
+
+!SwazooWebSocket methodsFor: 'private-handshake' stamp: 'janko 10/30/2012 10:36'!
+shaHashFrom: aByteString	"Squeak specific"	^SHA1 hashMessage: aByteString"SwazooWebSocket new shaHashFrom: '258EAFA5-E914-47DA-95CA-C5AB0DC85B11' "! !
+
+!SwazooWebSocket methodsFor: 'accessing'!
+version	"WebSocket protocol version"	^version! !
+
+!SwazooWebSocket methodsFor: 'private' stamp: 'janko 11/1/2012 19:29'!
+version: aNumber	"WebSocket protocol version"	version := aNumber! !
 
 !TestPseudoSocket methodsFor: 'socket stuff' stamp: ' 14/4/07 23:10'!
 acceptRetryingIfTransientErrors	"^another TestSocketThing	The sender expects me to block until a request comes in 'over the socket'.  What I really do is wait for someone to ask me to 'send in' a Byte array and then I return myself.  Note that I will only handle one request at a time!!"	self serverWaitSemaphore wait.	^self! !
@@ -4878,13 +4969,31 @@ testStringMismatch	| request visitor resource |	request := HTTPGet request: 'f
 testTailPath	| request resolution |	request := HTTPGet 				request: 'foo/bar/baz/quux'				from: 'localhost:1234'				at: '1.2.3.4'.	resolution := URIResolution new initializeRequest: request.	self 		assert: resolution tailPath = #('bar' 'baz' 'quux') asOrderedCollection.	resolution advance.	self assert: resolution tailPath = #('baz' 'quux') asOrderedCollection.	resolution advance.	self assert: resolution tailPath = #('quux') asOrderedCollection.	resolution advance.	self assert: resolution tailPath isEmpty! !
 
 !WebSocketConnection methodsFor: 'private-framing'!
-endChar	^16rFF asCharacter! !
+frameString: aString	"This is currently only used to satisfy the unit test, actual framing is done differently (which should be reflected in the test soon)"	| out len utf8String |	utf8String := self toUtf8: aString.	out := WriteStream on: (String new: utf8String size + 16).	out nextPut: 129 asCharacter.	"text frame, FIN=1, RSV1,RSV2,RSV3 all zero"	len := utf8String size.	len <= 125		ifTrue: [out nextPut: len asCharacter.	"7 bits, MASK = 0"]		ifFalse: [			len < 65536				ifTrue: [out nextPut: 126 asCharacter; nextNumber: 2 put: len]				ifFalse: [out nextPut: 127 asCharacter; nextNumber: 8 put: len]].	out nextPutAll: utf8String.	^out contents! !
 
-!WebSocketConnection methodsFor: 'private-framing'!
-frameString: aString	| in out ch |	aString class == ByteString ifFalse: [^self error: 'UTF-8 string expected'].	in := ReadStream on: aString. out := WriteStream on: String new.	out nextPut: self startChar. "16r00"	[in atEnd] whileFalse:		[ch := in next.		(#(0 255) includes: ch asInteger) ifTrue:  [^self error: 'UTF-8 string expected'].		out nextPut: ch].	out nextPut: self endChar. "16rFF"	^out contents! !
+!WebSocketConnection methodsFor: 'private-framing' stamp: 'janko 10/30/2012 10:21'!
+fromUtf8: aString	"Squeak specific"	^[aString convertFromEncoding: #utf8] on: Error do: [:ex | aString ]! !
 
 !WebSocketConnection methodsFor: 'private-serving' stamp: 'janko 7/13/2011 20:43'!
 getAndDispatchMessages	self stream anyDataReady  "wait for data and if anything read, proceed"		ifTrue:			[self receiveMessage]		ifFalse: 			[(Delay forMilliseconds: 100) wait. "to finish sending, if any"			self close].! !
+
+!WebSocketConnection methodsFor: 'sending-receiving' stamp: 'hmm 6/6/2012 16:00'!
+handleBinaryMessage: aByteString	self webSocket receiveBlock value: aByteString asByteArray! !
+
+!WebSocketConnection methodsFor: 'sending-receiving'!
+handleCloseMessage: aByteString	"not used right now"! !
+
+!WebSocketConnection methodsFor: 'sending-receiving' stamp: 'hmm 6/6/2012 16:11'!
+handleContinuationMessage: aByteString	"not used right now"! !
+
+!WebSocketConnection methodsFor: 'sending-receiving' stamp: 'hmm 6/6/2012 16:10'!
+handlePingMessage: aByteString	self sendFramedData: aByteString opcode: 10! !
+
+!WebSocketConnection methodsFor: 'sending-receiving' stamp: 'hmm 6/6/2012 16:10'!
+handlePongMessage: aByteString	"not used right now"! !
+
+!WebSocketConnection methodsFor: 'sending-receiving'!
+handleTextMessage: aByteString	self webSocket receiveBlock value: (self fromUtf8: aByteString)! !
 
 !WebSocketConnection methodsFor: 'testing'!
 isHTTPConnection	^false! !
@@ -4892,38 +5001,41 @@ isHTTPConnection	^false! !
 !WebSocketConnection methodsFor: 'testing'!
 isWebSocketConnection	^true! !
 
-!WebSocketConnection methodsFor: 'sending-receiving' stamp: 'janko 7/16/2011 10:40'!
-receiveMessage	| strm ch message |	strm := WriteStream on: ByteString new.	[		self stream next = self startChar ifFalse: [^self close].		ch := self stream next.		[ch = self endChar] whileFalse:			[strm nextPut: ch.			ch := self stream next].		message := strm contents asString.		self webSocket receiveBlock value: message	] 		on: Error 		do: [:ex | self close]! !
+!WebSocketConnection methodsFor: 'sending-receiving'!
+receiveMessage	| message flags maskingKey mask len b opc |	[		flags := self stream next asInteger.		len := self stream next asInteger.		mask := len >= 128.		len := len bitAnd: 127.		len > 125 ifTrue: [len := self stream nextNumber: (len = 126 ifTrue: [2] ifFalse: [8])].		mask ifTrue: [maskingKey := self stream next: 4].		flags < 128 ifTrue: [self close. self halt: 'FIN not set'].		message := self stream next: len.		mask ifTrue: [			1 to: len do: [:i |				b := message byteAt: i.				b := b bitXor: (maskingKey byteAt: i-1\\4+1).				message byteAt: i put: b]].		opc := flags bitAnd: 15.		opc = 0 ifTrue: [self handleContinuationMessage: message].		opc = 1 ifTrue: [self handleTextMessage: message].		opc = 2 ifTrue: [self handleBinaryMessage: message].		opc = 8 ifTrue: [self handleCloseMessage: message].		opc = 9 ifTrue: [self handlePingMessage: message].		opc = 10 ifTrue: [self handlePongMessage: message]	] 		on: Error 		do: [:ex | self close]! !
 
-!WebSocketConnection methodsFor: 'sending-receiving' stamp: 'janko 7/13/2011 21:16'!
-sendMessage: aString "UTF-8 encoded!!"	[self stream nextPutAll: (self frameString: aString).	self stream flush]		ifCurtailed: [self close]! !
+!WebSocketConnection methodsFor: 'sending-receiving'!
+sendFramedData: data opcode: opc	| len |	[self stream nextPut: 128 + opc.	len := data size.	len <= 125		ifTrue: [self stream nextPut: len]		ifFalse: [			len < 65536				ifTrue: [self stream nextPut: 126; nextNumber: 2 put: len]				ifFalse: [self stream nextPut: 127; nextNumber: 8 put: len]].	[self stream nextPutAll: data; flush]		on: Error		do: [:ex | "ignore"]	]		ifCurtailed: [self close]! !
 
-!WebSocketConnection methodsFor: 'private-framing'!
-startChar	^16r00 asCharacter! !
+!WebSocketConnection methodsFor: 'sending-receiving'!
+sendMessage: aStringOrByteArray	aStringOrByteArray isString		ifTrue: [self sendFramedData: (self toUtf8: aStringOrByteArray) opcode: 1]		ifFalse: [self sendFramedData: aStringOrByteArray opcode: 2]! !
+
+!WebSocketConnection methodsFor: 'private-framing' stamp: 'janko 10/30/2012 10:22'!
+toUtf8: aString	"Squeak specific"	| converter in out |	converter := UTF8TextConverter new.	in := aString readStream.	out := WriteStream on: ''.	[in atEnd] whileFalse: 		[converter nextPut: in next toStream: out].	^out contents! !
 
 !WebSocketTest methodsFor: 'support' stamp: 'jm 11/29/2010 15:32'!
 arrayFromHexString: aString	| array stream lookup |	lookup := '123456789ABCDEF'.	array := ByteArray new: aString size // 2.	stream := aString readStream.	1 to: array size do: [ :i || h l |		h := stream next.		h := h = $0 ifTrue: [0] ifFalse: [lookup indexOf: h].		l := stream next.		l := l = $0 ifTrue: [0] ifFalse: [lookup indexOf: l].		array at: i put: ((h bitShift: 4) bitOr: l) ].	^array! !
 
-!WebSocketTest methodsFor: 'support' stamp: 'jm 11/29/2010 15:33'!
-challengeRequest	"to test challenge calculation"	"see 1.3 opening challenge on http://tools.ietf.org/html/draft-ietf-hybi-thewebsocketprotocol-00"	| requestStream |	requestStream := SwazooStream on: String new.	requestStream		nextPutLine: 'GET / HTTP/1.1';		nextPutLine: 'Sec-WebSocket-Key1: 2  __4 ''79  #  9"; +K 67  -655';		nextPutLine: 'Sec-WebSocket-Key2: 8 1 8 6    7 ]   8476';		nextPutLine: 'Content-Length: 8';		crlf;		nextPutLine: (self arrayFromHexString: '598F6AEF77E67CBE') asString.	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
+!WebSocketTest methodsFor: 'support'!
+challengeRequest	"to test challenge calculation"	| requestStream |	requestStream := SwazooStream on: String new.	requestStream		nextPutLine: 'GET / HTTP/1.1';		nextPutLine: 'Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==';		crlf.	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
 
 !WebSocketTest methodsFor: 'testing-internals'!
-testChallengeCalculation	"See 1.3 Opening handshake in http://tools.ietf.org/html/draft-ietf-hybi-thewebsocketprotocol-00"	| challenge |	challenge  := SwazooWebSocket new calculateChallengeFrom: self challengeRequest.	challenge = (self arrayFromHexString: '0F834E1C463DAE25DAB0C47906D2590E').! !
+testChallengeCalculation	| challenge |	challenge  := SwazooWebSocket new calculateAcceptValueFrom: self challengeRequest.	self assert: challenge = 's3pPLMBiTxaQ9kYGzzhZRbK+xOo='! !
 
 !WebSocketTest methodsFor: 'testing-internals'!
 testConnectionUpgrade	| connection |	connection := HTTPConnection new.	connection upgradeToWebSocket.	self assert: connection isWebSocketConnection.! !
 
-!WebSocketTest methodsFor: 'testing-internals'!
-testFraming	| connection frame |	connection := WebSocketConnection new.	frame := connection frameString: '1234'.	self assert: frame = ((String with: 16r00 asCharacter), '1234', (String with: 16rFF asCharacter)).! !
+!WebSocketTest methodsFor: 'testing-internals' stamp: 'hmm 6/6/2012 15:47'!
+testFraming	| connection frame |	connection := WebSocketConnection new.	frame := connection frameString: '1234'.	self assert: frame = ((String with: 16r81 asCharacter with: 4 asCharacter), '1234')! !
 
 !WebSocketTest methodsFor: 'testing-internals'!
-testHandshake	"See protocol standard http://tools.ietf.org/html/draft-ietf-hybi-thewebsocketprotocol-00"	| response |	response := SwazooWebSocket new answerTo: self upgradeRequest.	self assert: response isWebSocketHandshake.	self assert: response statusLine = '101 WebSocket Protocol Handshake'.	self assert: (response headerValueAt: 'Upgrade') = 'WebSocket'.	self assert: (response headerValueAt: 'Connection') = 'Upgrade'.	self assert: (response headerValueAt: 'Sec-WebSocket-Origin') = 'http://example.com'.	self assert: (response headerValueAt: 'Sec-WebSocket-Location') = 'ws://example.com/demo'.	self assert: response body = 		(self arrayFromHexString: '0F834E1C463DAE25DAB0C47906D2590E').! !
+testHandshake	| response |	response := SwazooWebSocket new answerTo: self upgradeRequest.	self assert: response isWebSocketHandshake.	self assert: response statusLine = '101 WebSocket Protocol Handshake'.	self assert: (response headerValueAt: 'Upgrade') = 'websocket'.	self assert: (response headerValueAt: 'Connection') connectionToken = 'Upgrade'.! !
 
 !WebSocketTest methodsFor: 'testing'!
 testWebSocket	"Shows a most common usage. More on http://www.swazoo.org/websocket"	| request webSocket response |	request := self upgradeRequest.	request isWebSocketRequest ifTrue:		["put here a check if allowed to upgrade, if not: ^HTTPResponse unauthorized"		webSocket := request webSocket.		response := webSocket answerTo: request].	self assert: request isWebSocketRequest.	self assert: response isWebSocketHandshake.! !
 
-!WebSocketTest methodsFor: 'support' stamp: 'jm 11/29/2010 15:34'!
-upgradeRequest	"first request is a HTTP one to upgrade connection from HTTP to WebSocket protocol"	"exact request from protocol standard http://tools.ietf.org/html/draft-ietf-hybi-thewebsocketprotocol-00"	| requestStream request |	requestStream := SwazooStream on: String new.	requestStream		nextPutLine: 'GET /demo HTTP/1.1';		nextPutLine: 'Host: example.com';		nextPutLine: 'Connection: Upgrade';		nextPutLine: 'Sec-WebSocket-Key2: 8 1 8 6    7 ]   8476';		nextPutLine: 'Sec-WebSocket-Protocol: sample';		nextPutLine: 'Upgrade: WebSocket';		nextPutLine: 'Sec-WebSocket-Key1: 2  __4 ''79  #  9"; +K 67  -655';		nextPutLine: 'Origin: http://example.com';		nextPutLine: 'Content-Length: 8';		crlf;		nextPutLine: (self arrayFromHexString: '598F6AEF77E67CBE') asString.	request := HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents).	request task: (SwazooTask newOn: request).	request task connection: HTTPConnection new.	^request! !
+!WebSocketTest methodsFor: 'support' stamp: 'hmm 6/6/2012 12:54'!
+upgradeRequest	"first request is a HTTP one to upgrade connection from HTTP to WebSocket protocol"	"exact request from protocol standard https://tools.ietf.org/html/rfc6455"	| requestStream request |	requestStream := SwazooStream on: String new.	requestStream		nextPutLine: 'GET /chat HTTP/1.1';		nextPutLine: 'Host: server.example.com';		nextPutLine: 'Upgrade: websocket';		nextPutLine: 'Connection: Upgrade';		nextPutLine: 'Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==';		nextPutLine: 'Origin: http://example.com';		nextPutLine: 'Sec-WebSocket-Protocol: chat, superchat';		nextPutLine: 'Sec-WebSocket-Version: 13';		crlf.	request := HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents).	request task: (SwazooTask newOn: request).	request task connection: HTTPConnection new.	^request! !
 FileResource initialize!
 HTTPResponse initialize!
 HTTPServer initialize!
