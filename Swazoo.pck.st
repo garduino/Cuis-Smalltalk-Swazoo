@@ -1,4 +1,4 @@
-'From Cuis 4.1 of 12 December 2012 [latest update: #1522] on 27 December 2012 at 1:13:39 pm'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1524] on 30 December 2012 at 7:10:38 pm'!
 'Description Please enter a description for this package '!
 !classDefinition: #CompositeResourceTest category: #'Swazoo-Tests'!
 TestCase subclass: #CompositeResourceTest
