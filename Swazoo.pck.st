@@ -1,4 +1,4 @@
-'From Cuis 4.1 of 12 December 2012 [latest update: #1524] on 30 December 2012 at 7:10:38 pm'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1549] on 10 January 2013 at 8:09:55 pm'!
 'Description Please enter a description for this package '!
 !classDefinition: #CompositeResourceTest category: #'Swazoo-Tests'!
 TestCase subclass: #CompositeResourceTest
@@ -6525,10 +6525,12 @@ onUnix
 	"we are running on Unix, yes or no?"
 	^Smalltalk os platformName = 'unix'! !
 
-!SpEnvironment class methodsFor: '*Swazoo-Extensions-testing' stamp: 'jm 2/7/2011 13:18'!
+!SpEnvironment class methodsFor: '*Swazoo-Extensions-testing' stamp: 'gsa 1/10/2013 19:17'!
 onWindows
 	"we are running on Windows, yes or no?"
-	^Smalltalk os platformName asLowercase = 'win32'! !
+	"^Smalltalk os platformName asLowercase = 'win32'"
+	"GSA 10/01/2013 Cuis adaptation"
+	^Smalltalk platformName asLowercase = 'win32'! !
 
 !SpFileStream methodsFor: '*Swazoo' stamp: 'janko 10/30/2012 10:57'!
 nextAvailable: aNumber
