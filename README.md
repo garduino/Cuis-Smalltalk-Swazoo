@@ -9,9 +9,10 @@ To install:
 
     | slash repo |
     slash _ FileDirectory slash.
-    repo := 'C:\Users\MyUser\Documents\GitHub'. --> *** Replace with your real directory ***
+    repo := 'C:\Users\MyUser\Documents\GitHub'. --> *** Replace with your real directory (Windows Sample) ***
+    repo := '/Users/Shared/gsa/Dev/CodeRepository'. --> *** Replace with your real directory (Mac Sample) ***
     {
-	repo, slash, 'Cuis-Cryptography', slash, 'Cuis-System-Hashing.pck.st' .
+    repo, slash, 'Cuis-Cryptography', slash, 'Cuis-System-Hashing.pck.st' .
     repo, slash, 'Cuis-CompatibilityWithOtherSmalltalks', slash, 'Cuis-CompatibilityWithOtherSmalltalks.pck.st' .
     repo, slash, 'Cuis-Pharo14CompatibilityLayer', slash, 'Cuis-Network-Protocols.pck.st' .
     repo, slash, 'Cuis-Pharo14CompatibilityLayer', slash, 'Cuis-Network-Url.pck.st' .
@@ -19,10 +20,10 @@ To install:
     repo, slash, 'Cuis-Swazoo', slash, 'Swazoo.pck.st' .
     }
     do:
-    [ :fileName | CodeFileBrowser installPackage:
+    [ :fileName | CodePackageFile installPackageStream:
     (FileStream concreteStream readOnlyFileNamed: fileName)
     ].
-
+    
 Ported from:
 
 	http://www.squeaksource.com/Swazoo
