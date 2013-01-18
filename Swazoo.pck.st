@@ -1,4 +1,4 @@
-'From Cuis 4.1 of 12 December 2012 [latest update: #1549] on 14 January 2013 at 5:15:48 pm'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1561] on 18 January 2013 at 9:07:07 am'!
 'Description Please enter a description for this package '!
 !classDefinition: #CompositeResourceTest category: #'Swazoo-Tests'!
 TestCase subclass: #CompositeResourceTest
@@ -6889,12 +6889,15 @@ singleton
 atEnd
 	^super atEnd "for now"! !
 
-!SwazooBuffer methodsFor: 'writing-chunked' stamp: ' 14/8/07 21:49'!
+!SwazooBuffer methodsFor: 'writing-chunked' stamp: 'gsa 1/18/2013 09:04'!
 closeChunkTo: aSocket
 	"a zero sized chunk determine and end of chunked data and also response"
 	"pack all together to send one TCP packet ony"
 	| chunk written |
-	chunk := ByteString new: 5.
+
+	" gsa 18/01/2013 used String instead ByteString for Cuis"
+	"chunk := ByteString new: 5."
+	chunk := String new: 5.
 	chunk at: 1 put: $0 .
 	chunk at: 2 put: Character cr. "first crlf ends 0 length line "
 	chunk at: 3 put: Character lf.
