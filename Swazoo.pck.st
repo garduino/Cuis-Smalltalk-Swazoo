@@ -1,4 +1,4 @@
-'From Cuis 4.1 of 12 December 2012 [latest update: #1561] on 18 January 2013 at 9:07:07 am'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1561] on 19 January 2013 at 8:02:11 pm'!
 'Description Please enter a description for this package '!
 !classDefinition: #CompositeResourceTest category: #'Swazoo-Tests'!
 TestCase subclass: #CompositeResourceTest
@@ -5516,14 +5516,43 @@ I use SwazooSocket to wrap the actual socket.  SwazooSocket does some of the byt
 
 	^SwazooSocket! !
 
-!HTTPServer methodsFor: 'start/stop'!
+!HTTPServer methodsFor: 'start/stop' stamp: 'gsa 1/19/2013 20:02'!
 start
-	self loop isNil 
-		ifTrue: 
-			[self socket: (SwazooSocket serverOnIP: self ipCorrected port: self port).
-			self socket listenFor: 128.
-			self loop: ([[self acceptConnection] repeat] 
-						forkAt: Processor userBackgroundPriority)]! !
+	| swazooProcess |
+	self loop isNil ifTrue: [
+		self socket:
+			(SwazooSocket
+				serverOnIP: self ipCorrected
+				port: self port).
+		self socket listenFor: 128.
+		self loop: (swazooProcess _ [ [ self acceptConnection ] repeat ] newProcess).
+		swazooProcess name: 'Swazoo ' , DateAndTime now asString.
+		swazooProcess priority: Processor userBackgroundPriority.
+		swazooProcess resume ].! !
+
+!HTTPServer methodsFor: 'start/stop' stamp: 'gsa 1/19/2013 20:01'!
+startBAK
+	| swazooProcess |
+	self loop isNil ifTrue: [
+		self socket:
+			(SwazooSocket
+				serverOnIP: self ipCorrected
+				port: self port).
+		self socket listenFor: 128.
+		self loop: (swazooProcess _ [ [ self acceptConnection ] repeat ] newProcess).
+			swazooProcess name: 'Swazoo ' , DateAndTime now asString.
+		swazooProcess priority: Processor userBackgroundPriority.
+		swazooProcess resume  ].! !
+
+!HTTPServer methodsFor: 'start/stop' stamp: 'gsa 1/19/2013 19:59'!
+startBAK1
+	self loop isNil ifTrue: [
+		self socket:
+			(SwazooSocket
+				serverOnIP: self ipCorrected
+				port: self port).
+		self socket listenFor: 128.
+		self loop: ([ [ self acceptConnection ] repeat ] forkAt: Processor userBackgroundPriority) ].! !
 
 !HTTPServer methodsFor: 'start/stop' stamp: ' 14/4/07 23:09'!
 stop
@@ -5567,8 +5596,25 @@ valuesAsStringOn: aStream
 fieldName
 	^'Server'! !
 
-!HTTPServerTest methodsFor: 'running' stamp: 'JM 4/16/2007 22:52'!
+!HTTPServerTest methodsFor: 'running' stamp: 'gsa 1/19/2013 18:40'!
 setUp
+	| socket swazooProcess |
+	(Delay forMilliseconds: 100) wait.
+	server := HTTPServer new.
+	
+	swazooProcess := [server ip: 'localhost'; port: 8123.
+						server start] newProcess.
+	swazooProcess name: 'Swazoo HTTPServer Test'.
+	swazooProcess resume.
+		
+	(Delay forMilliseconds: 100) wait.
+" 	stream := (SocketAccessor newTCPclientToHost: 'localhost' port: 8123) 
+				readAppendStream"
+	socket := SpSocket connectToServerOnHost:  'localhost' port: 8123.
+	stream := SwazooStream socket: socket ! !
+
+!HTTPServerTest methodsFor: 'running' stamp: 'gsa 1/19/2013 18:27'!
+setUpBAK
 	| socket |
 	(Delay forMilliseconds: 100) wait.
 	server := HTTPServer new.
