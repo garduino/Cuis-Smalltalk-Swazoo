@@ -1,4 +1,4 @@
-'From Cuis 4.1 of 12 December 2012 [latest update: #1561] on 19 January 2013 at 8:02:11 pm'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1561] on 20 January 2013 at 12:32:56 pm'!
 'Description Please enter a description for this package '!
 !classDefinition: #CompositeResourceTest category: #'Swazoo-Tests'!
 TestCase subclass: #CompositeResourceTest
@@ -5530,30 +5530,6 @@ start
 		swazooProcess priority: Processor userBackgroundPriority.
 		swazooProcess resume ].! !
 
-!HTTPServer methodsFor: 'start/stop' stamp: 'gsa 1/19/2013 20:01'!
-startBAK
-	| swazooProcess |
-	self loop isNil ifTrue: [
-		self socket:
-			(SwazooSocket
-				serverOnIP: self ipCorrected
-				port: self port).
-		self socket listenFor: 128.
-		self loop: (swazooProcess _ [ [ self acceptConnection ] repeat ] newProcess).
-			swazooProcess name: 'Swazoo ' , DateAndTime now asString.
-		swazooProcess priority: Processor userBackgroundPriority.
-		swazooProcess resume  ].! !
-
-!HTTPServer methodsFor: 'start/stop' stamp: 'gsa 1/19/2013 19:59'!
-startBAK1
-	self loop isNil ifTrue: [
-		self socket:
-			(SwazooSocket
-				serverOnIP: self ipCorrected
-				port: self port).
-		self socket listenFor: 128.
-		self loop: ([ [ self acceptConnection ] repeat ] forkAt: Processor userBackgroundPriority) ].! !
-
 !HTTPServer methodsFor: 'start/stop' stamp: ' 14/4/07 23:09'!
 stop
 	self loop isNil 
@@ -5607,20 +5583,6 @@ setUp
 	swazooProcess name: 'Swazoo HTTPServer Test'.
 	swazooProcess resume.
 		
-	(Delay forMilliseconds: 100) wait.
-" 	stream := (SocketAccessor newTCPclientToHost: 'localhost' port: 8123) 
-				readAppendStream"
-	socket := SpSocket connectToServerOnHost:  'localhost' port: 8123.
-	stream := SwazooStream socket: socket ! !
-
-!HTTPServerTest methodsFor: 'running' stamp: 'gsa 1/19/2013 18:27'!
-setUpBAK
-	| socket |
-	(Delay forMilliseconds: 100) wait.
-	server := HTTPServer new.
-	[server ip: 'localhost'; port: 8123.
-	server start]
-		fork.
 	(Delay forMilliseconds: 100) wait.
 " 	stream := (SocketAccessor newTCPclientToHost: 'localhost' port: 8123) 
 				readAppendStream"
