@@ -1,4 +1,4 @@
-'From Cuis 4.1 of 12 December 2012 [latest update: #1561] on 20 January 2013 at 12:32:56 pm'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1572] on 22 January 2013 at 8:02:23 am'!
 'Description Please enter a description for this package '!
 !classDefinition: #CompositeResourceTest category: #'Swazoo-Tests'!
 TestCase subclass: #CompositeResourceTest
@@ -2318,7 +2318,7 @@ getAndDispatchMessages
 initOther
 	other := Dictionary new! !
 
-!HTTPConnection methodsFor: 'serving' stamp: 'janko 7/13/2011 17:49'!
+!HTTPConnection methodsFor: 'serving' stamp: 'gsa 1/22/2013 07:58'!
 interact
 	"longer description is below method"
 	| interactionBlock |
@@ -2332,10 +2332,15 @@ interact
 		ifCurtailed: [ 
 			(Delay forMilliseconds: 50) wait. "to finish sending, if any"
 			self close] ].
-	self server isMultiThreading 
-		ifTrue: [self loop: (interactionBlock forkAt: Processor userBackgroundPriority)]
-		ifFalse: [interactionBlock value].
-	^self
+ 	self server isMultiThreading
+    		ifTrue:
+      		[self loop: interactionBlock newProcess.
+       			self loop
+         			priority: Processor userBackgroundPriority;
+         			resume]
+    		ifFalse: [interactionBlock value].
+  	^self
+
 
 "I represent a specifc connection with an HTTP client (a browser, probably) over which will come an HTTP request.  Here, I fork the handling of the request so that the current thread (which is most likely the HTTP server main loop) can carry on with the next request.  This means that more than one request may being handled in the image at a time, and that means that the application developer must worry about thread safety - e.g the problem of a given business object being updated by more than one HTTP request thread.
 For a GemStone implementation of Swazoo, one may want only one request is handled at a time, multi-threadedness being handled by having multiple gems.  This is a nice option because the application developer does not have to worry about thread safety in this case - GemStone handles the hard stuff.
@@ -5516,19 +5521,21 @@ I use SwazooSocket to wrap the actual socket.  SwazooSocket does some of the byt
 
 	^SwazooSocket! !
 
-!HTTPServer methodsFor: 'start/stop' stamp: 'gsa 1/19/2013 20:02'!
+!HTTPServer methodsFor: 'start/stop' stamp: 'gsa 1/22/2013 08:00'!
 start
-	| swazooProcess |
-	self loop isNil ifTrue: [
-		self socket:
-			(SwazooSocket
-				serverOnIP: self ipCorrected
-				port: self port).
-		self socket listenFor: 128.
-		self loop: (swazooProcess _ [ [ self acceptConnection ] repeat ] newProcess).
-		swazooProcess name: 'Swazoo ' , DateAndTime now asString.
-		swazooProcess priority: Processor userBackgroundPriority.
-		swazooProcess resume ].! !
+
+	self loop isNil ifTrue:
+   [self socket:
+      (SwazooSocket serverOnIP: self ipCorrected port: self port).
+   self socket listenFor: 128.
+   self loop:
+      [ [self acceptConnection] repeat]
+           newProcess.
+   self loop
+      priority: Processor userBackgroundPriority;
+      resume
+   ]
+! !
 
 !HTTPServer methodsFor: 'start/stop' stamp: ' 14/4/07 23:09'!
 stop
@@ -5572,17 +5579,14 @@ valuesAsStringOn: aStream
 fieldName
 	^'Server'! !
 
-!HTTPServerTest methodsFor: 'running' stamp: 'gsa 1/19/2013 18:40'!
+!HTTPServerTest methodsFor: 'running' stamp: 'gsa 1/22/2013 08:02'!
 setUp
-	| socket swazooProcess |
+	| socket |
 	(Delay forMilliseconds: 100) wait.
 	server := HTTPServer new.
-	
-	swazooProcess := [server ip: 'localhost'; port: 8123.
-						server start] newProcess.
-	swazooProcess name: 'Swazoo HTTPServer Test'.
-	swazooProcess resume.
-		
+	[server ip: 'localhost'; port: 8123.
+	server start]
+		fork.
 	(Delay forMilliseconds: 100) wait.
 " 	stream := (SocketAccessor newTCPclientToHost: 'localhost' port: 8123) 
 				readAppendStream"
