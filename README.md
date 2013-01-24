@@ -5,29 +5,38 @@ Swazoo for Cuis 4.1
 
 *** This is still work in progress ***
 
-To install:
+Other repositories needed:
 
-    | slash repo |
+*   https://github.com/garduino/Cuis-Cryptography.git  
+*   https://github.com/garduino/Cuis-Pharo14CompatibilityLayer.git
+*   https://github.com/garduino/Cuis-Sport.git
+
+Clone them into sibling directories of your Cuis and Cuis-Swazoo directories 
+
+Then to install evaluate:
+
+    | slash  |
     slash _ FileDirectory slash.
-    repo := 'C:\Users\MyUser\Documents\GitHub'. --> *** Replace with your real directory (Windows Sample) ***
-    repo := '/Users/Shared/gsa/Dev/CodeRepository'. --> *** Replace with your real directory (Mac Sample) ***
     {
-    repo, slash, 'Cuis-Cryptography', slash, 'Cuis-System-Hashing.pck.st' .
-    repo, slash, 'Cuis-CompatibilityWithOtherSmalltalks', slash, 'Cuis-CompatibilityWithOtherSmalltalks.pck.st' .
-    repo, slash, 'Cuis-Pharo14CompatibilityLayer', slash, 'Cuis-Network-Protocols.pck.st' .
-    repo, slash, 'Cuis-Pharo14CompatibilityLayer', slash, 'Cuis-Network-Url.pck.st' .
-    repo, slash, 'Cuis-Sport', slash, 'Sport.pck.st' .
-    repo, slash, 'Cuis-Swazoo', slash, 'Swazoo.pck.st' .
+    '..', slash, 'Cuis-Cryptography', slash, 'Cuis-System-Hashing.pck.st' .
+    '..', slash, 'Cuis-CompatibilityWithOtherSmalltalks', slash, 'Cuis-CompatibilityWithOtherSmalltalks.pck.st' .
+    '..', slash, 'Cuis-Pharo14CompatibilityLayer', slash, 'Cuis-Network-Protocols.pck.st' .
+    '..', slash, 'Cuis-Pharo14CompatibilityLayer', slash, 'Cuis-Network-Url.pck.st' .
+    '..', slash, 'Cuis-Sport', slash, 'Sport.pck.st' .
+    '..', slash, 'Cuis-Swazoo', slash, 'Swazoo.pck.st' .
     }
     do:
     [ :fileName | CodePackageFile installPackageStream:
-    (FileStream concreteStream readOnlyFileNamed: fileName)
+        (FileStream concreteStream readOnlyFileNamed: fileName)
     ].
     
 Ported from:
 
-	http://www.squeaksource.com/Swazoo
-	http://www.squeaksource.com/Swazoo/Swazoo-2.3beta3.1.mcz
+http://www.squeaksource.com/Swazoo
+
+File:
+http://www.squeaksource.com/Swazoo/Swazoo-2.3beta3.1.mcz
 	
-	Details on mail with subject: "Porting Sport and Swazoo to Cuis" on 
-	AidaWeb list 27/12/2012.
+Details on mail with subject: "Porting Sport and Swazoo to Cuis" on AidaWeb list 27/12/2012.
+
+http://lists.aidaweb.si/pipermail/aida/2012-December/003347.html
