@@ -37,4 +37,4 @@ Ported from:
 	
 Details on mail with subject: "Porting Sport and Swazoo to Cuis" on AidaWeb list 27/12/2012.
 
-     http://lists.aidaweb.si/pipermail/aida/2012-December/003347.html
+http://lists.aidaweb.si/pipermail/aida/2012-December/003347.html
