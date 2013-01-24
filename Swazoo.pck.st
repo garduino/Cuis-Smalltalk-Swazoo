@@ -1,4 +1,4 @@
-'From Cuis 4.1 of 12 December 2012 [latest update: #1572] on 22 January 2013 at 8:02:23 am'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1572] on 24 January 2013 at 8:41:54 am'!
 'Description Please enter a description for this package '!
 !classDefinition: #CompositeResourceTest category: #'Swazoo-Tests'!
 TestCase subclass: #CompositeResourceTest
@@ -10157,13 +10157,14 @@ frameString: aString
 	out nextPutAll: utf8String.
 	^out contents! !
 
-!WebSocketConnection methodsFor: 'private-framing' stamp: 'gsa 1/14/2013 17:14'!
+!WebSocketConnection methodsFor: 'private-framing' stamp: 'gsa 1/24/2013 08:41'!
 fromUtf8: aString
 	"Squeak specific"
 
 	"gsa 14/01/2013 for Cuis port"
 	"^[aString convertFromEncoding: #utf8] on: Error do: [:ex | aString ]"
-	
+
+	"Cuis specific"	
 	^ aString! !
 
 !WebSocketConnection methodsFor: 'private-serving' stamp: 'janko 7/13/2011 20:43'!
@@ -10258,7 +10259,7 @@ sendMessage: aStringOrByteArray
 		ifTrue: [self sendFramedData: (self toUtf8: aStringOrByteArray) opcode: 1]
 		ifFalse: [self sendFramedData: aStringOrByteArray opcode: 2]! !
 
-!WebSocketConnection methodsFor: 'private-framing' stamp: 'gsa 1/14/2013 16:49'!
+!WebSocketConnection methodsFor: 'private-framing' stamp: 'gsa 1/24/2013 08:41'!
 toUtf8: aString
 	"Squeak specific"
 "
@@ -10270,6 +10271,8 @@ toUtf8: aString
 		[converter nextPut: in next toStream: out].
 	^out contents
 "
+
+	"Cuis specific"
 	^ aString! !
 
 !WebSocketTest methodsFor: 'support' stamp: 'jm 11/29/2010 15:32'!
