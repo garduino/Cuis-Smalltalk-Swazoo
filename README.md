@@ -5,6 +5,13 @@ Swazoo for Cuis 4.1
 
 *** This is still work in progress ***
 
+Other repositories needed:
+
+   https://github.com/garduino/Cuis-Cryptography.git
+   https://github.com/garduino/Cuis-Pharo14CompatibilityLayer.git
+   https://github.com/garduino/Cuis-Sport.git
+
+
 To install:
 
     | slash repo |
