@@ -3,8 +3,6 @@ Cuis-Swazoo
 
 Swazoo for Cuis 4.1
 
-*** This is still work in progress ***
-
 Other repositories needed:
 
 *   https://github.com/garduino/Cuis-Cryptography.git  
