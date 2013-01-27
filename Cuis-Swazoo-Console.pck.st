@@ -1,4 +1,4 @@
-'From Cuis 4.1 of 12 December 2012 [latest update: #1572] on 27 January 2013 at 5:15:15 pm'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1572] on 27 January 2013 at 6:52:22 pm'!
 'Description Please enter a description for this package '!
 !classDefinition: #SwazooConsole category: #'Cuis-Swazoo-Console'!
 Object subclass: #SwazooConsole
@@ -18,6 +18,26 @@ Object subclass: #SwazooConsoleFormattedSite
 	category: 'Cuis-Swazoo-Console'!
 !classDefinition: 'SwazooConsoleFormattedSite class' category: #'Cuis-Swazoo-Console'!
 SwazooConsoleFormattedSite class
+	instanceVariableNames: ''!
+
+!classDefinition: #SwazooConsoleSitesList category: #'Cuis-Swazoo-Console'!
+ActiveModel subclass: #SwazooConsoleSitesList
+	instanceVariableNames: 'packages selection formattedSites sites siteName siteServing siteHost'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Cuis-Swazoo-Console'!
+!classDefinition: 'SwazooConsoleSitesList class' category: #'Cuis-Swazoo-Console'!
+SwazooConsoleSitesList class
+	instanceVariableNames: ''!
+
+!classDefinition: #SwazooConsoleSitesListWindow category: #'Cuis-Swazoo-Console'!
+SystemWindow subclass: #SwazooConsoleSitesListWindow
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Cuis-Swazoo-Console'!
+!classDefinition: 'SwazooConsoleSitesListWindow class' category: #'Cuis-Swazoo-Console'!
+SwazooConsoleSitesListWindow class
 	instanceVariableNames: ''!
 
 
@@ -43,6 +63,9 @@ To have the console working on your image, you need to make the following change
 
 Developed by: Germán S. Arduino - April 2009.
 Update to Cuis-Swazoo on Januray 2013.!
+
+!SwazooConsoleSitesListWindow commentStamp: '<historical>' prior: 0!
+Morphic view for CodePackageList models. See category 'GUI building'.!
 
 !SwazooConsole methodsFor: 'morphic ui' stamp: 'gsa 1/25/2013 10:37'!
 actionStartSelector
@@ -546,3 +569,347 @@ text1
 text1: anObject 
 	text1 := anObject
 	! !
+
+!SwazooConsoleSitesList methodsFor: 'printing' stamp: 'gsa 1/27/2013 18:38'!
+buildStringToPrint.
+	sites do: [:each |  siteName := each name. 
+								siteServing := self servingStatus: each isServing. 
+								siteHost := each uriPattern].! !
+
+!SwazooConsoleSitesList methodsFor: 'accessing' stamp: 'gsa 1/27/2013 17:34'!
+description
+
+	selection ifNil: [ ^'' ].
+	^selection description! !
+
+!SwazooConsoleSitesList methodsFor: 'accessing' stamp: 'gsa 1/27/2013 17:34'!
+description: aText
+
+	selection ifNotNil: [
+		selection description: aText string ].
+	^true! !
+
+!SwazooConsoleSitesList methodsFor: 'accessing' stamp: 'gsa 1/27/2013 17:34'!
+editorClass
+	^SmalltalkEditor! !
+
+!SwazooConsoleSitesList methodsFor: 'printing' stamp: 'gsa 1/27/2013 18:39'!
+formatUriPattern: uriPattern
+	| uriPatternString |
+	uriPattern do: [:each | uriPatternString := each currentUrl].
+	^uriPatternString! !
+
+!SwazooConsoleSitesList methodsFor: 'accessing' stamp: 'gsa 1/27/2013 17:57'!
+formattedSites
+	formattedSites isNil ifTrue: [self initializeFormattedSites].
+	^formattedSites! !
+
+!SwazooConsoleSitesList methodsFor: 'initialize-release' stamp: 'gsa 1/27/2013 17:53'!
+initialize
+
+	self initializeSites.
+	self initializeFormattedSites.
+	"self loadList."
+
+"	self updatePackageList.
+	CodePackage
+		when: #installedPackagesChanged
+		send: #updatePackageList
+		to: self"! !
+
+!SwazooConsoleSitesList methodsFor: 'initialize-release' stamp: 'gsa 1/27/2013 17:51'!
+initializeFormattedSites
+	| newSite |
+	formattedSites := OrderedCollection new.
+	newSite := SwazooConsoleFormattedSite new.
+	sites
+		do: [:each | 
+			newSite text1: 'Site'.
+			newSite siteName: each name.
+			newSite
+				siteServing: (self servingStatus: each isServing).
+			newSite siteCurrentUrl: (self formatUriPattern: each uriPattern).
+			formattedSites add: newSite.
+			newSite := nil.
+			newSite := SwazooConsoleFormattedSite new]! !
+
+!SwazooConsoleSitesList methodsFor: 'initialize-release' stamp: 'gsa 1/27/2013 17:51'!
+initializeSites
+	sites := OrderedCollection new.
+	sites addAll: SwazooServer singleton sites.! !
+
+!SwazooConsoleSitesList methodsFor: 'accessing' stamp: 'gsa 1/27/2013 17:34'!
+packageDirtyFlags
+
+	^ packages collect: [ :each |
+		each hasUnsavedChanges
+			ifTrue: [ '     --->']
+			ifFalse: [ '       -' ]]! !
+
+!SwazooConsoleSitesList methodsFor: 'accessing' stamp: 'gsa 1/27/2013 17:34'!
+packageFullNames
+
+	^ packages collect: [ :each | each fullFileName ]! !
+
+!SwazooConsoleSitesList methodsFor: 'accessing' stamp: 'gsa 1/27/2013 17:34'!
+packageNames
+
+	^ packages collect: [ :each | each packageName ]! !
+
+!SwazooConsoleSitesList methodsFor: 'printing' stamp: 'gsa 1/27/2013 18:38'!
+printSiteStatus
+	self buildStringToPrint.
+	Transcript cr.
+	Transcript show: '========================================'; cr.
+	sites do: [:each | Transcript show: 'Site ', each name, ' ', siteServing asString ; cr].
+	Transcript show: '========================================'; cr.
+! !
+
+!SwazooConsoleSitesList methodsFor: 'commands' stamp: 'gsa 1/27/2013 17:34'!
+save
+
+	selection ifNotNil: [
+		selection save ]! !
+
+!SwazooConsoleSitesList methodsFor: 'accessing' stamp: 'gsa 1/27/2013 17:34'!
+selection
+
+	^selection! !
+
+!SwazooConsoleSitesList methodsFor: 'accessing' stamp: 'gsa 1/27/2013 18:14'!
+selectionIndex
+
+	^ sites indexOf: selection! !
+
+!SwazooConsoleSitesList methodsFor: 'accessing' stamp: 'gsa 1/27/2013 18:35'!
+selectionIndex: anInteger
+
+	selection _ anInteger = 0 ifFalse: [ sites at: anInteger ].
+	self
+	"	changed: #packageDirtyFlags;"
+		changed: #sites
+	"	changed: #packageFullNames;
+		changed: #description;
+		changed: #summary"! !
+
+!SwazooConsoleSitesList methodsFor: 'accessing' stamp: 'gsa 1/27/2013 18:32'!
+servingStatus: isServing
+	isServing ifTrue: [^'is running on'] 
+					ifFalse:[^'is stopped on']! !
+
+!SwazooConsoleSitesList methodsFor: 'accessing' stamp: 'gsa 1/27/2013 17:58'!
+sites
+	sites isNil ifTrue: [self initializeSites].
+	^sites! !
+
+!SwazooConsoleSitesList methodsFor: 'accessing' stamp: 'gsa 1/27/2013 17:34'!
+summary
+
+	selection ifNil: [ ^'' ].
+	^ String streamContents: [ :strm |
+		strm
+			nextPutAll: 'Package: ';
+			nextPutAll: selection packageName;
+			nextPutAll: ' -- ';
+			nextPutAll: selection sourceSystem.
+		strm nextPutAll: ' -- Number of system categories '.
+		selection systemCategories size printOn: strm.
+		strm nextPutAll: '.'.
+		strm nextPutAll: ' -- Number of classes: '.
+		selection classes size printOn: strm.
+		strm nextPutAll: '. Number of extension methods: '.
+		selection extensionMethods size printOn: strm.
+		strm nextPutAll: '. Total number of methods: '.
+		selection methods size printOn: strm.
+		strm nextPutAll: '. Total lines of code: '.
+		selection linesOfCode printOn: strm.
+		strm nextPutAll: '.' ]! !
+
+!SwazooConsoleSitesList methodsFor: 'events' stamp: 'gsa 1/27/2013 17:34'!
+updateDirtyFlags
+	self
+		changed: #packageDirtyFlags;
+		changed: #packageFullNames	"if it was never saved and now it is, fileName changes"! !
+
+!SwazooConsoleSitesList methodsFor: 'events' stamp: 'gsa 1/27/2013 17:34'!
+updatePackageList
+	
+	| newPackages oldPackages |
+	oldPackages _ (packages ifNil: [#()]) asIdentitySet.
+	newPackages _ CodePackage installedPackages asIdentitySet.
+	oldPackages do: [ :old |
+		(newPackages includes: old) ifFalse: [
+			old removeActionsWithReceiver: self ]].
+	newPackages do: [ :new |
+		(oldPackages includes: new) ifFalse: [
+			new when: #dirtyFlagChanged send:#updateDirtyFlags to: self ]].
+	newPackages _ newPackages asArray sort: [ :a :b |
+		 a packageName < b packageName ].
+	packages _ newPackages.
+	self
+		changed: #packageDirtyFlags;
+		changed: #packageNames;
+		changed: #packageFullNames;
+		changed: #description;
+		changed: #summary! !
+
+!SwazooConsoleSitesListWindow methodsFor: 'commands' stamp: 'gsa 1/27/2013 17:35'!
+browse
+
+	| current browser |
+	current _ model selection.
+	current ifNil: [ ^self ].
+
+	browser _ SinglePackageBrowser new.
+	browser package: current.
+	BrowserWindow open: browser label: browser labelString! !
+
+!SwazooConsoleSitesListWindow methodsFor: 'commands' stamp: 'gsa 1/27/2013 17:35'!
+browseChanges
+	| current |
+	current _ model selection.
+	current ifNil: [ ^self ].
+
+	ChangeSorterWindow
+		open: (SingleSetChangeSorter new 
+			myChangeSet: (ChangeSorter existingOrNewChangeSetForPackage: current))
+		label: nil! !
+
+!SwazooConsoleSitesListWindow methodsFor: 'GUI building' stamp: 'gsa 1/27/2013 18:51'!
+buildMorphicWindow
+	" 
+	SwazooConsoleSitesListWindow open: SwazooConsoleSitesList new
+	"
+	| dirtyFlags names fileNames upperRow description summary buttonRow browseChangesButton saveButton browseButton createButton deleteButton backColor labelBackground |
+	backColor _ self textBackgroundColor.	
+	labelBackground _ Theme current background.
+"	dirtyFlags _ PluggableListMorph
+		model: model 
+		listGetter: #packageDirtyFlags
+		indexGetter: #selectionIndex
+		indexSetter: #selectionIndex:.
+	dirtyFlags color: backColor.
+	dirtyFlags _ LayoutMorph newColumn
+		color: labelBackground;
+		addMorph: (RectangleLikeMorph new color: Color transparent) fixedHeight: 4;
+		addMorph: (StringMorph new contents: ' Unsaved?') fixedHeight: 16;
+		addMorphUseAll: dirtyFlags."
+
+	names _ PluggableListMorph
+		model: model 
+		listGetter: #sites
+		indexGetter: #selectionIndex
+		indexSetter: #selectionIndex:.
+	names color: backColor.
+	names _ LayoutMorph newColumn
+		color: labelBackground;
+		addMorph: (RectangleLikeMorph new color: Color transparent) fixedHeight: 4;
+		addMorph: (StringMorph new contents: ' Swazoo Sites') fixedHeight: 16;
+		addMorphUseAll: names.
+
+"
+	fileNames _ PluggableListMorph
+		model: model 
+		listGetter: #packageFullNames
+		indexGetter: #selectionIndex
+		indexSetter: #selectionIndex:.
+	fileNames color: backColor.
+	fileNames _ LayoutMorph newColumn
+		color: labelBackground;
+		addMorph: (RectangleLikeMorph new color: Color transparent) fixedHeight: 4;
+		addMorph: (StringMorph new contents: ' File Name') fixedHeight: 16;
+		addMorphUseAll: fileNames.
+"
+
+	upperRow _ LayoutMorph newRow.
+	upperRow
+"	addMorph: dirtyFlags proportionalWidth: 0.13;
+		addAdjusterAndMorph: names proportionalWidth: 0.27;
+	addAdjusterAndMorph: fileNames proportionalWidth: 0.6."
+
+	addMorph: names proportionalWidth: 1.00.	
+
+
+
+
+	description _ TextModelMorph
+		textProvider: model
+		textGetter: #description 
+		textSetter: #description:.
+
+	summary _ TextModelMorph
+		textProvider: model
+		textGetter: #summary.
+
+	saveButton _ PluggableButtonMorph model: model action: #startSwazoo label: 'Start Swazoo'.
+	createButton _ PluggableButtonMorph model: self action: #stopSwazoo label: 'Stop Swazoo'.
+	deleteButton _ PluggableButtonMorph model: self action: #deletePackage label: 'Delete (merge in Cuis)'.
+	browseChangesButton _ PluggableButtonMorph model: self action: #browseChanges label: 'Browse unsaved changes'.
+	browseButton _ PluggableButtonMorph model: self action: #browse label: 'Browse package code'.
+	buttonRow _ LayoutMorph newRow.
+	buttonRow
+		color: self widgetsColor quiteWhiter;
+		addMorph: saveButton proportionalWidth: 0.6;
+		addMorph: createButton proportionalWidth: 0.6;
+		addMorph: deleteButton proportionalWidth: 0.6;
+		addMorph: browseChangesButton proportionalWidth: 0.6;
+		addMorph: browseButton proportionalWidth: 0.6.
+
+	self layoutMorph
+		addMorph: upperRow proportionalHeight: 0.5;
+		addAdjusterAndMorph: summary proportionalHeight: 0.18;
+		addAdjusterAndMorph: description proportionalHeight: 0.22;
+		addAdjusterAndMorph: buttonRow proportionalHeight: 0.1.
+	self setLabel: 'Swazoo Console'! !
+
+!SwazooConsoleSitesListWindow methodsFor: 'commands' stamp: 'gsa 1/27/2013 17:35'!
+createPackage
+
+	| pkName |
+	pkName _ FillInTheBlankMorph request: 'Name for new package?'.
+	pkName ifNotEmpty: [
+		CodePackage
+			named: pkName
+			createIfAbsent: true
+			registerIfNew: true ]! !
+
+!SwazooConsoleSitesListWindow methodsFor: 'commands' stamp: 'gsa 1/27/2013 17:35'!
+deletePackage
+
+	| current cs |
+	current _ model selection.
+	current ifNil: [ ^self ].
+	model selectionIndex: 0.	"no selection"
+	cs _ ChangeSorter existingOrNewChangeSetForPackage: current.
+	cs isEmpty ifFalse: [
+		cs name: cs hash asString, cs name.
+		cs isForBaseSystem: true ].
+	CodePackage deregister: current! !
+
+!SwazooConsoleSitesListWindow methodsFor: 'GUI building' stamp: 'gsa 1/27/2013 17:35'!
+initialExtent
+	^540@300! !
+
+!SwazooConsoleSitesListWindow methodsFor: 'commands' stamp: 'gsa 1/27/2013 18:49'!
+startSwazoo
+	SwazooServer start.
+	self refreshList.
+	self refreshMainWindow.! !
+
+!SwazooConsoleSitesListWindow methodsFor: 'commands' stamp: 'gsa 1/27/2013 18:49'!
+stopSwazoo
+	SwazooServer stop.
+	self refreshList.
+	self refreshMainWindow.! !
+
+!SwazooConsoleSitesListWindow methodsFor: 'GUI building' stamp: 'gsa 1/27/2013 17:35'!
+windowColor
+	^ Theme current packageList! !
+
+!SwazooConsoleSitesListWindow class methodsFor: 'instance creation' stamp: 'gsa 1/27/2013 17:35'!
+openPackageList
+	CodePackageListWindow open: CodePackageList new! !
+
+!SwazooConsoleSitesListWindow class methodsFor: 'instance creation' stamp: 'gsa 1/27/2013 18:01'!
+openSitesList
+	SwazooConsoleSitesListWindow open: SwazooConsoleSitesList new! !
