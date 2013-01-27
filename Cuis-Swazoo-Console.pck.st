@@ -1,4 +1,4 @@
-'From Cuis 4.1 of 12 December 2012 [latest update: #1572] on 27 January 2013 at 6:52:22 pm'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1572] on 27 January 2013 at 7:06:33 pm'!
 'Description Please enter a description for this package '!
 !classDefinition: #SwazooConsole category: #'Cuis-Swazoo-Console'!
 Object subclass: #SwazooConsole
@@ -22,7 +22,7 @@ SwazooConsoleFormattedSite class
 
 !classDefinition: #SwazooConsoleSitesList category: #'Cuis-Swazoo-Console'!
 ActiveModel subclass: #SwazooConsoleSitesList
-	instanceVariableNames: 'packages selection formattedSites sites siteName siteServing siteHost'
+	instanceVariableNames: 'packages selection formattedSites sites siteName siteServing siteHost list'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Cuis-Swazoo-Console'!
@@ -604,12 +604,12 @@ formattedSites
 	formattedSites isNil ifTrue: [self initializeFormattedSites].
 	^formattedSites! !
 
-!SwazooConsoleSitesList methodsFor: 'initialize-release' stamp: 'gsa 1/27/2013 17:53'!
+!SwazooConsoleSitesList methodsFor: 'initialize-release' stamp: 'gsa 1/27/2013 19:00'!
 initialize
 
 	self initializeSites.
 	self initializeFormattedSites.
-	"self loadList."
+	self loadList.
 
 "	self updatePackageList.
 	CodePackage
@@ -637,6 +637,14 @@ initializeFormattedSites
 initializeSites
 	sites := OrderedCollection new.
 	sites addAll: SwazooServer singleton sites.! !
+
+!SwazooConsoleSitesList methodsFor: 'accessing' stamp: 'gsa 1/27/2013 19:05'!
+loadList
+		list := (formattedSites
+				collect: [:each | each text1,' ',each siteName,' ',each siteServing,' ', each siteCurrentUrl]).
+		"selectionIndex  := 1."
+		selection := 1.
+		"	self changed: #list"! !
 
 !SwazooConsoleSitesList methodsFor: 'accessing' stamp: 'gsa 1/27/2013 17:34'!
 packageDirtyFlags
