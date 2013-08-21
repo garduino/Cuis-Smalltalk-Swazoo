@@ -3,8 +3,8 @@
 !provides: 'Swazoo' 1 0!
 !requires: 'Cuis-System-Hashing' 1 0 nil!
 !requires: 'Cuis-CompatibilityWithOtherSmalltalks' 1 0 nil!
-!requires: 'Cuis-Network-Url' 1 0 nil!
 !requires: 'Cuis-Network-MIME' 1 0 nil!
+!requires: 'Cuis-Network-Url' 1 0 nil!
 !requires: 'Sport' 1 0 nil!
 !classDefinition: #HTTPException category: #'Swazoo-Exceptions'!
 Error subclass: #HTTPException
