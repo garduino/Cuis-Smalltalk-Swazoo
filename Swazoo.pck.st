@@ -1,23 +1,89 @@
-'From Cuis 4.1 of 12 December 2012 [latest update: #1572] on 24 January 2013 at 9:12:51 am'!
+'From Cuis 4.2 of 25 July 2013 [latest update: #1806] on 21 August 2013 at 6:31:57.001705 pm'!
 'Description Please enter a description for this package '!
-!classDefinition: #CompositeResourceTest category: #'Swazoo-Tests'!
-TestCase subclass: #CompositeResourceTest
-	instanceVariableNames: 'composite'
+!provides: 'Swazoo' 1 0!
+!requires: 'Cuis-System-Hashing' 1 0 nil!
+!requires: 'Cuis-CompatibilityWithOtherSmalltalks' 1 0 nil!
+!requires: 'Cuis-Network-Url' 1 0 nil!
+!requires: 'Cuis-Network-MIME' 1 0 nil!
+!requires: 'Sport' 1 0 nil!
+!classDefinition: #HTTPException category: #'Swazoo-Exceptions'!
+Error subclass: #HTTPException
+	instanceVariableNames: 'response'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Swazoo-Tests'!
-!classDefinition: 'CompositeResourceTest class' category: #'Swazoo-Tests'!
-CompositeResourceTest class
+	category: 'Swazoo-Exceptions'!
+!classDefinition: 'HTTPException class' category: #'Swazoo-Exceptions'!
+HTTPException class
 	instanceVariableNames: ''!
 
-!classDefinition: #FileResourceTest category: #'Swazoo-Tests'!
-TestCase subclass: #FileResourceTest
-	instanceVariableNames: 'resource'
+!classDefinition: #SwazooHTTPParseError category: #'Swazoo-Exceptions'!
+SpError subclass: #SwazooHTTPParseError
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Swazoo-Tests'!
-!classDefinition: 'FileResourceTest class' category: #'Swazoo-Tests'!
-FileResourceTest class
+	category: 'Swazoo-Exceptions'!
+!classDefinition: 'SwazooHTTPParseError class' category: #'Swazoo-Exceptions'!
+SwazooHTTPParseError class
+	instanceVariableNames: ''!
+
+!classDefinition: #SwazooHTTPRequestError category: #'Swazoo-Exceptions'!
+SpError subclass: #SwazooHTTPRequestError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Exceptions'!
+!classDefinition: 'SwazooHTTPRequestError class' category: #'Swazoo-Exceptions'!
+SwazooHTTPRequestError class
+	instanceVariableNames: ''!
+
+!classDefinition: #SwazooHTTPPostError category: #'Swazoo-Exceptions'!
+SwazooHTTPRequestError subclass: #SwazooHTTPPostError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Exceptions'!
+!classDefinition: 'SwazooHTTPPostError class' category: #'Swazoo-Exceptions'!
+SwazooHTTPPostError class
+	instanceVariableNames: ''!
+
+!classDefinition: #SwazooHTTPPutError category: #'Swazoo-Exceptions'!
+SwazooHTTPRequestError subclass: #SwazooHTTPPutError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Exceptions'!
+!classDefinition: 'SwazooHTTPPutError class' category: #'Swazoo-Exceptions'!
+SwazooHTTPPutError class
+	instanceVariableNames: ''!
+
+!classDefinition: #SwazooHeaderFieldParseError category: #'Swazoo-Exceptions'!
+SpError subclass: #SwazooHeaderFieldParseError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Exceptions'!
+!classDefinition: 'SwazooHeaderFieldParseError class' category: #'Swazoo-Exceptions'!
+SwazooHeaderFieldParseError class
+	instanceVariableNames: ''!
+
+!classDefinition: #SwazooSiteError category: #'Swazoo-Exceptions'!
+SpError subclass: #SwazooSiteError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Exceptions'!
+!classDefinition: 'SwazooSiteError class' category: #'Swazoo-Exceptions'!
+SwazooSiteError class
+	instanceVariableNames: ''!
+
+!classDefinition: #SwazooStreamNoDataError category: #'Swazoo-Exceptions'!
+SpError subclass: #SwazooStreamNoDataError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Exceptions'!
+!classDefinition: 'SwazooStreamNoDataError class' category: #'Swazoo-Exceptions'!
+SwazooStreamNoDataError class
 	instanceVariableNames: ''!
 
 !classDefinition: #HTTPConnection category: #'Swazoo-HTTP'!
@@ -30,14 +96,14 @@ Object subclass: #HTTPConnection
 HTTPConnection class
 	instanceVariableNames: ''!
 
-!classDefinition: #HTTPException category: #'Swazoo-Exceptions'!
-Error subclass: #HTTPException
-	instanceVariableNames: 'response'
+!classDefinition: #WebSocketConnection category: #'Swazoo-HTTP'!
+HTTPConnection subclass: #WebSocketConnection
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Swazoo-Exceptions'!
-!classDefinition: 'HTTPException class' category: #'Swazoo-Exceptions'!
-HTTPException class
+	category: 'Swazoo-HTTP'!
+!classDefinition: 'WebSocketConnection class' category: #'Swazoo-HTTP'!
+WebSocketConnection class
 	instanceVariableNames: ''!
 
 !classDefinition: #HTTPHeaders category: #'Swazoo-Headers'!
@@ -58,26 +124,6 @@ Object subclass: #HTTPMessage
 	category: 'Swazoo-Messages'!
 !classDefinition: 'HTTPMessage class' category: #'Swazoo-Messages'!
 HTTPMessage class
-	instanceVariableNames: ''!
-
-!classDefinition: #HTTPPostDataArray category: #'Swazoo-Messages'!
-Object subclass: #HTTPPostDataArray
-	instanceVariableNames: 'underlyingCollection stream parsed'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Messages'!
-!classDefinition: 'HTTPPostDataArray class' category: #'Swazoo-Messages'!
-HTTPPostDataArray class
-	instanceVariableNames: ''!
-
-!classDefinition: #HTTPPostTest category: #'Swazoo-Tests'!
-TestCase subclass: #HTTPPostTest
-	instanceVariableNames: 'request'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Tests'!
-!classDefinition: 'HTTPPostTest class' category: #'Swazoo-Tests'!
-HTTPPostTest class
 	instanceVariableNames: ''!
 
 !classDefinition: #HTTPRequest category: #'Swazoo-Messages'!
@@ -150,24 +196,14 @@ HTTPRequest subclass: #HTTPPut
 HTTPPut class
 	instanceVariableNames: ''!
 
-!classDefinition: #HTTPRequestLine category: #'Swazoo-Messages'!
-Object subclass: #HTTPRequestLine
-	instanceVariableNames: 'method requestURI httpVersion'
+!classDefinition: #HTTPTrace category: #'Swazoo-Messages'!
+HTTPRequest subclass: #HTTPTrace
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Swazoo-Messages'!
-!classDefinition: 'HTTPRequestLine class' category: #'Swazoo-Messages'!
-HTTPRequestLine class
-	instanceVariableNames: ''!
-
-!classDefinition: #HTTPRequestTest category: #'Swazoo-Tests'!
-TestCase subclass: #HTTPRequestTest
-	instanceVariableNames: 'request'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Tests'!
-!classDefinition: 'HTTPRequestTest class' category: #'Swazoo-Tests'!
-HTTPRequestTest class
+!classDefinition: 'HTTPTrace class' category: #'Swazoo-Messages'!
+HTTPTrace class
 	instanceVariableNames: ''!
 
 !classDefinition: #HTTPResponse category: #'Swazoo-Messages'!
@@ -220,14 +256,34 @@ HTTPAuthenticationChallenge subclass: #HTTPAuthenticationDigestChallenge
 HTTPAuthenticationDigestChallenge class
 	instanceVariableNames: ''!
 
-!classDefinition: #HTTPResponseTest category: #'Swazoo-Tests'!
-TestCase subclass: #HTTPResponseTest
-	instanceVariableNames: 'response'
+!classDefinition: #HTTPStreamedResponse category: #'Swazoo-Messages'!
+HTTPResponse subclass: #HTTPStreamedResponse
+	instanceVariableNames: 'stream count length state semaphore'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Swazoo-Tests'!
-!classDefinition: 'HTTPResponseTest class' category: #'Swazoo-Tests'!
-HTTPResponseTest class
+	category: 'Swazoo-Messages'!
+!classDefinition: 'HTTPStreamedResponse class' category: #'Swazoo-Messages'!
+HTTPStreamedResponse class
+	instanceVariableNames: ''!
+
+!classDefinition: #HTTPPostDataArray category: #'Swazoo-Messages'!
+Object subclass: #HTTPPostDataArray
+	instanceVariableNames: 'underlyingCollection stream parsed'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Messages'!
+!classDefinition: 'HTTPPostDataArray class' category: #'Swazoo-Messages'!
+HTTPPostDataArray class
+	instanceVariableNames: ''!
+
+!classDefinition: #HTTPRequestLine category: #'Swazoo-Messages'!
+Object subclass: #HTTPRequestLine
+	instanceVariableNames: 'method requestURI httpVersion'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Messages'!
+!classDefinition: 'HTTPRequestLine class' category: #'Swazoo-Messages'!
+HTTPRequestLine class
 	instanceVariableNames: ''!
 
 !classDefinition: #HTTPServer category: #'Swazoo-HTTP'!
@@ -240,26 +296,6 @@ Object subclass: #HTTPServer
 HTTPServer class
 	instanceVariableNames: ''!
 
-!classDefinition: #HTTPServerTest category: #'Swazoo-Tests'!
-TestCase subclass: #HTTPServerTest
-	instanceVariableNames: 'server stream'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Tests'!
-!classDefinition: 'HTTPServerTest class' category: #'Swazoo-Tests'!
-HTTPServerTest class
-	instanceVariableNames: ''!
-
-!classDefinition: #HTTPStreamedResponse category: #'Swazoo-Messages'!
-HTTPResponse subclass: #HTTPStreamedResponse
-	instanceVariableNames: 'stream count length state semaphore'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Messages'!
-!classDefinition: 'HTTPStreamedResponse class' category: #'Swazoo-Messages'!
-HTTPStreamedResponse class
-	instanceVariableNames: ''!
-
 !classDefinition: #HTTPString category: #'Swazoo-HTTP'!
 Object subclass: #HTTPString
 	instanceVariableNames: ''
@@ -268,16 +304,6 @@ Object subclass: #HTTPString
 	category: 'Swazoo-HTTP'!
 !classDefinition: 'HTTPString class' category: #'Swazoo-HTTP'!
 HTTPString class
-	instanceVariableNames: ''!
-
-!classDefinition: #HTTPTrace category: #'Swazoo-Messages'!
-HTTPRequest subclass: #HTTPTrace
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Messages'!
-!classDefinition: 'HTTPTrace class' category: #'Swazoo-Messages'!
-HTTPTrace class
 	instanceVariableNames: ''!
 
 !classDefinition: #HeaderField category: #'Swazoo-Headers'!
@@ -298,96 +324,6 @@ HeaderField subclass: #GenericHeaderField
 	category: 'Swazoo-Headers'!
 !classDefinition: 'GenericHeaderField class' category: #'Swazoo-Headers'!
 GenericHeaderField class
-	instanceVariableNames: ''!
-
-!classDefinition: #HeaderFieldTest category: #'Swazoo-Tests'!
-TestCase subclass: #HeaderFieldTest
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Tests'!
-!classDefinition: 'HeaderFieldTest class' category: #'Swazoo-Tests'!
-HeaderFieldTest class
-	instanceVariableNames: ''!
-
-!classDefinition: #HelloWorldResourceTest category: #'Swazoo-Tests'!
-TestCase subclass: #HelloWorldResourceTest
-	instanceVariableNames: 'hello'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Tests'!
-!classDefinition: 'HelloWorldResourceTest class' category: #'Swazoo-Tests'!
-HelloWorldResourceTest class
-	instanceVariableNames: ''!
-
-!classDefinition: #HomeResourceTest category: #'Swazoo-Tests'!
-TestCase subclass: #HomeResourceTest
-	instanceVariableNames: 'resource'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Tests'!
-!classDefinition: 'HomeResourceTest class' category: #'Swazoo-Tests'!
-HomeResourceTest class
-	instanceVariableNames: ''!
-
-!classDefinition: #MimeObject category: #'Swazoo-Messages'!
-Object subclass: #MimeObject
-	instanceVariableNames: 'contentType value'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Messages'!
-!classDefinition: 'MimeObject class' category: #'Swazoo-Messages'!
-MimeObject class
-	instanceVariableNames: ''!
-
-!classDefinition: #HTTPPostDatum category: #'Swazoo-Messages'!
-MimeObject subclass: #HTTPPostDatum
-	instanceVariableNames: 'filename writeStream writeBlock'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Messages'!
-!classDefinition: 'HTTPPostDatum class' category: #'Swazoo-Messages'!
-HTTPPostDatum class
-	instanceVariableNames: ''!
-
-!classDefinition: #RedirectionResourceTest category: #'Swazoo-Tests'!
-TestCase subclass: #RedirectionResourceTest
-	instanceVariableNames: 'resource'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Tests'!
-!classDefinition: 'RedirectionResourceTest class' category: #'Swazoo-Tests'!
-RedirectionResourceTest class
-	instanceVariableNames: ''!
-
-!classDefinition: #ResourceTest category: #'Swazoo-Tests'!
-TestCase subclass: #ResourceTest
-	instanceVariableNames: 'resource'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Tests'!
-!classDefinition: 'ResourceTest class' category: #'Swazoo-Tests'!
-ResourceTest class
-	instanceVariableNames: ''!
-
-!classDefinition: #SiteIdentifierTest category: #'Swazoo-Tests'!
-TestCase subclass: #SiteIdentifierTest
-	instanceVariableNames: 'identifier'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Tests'!
-!classDefinition: 'SiteIdentifierTest class' category: #'Swazoo-Tests'!
-SiteIdentifierTest class
-	instanceVariableNames: ''!
-
-!classDefinition: #SiteTest category: #'Swazoo-Tests'!
-TestCase subclass: #SiteTest
-	instanceVariableNames: 'site'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Tests'!
-!classDefinition: 'SiteTest class' category: #'Swazoo-Tests'!
-SiteTest class
 	instanceVariableNames: ''!
 
 !classDefinition: #SpecificHeaderField category: #'Swazoo-Headers'!
@@ -700,34 +636,24 @@ HTTPWWWAuthenticateField subclass: #HTTPWWWAuthenticateDigestField
 HTTPWWWAuthenticateDigestField class
 	instanceVariableNames: ''!
 
-!classDefinition: #SwazooAuthNonce category: #'Swazoo-Messages'!
-Object subclass: #SwazooAuthNonce
-	instanceVariableNames: 'timestamp secret'
+!classDefinition: #MimeObject category: #'Swazoo-Messages'!
+Object subclass: #MimeObject
+	instanceVariableNames: 'contentType value'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Swazoo-Messages'!
-!classDefinition: 'SwazooAuthNonce class' category: #'Swazoo-Messages'!
-SwazooAuthNonce class
+!classDefinition: 'MimeObject class' category: #'Swazoo-Messages'!
+MimeObject class
 	instanceVariableNames: ''!
 
-!classDefinition: #SwazooBaseExtensionsTest category: #'Swazoo-Tests'!
-TestCase subclass: #SwazooBaseExtensionsTest
-	instanceVariableNames: ''
+!classDefinition: #HTTPPostDatum category: #'Swazoo-Messages'!
+MimeObject subclass: #HTTPPostDatum
+	instanceVariableNames: 'filename writeStream writeBlock'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Swazoo-Tests'!
-!classDefinition: 'SwazooBaseExtensionsTest class' category: #'Swazoo-Tests'!
-SwazooBaseExtensionsTest class
-	instanceVariableNames: ''!
-
-!classDefinition: #SwazooBenchmarks category: #'Swazoo-Tests'!
-Object subclass: #SwazooBenchmarks
-	instanceVariableNames: 'server content'
-	classVariableNames: 'Singleton'
-	poolDictionaries: ''
-	category: 'Swazoo-Tests'!
-!classDefinition: 'SwazooBenchmarks class' category: #'Swazoo-Tests'!
-SwazooBenchmarks class
+	category: 'Swazoo-Messages'!
+!classDefinition: 'HTTPPostDatum class' category: #'Swazoo-Messages'!
+HTTPPostDatum class
 	instanceVariableNames: ''!
 
 !classDefinition: #SwazooBuffer category: #'Swazoo-HTTP'!
@@ -740,14 +666,24 @@ ReadWriteStream subclass: #SwazooBuffer
 SwazooBuffer class
 	instanceVariableNames: ''!
 
-!classDefinition: #SwazooBufferTest category: #'Swazoo-Tests'!
-TestCase subclass: #SwazooBufferTest
-	instanceVariableNames: ''
+!classDefinition: #SwazooAuthNonce category: #'Swazoo-Messages'!
+Object subclass: #SwazooAuthNonce
+	instanceVariableNames: 'timestamp secret'
 	classVariableNames: ''
 	poolDictionaries: ''
+	category: 'Swazoo-Messages'!
+!classDefinition: 'SwazooAuthNonce class' category: #'Swazoo-Messages'!
+SwazooAuthNonce class
+	instanceVariableNames: ''!
+
+!classDefinition: #SwazooBenchmarks category: #'Swazoo-Tests'!
+Object subclass: #SwazooBenchmarks
+	instanceVariableNames: 'server content'
+	classVariableNames: 'Singleton'
+	poolDictionaries: ''
 	category: 'Swazoo-Tests'!
-!classDefinition: 'SwazooBufferTest class' category: #'Swazoo-Tests'!
-SwazooBufferTest class
+!classDefinition: 'SwazooBenchmarks class' category: #'Swazoo-Tests'!
+SwazooBenchmarks class
 	instanceVariableNames: ''!
 
 !classDefinition: #SwazooCacheControl category: #'Swazoo-Fileserver'!
@@ -760,16 +696,6 @@ Object subclass: #SwazooCacheControl
 SwazooCacheControl class
 	instanceVariableNames: ''!
 
-!classDefinition: #SwazooCacheControlTest category: #'Swazoo-Tests'!
-TestCase subclass: #SwazooCacheControlTest
-	instanceVariableNames: 'resource cacheTarget request cacheControl'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Tests'!
-!classDefinition: 'SwazooCacheControlTest class' category: #'Swazoo-Tests'!
-SwazooCacheControlTest class
-	instanceVariableNames: ''!
-
 !classDefinition: #SwazooCompiler category: #'Swazoo-Resources'!
 Object subclass: #SwazooCompiler
 	instanceVariableNames: 'accessor'
@@ -778,76 +704,6 @@ Object subclass: #SwazooCompiler
 	category: 'Swazoo-Resources'!
 !classDefinition: 'SwazooCompiler class' category: #'Swazoo-Resources'!
 SwazooCompiler class
-	instanceVariableNames: ''!
-
-!classDefinition: #SwazooCompilerTest category: #'Swazoo-Tests'!
-TestCase subclass: #SwazooCompilerTest
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Tests'!
-!classDefinition: 'SwazooCompilerTest class' category: #'Swazoo-Tests'!
-SwazooCompilerTest class
-	instanceVariableNames: ''!
-
-!classDefinition: #SwazooConfigurationTest category: #'Swazoo-Tests'!
-TestCase subclass: #SwazooConfigurationTest
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Tests'!
-!classDefinition: 'SwazooConfigurationTest class' category: #'Swazoo-Tests'!
-SwazooConfigurationTest class
-	instanceVariableNames: ''!
-
-!classDefinition: #SwazooHTTPParseError category: #'Swazoo-Exceptions'!
-SpError subclass: #SwazooHTTPParseError
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Exceptions'!
-!classDefinition: 'SwazooHTTPParseError class' category: #'Swazoo-Exceptions'!
-SwazooHTTPParseError class
-	instanceVariableNames: ''!
-
-!classDefinition: #SwazooHTTPRequestError category: #'Swazoo-Exceptions'!
-SpError subclass: #SwazooHTTPRequestError
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Exceptions'!
-!classDefinition: 'SwazooHTTPRequestError class' category: #'Swazoo-Exceptions'!
-SwazooHTTPRequestError class
-	instanceVariableNames: ''!
-
-!classDefinition: #SwazooHTTPPostError category: #'Swazoo-Exceptions'!
-SwazooHTTPRequestError subclass: #SwazooHTTPPostError
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Exceptions'!
-!classDefinition: 'SwazooHTTPPostError class' category: #'Swazoo-Exceptions'!
-SwazooHTTPPostError class
-	instanceVariableNames: ''!
-
-!classDefinition: #SwazooHTTPPutError category: #'Swazoo-Exceptions'!
-SwazooHTTPRequestError subclass: #SwazooHTTPPutError
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Exceptions'!
-!classDefinition: 'SwazooHTTPPutError class' category: #'Swazoo-Exceptions'!
-SwazooHTTPPutError class
-	instanceVariableNames: ''!
-
-!classDefinition: #SwazooHeaderFieldParseError category: #'Swazoo-Exceptions'!
-SpError subclass: #SwazooHeaderFieldParseError
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Exceptions'!
-!classDefinition: 'SwazooHeaderFieldParseError class' category: #'Swazoo-Exceptions'!
-SwazooHeaderFieldParseError class
 	instanceVariableNames: ''!
 
 !classDefinition: #SwazooMD5Digest category: #'Swazoo-Messages'!
@@ -880,56 +736,6 @@ SwazooResource subclass: #CompositeResource
 CompositeResource class
 	instanceVariableNames: ''!
 
-!classDefinition: #FileMappingResource category: #'Swazoo-Fileserver'!
-SwazooResource subclass: #FileMappingResource
-	instanceVariableNames: 'directoryIndex filePath'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Fileserver'!
-!classDefinition: 'FileMappingResource class' category: #'Swazoo-Fileserver'!
-FileMappingResource class
-	instanceVariableNames: ''!
-
-!classDefinition: #FileResource category: #'Swazoo-Fileserver'!
-FileMappingResource subclass: #FileResource
-	instanceVariableNames: ''
-	classVariableNames: 'ContentTypes'
-	poolDictionaries: ''
-	category: 'Swazoo-Fileserver'!
-!classDefinition: 'FileResource class' category: #'Swazoo-Fileserver'!
-FileResource class
-	instanceVariableNames: ''!
-
-!classDefinition: #HelloWorldResource category: #'Swazoo-Resources'!
-SwazooResource subclass: #HelloWorldResource
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Resources'!
-!classDefinition: 'HelloWorldResource class' category: #'Swazoo-Resources'!
-HelloWorldResource class
-	instanceVariableNames: ''!
-
-!classDefinition: #HomeResource category: #'Swazoo-Fileserver'!
-FileResource subclass: #HomeResource
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Fileserver'!
-!classDefinition: 'HomeResource class' category: #'Swazoo-Fileserver'!
-HomeResource class
-	instanceVariableNames: ''!
-
-!classDefinition: #RedirectionResource category: #'Swazoo-Resources'!
-SwazooResource subclass: #RedirectionResource
-	instanceVariableNames: 'targetUri'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Resources'!
-!classDefinition: 'RedirectionResource class' category: #'Swazoo-Resources'!
-RedirectionResource class
-	instanceVariableNames: ''!
-
 !classDefinition: #ServerRootComposite category: #'Swazoo-HTTP'!
 CompositeResource subclass: #ServerRootComposite
 	instanceVariableNames: ''
@@ -938,26 +744,6 @@ CompositeResource subclass: #ServerRootComposite
 	category: 'Swazoo-HTTP'!
 !classDefinition: 'ServerRootComposite class' category: #'Swazoo-HTTP'!
 ServerRootComposite class
-	instanceVariableNames: ''!
-
-!classDefinition: #SwazooServer category: #'Swazoo-Core'!
-Object subclass: #SwazooServer
-	instanceVariableNames: 'sites servers other'
-	classVariableNames: 'Singleton'
-	poolDictionaries: ''
-	category: 'Swazoo-Core'!
-!classDefinition: 'SwazooServer class' category: #'Swazoo-Core'!
-SwazooServer class
-	instanceVariableNames: ''!
-
-!classDefinition: #SwazooServerTest category: #'Swazoo-Tests'!
-TestCase subclass: #SwazooServerTest
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Tests'!
-!classDefinition: 'SwazooServerTest class' category: #'Swazoo-Tests'!
-SwazooServerTest class
 	instanceVariableNames: ''!
 
 !classDefinition: #SwazooSite category: #'Swazoo-Core'!
@@ -980,14 +766,64 @@ SwazooSite subclass: #SwazooDemoSite
 SwazooDemoSite class
 	instanceVariableNames: ''!
 
-!classDefinition: #SwazooSiteError category: #'Swazoo-Exceptions'!
-SpError subclass: #SwazooSiteError
+!classDefinition: #FileMappingResource category: #'Swazoo-Fileserver'!
+SwazooResource subclass: #FileMappingResource
+	instanceVariableNames: 'directoryIndex filePath'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Fileserver'!
+!classDefinition: 'FileMappingResource class' category: #'Swazoo-Fileserver'!
+FileMappingResource class
+	instanceVariableNames: ''!
+
+!classDefinition: #FileResource category: #'Swazoo-Fileserver'!
+FileMappingResource subclass: #FileResource
+	instanceVariableNames: ''
+	classVariableNames: 'ContentTypes'
+	poolDictionaries: ''
+	category: 'Swazoo-Fileserver'!
+!classDefinition: 'FileResource class' category: #'Swazoo-Fileserver'!
+FileResource class
+	instanceVariableNames: ''!
+
+!classDefinition: #HomeResource category: #'Swazoo-Fileserver'!
+FileResource subclass: #HomeResource
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Swazoo-Exceptions'!
-!classDefinition: 'SwazooSiteError class' category: #'Swazoo-Exceptions'!
-SwazooSiteError class
+	category: 'Swazoo-Fileserver'!
+!classDefinition: 'HomeResource class' category: #'Swazoo-Fileserver'!
+HomeResource class
+	instanceVariableNames: ''!
+
+!classDefinition: #HelloWorldResource category: #'Swazoo-Resources'!
+SwazooResource subclass: #HelloWorldResource
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Resources'!
+!classDefinition: 'HelloWorldResource class' category: #'Swazoo-Resources'!
+HelloWorldResource class
+	instanceVariableNames: ''!
+
+!classDefinition: #RedirectionResource category: #'Swazoo-Resources'!
+SwazooResource subclass: #RedirectionResource
+	instanceVariableNames: 'targetUri'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Resources'!
+!classDefinition: 'RedirectionResource class' category: #'Swazoo-Resources'!
+RedirectionResource class
+	instanceVariableNames: ''!
+
+!classDefinition: #SwazooServer category: #'Swazoo-Core'!
+Object subclass: #SwazooServer
+	instanceVariableNames: 'sites servers other'
+	classVariableNames: 'Singleton'
+	poolDictionaries: ''
+	category: 'Swazoo-Core'!
+!classDefinition: 'SwazooServer class' category: #'Swazoo-Core'!
+SwazooServer class
 	instanceVariableNames: ''!
 
 !classDefinition: #SwazooSocket category: #'Swazoo-HTTP'!
@@ -1000,16 +836,6 @@ Object subclass: #SwazooSocket
 SwazooSocket class
 	instanceVariableNames: ''!
 
-!classDefinition: #SwazooSocketTest category: #'Swazoo-Tests'!
-TestCase subclass: #SwazooSocketTest
-	instanceVariableNames: 'input output'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Tests'!
-!classDefinition: 'SwazooSocketTest class' category: #'Swazoo-Tests'!
-SwazooSocketTest class
-	instanceVariableNames: ''!
-
 !classDefinition: #SwazooStream category: #'Swazoo-HTTP'!
 Object subclass: #SwazooStream
 	instanceVariableNames: 'socket readBuffer writeBuffer chunked'
@@ -1018,26 +844,6 @@ Object subclass: #SwazooStream
 	category: 'Swazoo-HTTP'!
 !classDefinition: 'SwazooStream class' category: #'Swazoo-HTTP'!
 SwazooStream class
-	instanceVariableNames: ''!
-
-!classDefinition: #SwazooStreamNoDataError category: #'Swazoo-Exceptions'!
-SpError subclass: #SwazooStreamNoDataError
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Exceptions'!
-!classDefinition: 'SwazooStreamNoDataError class' category: #'Swazoo-Exceptions'!
-SwazooStreamNoDataError class
-	instanceVariableNames: ''!
-
-!classDefinition: #SwazooStreamTest category: #'Swazoo-Tests'!
-TestCase subclass: #SwazooStreamTest
-	instanceVariableNames: 'input output'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Tests'!
-!classDefinition: 'SwazooStreamTest class' category: #'Swazoo-Tests'!
-SwazooStreamTest class
 	instanceVariableNames: ''!
 
 !classDefinition: #SwazooTask category: #'Swazoo-Messages'!
@@ -1060,6 +866,226 @@ Object subclass: #SwazooURI
 SwazooURI class
 	instanceVariableNames: ''!
 
+!classDefinition: #SwazooWebSocket category: #'Swazoo-HTTP'!
+Object subclass: #SwazooWebSocket
+	instanceVariableNames: 'version connection recBlock'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-HTTP'!
+!classDefinition: 'SwazooWebSocket class' category: #'Swazoo-HTTP'!
+SwazooWebSocket class
+	instanceVariableNames: ''!
+
+!classDefinition: #CompositeResourceTest category: #'Swazoo-Tests'!
+TestCase subclass: #CompositeResourceTest
+	instanceVariableNames: 'composite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Tests'!
+!classDefinition: 'CompositeResourceTest class' category: #'Swazoo-Tests'!
+CompositeResourceTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #FileResourceTest category: #'Swazoo-Tests'!
+TestCase subclass: #FileResourceTest
+	instanceVariableNames: 'resource'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Tests'!
+!classDefinition: 'FileResourceTest class' category: #'Swazoo-Tests'!
+FileResourceTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #HTTPPostTest category: #'Swazoo-Tests'!
+TestCase subclass: #HTTPPostTest
+	instanceVariableNames: 'request'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Tests'!
+!classDefinition: 'HTTPPostTest class' category: #'Swazoo-Tests'!
+HTTPPostTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #HTTPRequestTest category: #'Swazoo-Tests'!
+TestCase subclass: #HTTPRequestTest
+	instanceVariableNames: 'request'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Tests'!
+!classDefinition: 'HTTPRequestTest class' category: #'Swazoo-Tests'!
+HTTPRequestTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #HTTPResponseTest category: #'Swazoo-Tests'!
+TestCase subclass: #HTTPResponseTest
+	instanceVariableNames: 'response'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Tests'!
+!classDefinition: 'HTTPResponseTest class' category: #'Swazoo-Tests'!
+HTTPResponseTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #HTTPServerTest category: #'Swazoo-Tests'!
+TestCase subclass: #HTTPServerTest
+	instanceVariableNames: 'server stream'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Tests'!
+!classDefinition: 'HTTPServerTest class' category: #'Swazoo-Tests'!
+HTTPServerTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #HeaderFieldTest category: #'Swazoo-Tests'!
+TestCase subclass: #HeaderFieldTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Tests'!
+!classDefinition: 'HeaderFieldTest class' category: #'Swazoo-Tests'!
+HeaderFieldTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #HelloWorldResourceTest category: #'Swazoo-Tests'!
+TestCase subclass: #HelloWorldResourceTest
+	instanceVariableNames: 'hello'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Tests'!
+!classDefinition: 'HelloWorldResourceTest class' category: #'Swazoo-Tests'!
+HelloWorldResourceTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #HomeResourceTest category: #'Swazoo-Tests'!
+TestCase subclass: #HomeResourceTest
+	instanceVariableNames: 'resource'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Tests'!
+!classDefinition: 'HomeResourceTest class' category: #'Swazoo-Tests'!
+HomeResourceTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #RedirectionResourceTest category: #'Swazoo-Tests'!
+TestCase subclass: #RedirectionResourceTest
+	instanceVariableNames: 'resource'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Tests'!
+!classDefinition: 'RedirectionResourceTest class' category: #'Swazoo-Tests'!
+RedirectionResourceTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #ResourceTest category: #'Swazoo-Tests'!
+TestCase subclass: #ResourceTest
+	instanceVariableNames: 'resource'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Tests'!
+!classDefinition: 'ResourceTest class' category: #'Swazoo-Tests'!
+ResourceTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #SiteIdentifierTest category: #'Swazoo-Tests'!
+TestCase subclass: #SiteIdentifierTest
+	instanceVariableNames: 'identifier'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Tests'!
+!classDefinition: 'SiteIdentifierTest class' category: #'Swazoo-Tests'!
+SiteIdentifierTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #SiteTest category: #'Swazoo-Tests'!
+TestCase subclass: #SiteTest
+	instanceVariableNames: 'site'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Tests'!
+!classDefinition: 'SiteTest class' category: #'Swazoo-Tests'!
+SiteTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #SwazooBaseExtensionsTest category: #'Swazoo-Tests'!
+TestCase subclass: #SwazooBaseExtensionsTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Tests'!
+!classDefinition: 'SwazooBaseExtensionsTest class' category: #'Swazoo-Tests'!
+SwazooBaseExtensionsTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #SwazooBufferTest category: #'Swazoo-Tests'!
+TestCase subclass: #SwazooBufferTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Tests'!
+!classDefinition: 'SwazooBufferTest class' category: #'Swazoo-Tests'!
+SwazooBufferTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #SwazooCacheControlTest category: #'Swazoo-Tests'!
+TestCase subclass: #SwazooCacheControlTest
+	instanceVariableNames: 'resource cacheTarget request cacheControl'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Tests'!
+!classDefinition: 'SwazooCacheControlTest class' category: #'Swazoo-Tests'!
+SwazooCacheControlTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #SwazooCompilerTest category: #'Swazoo-Tests'!
+TestCase subclass: #SwazooCompilerTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Tests'!
+!classDefinition: 'SwazooCompilerTest class' category: #'Swazoo-Tests'!
+SwazooCompilerTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #SwazooConfigurationTest category: #'Swazoo-Tests'!
+TestCase subclass: #SwazooConfigurationTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Tests'!
+!classDefinition: 'SwazooConfigurationTest class' category: #'Swazoo-Tests'!
+SwazooConfigurationTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #SwazooServerTest category: #'Swazoo-Tests'!
+TestCase subclass: #SwazooServerTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Tests'!
+!classDefinition: 'SwazooServerTest class' category: #'Swazoo-Tests'!
+SwazooServerTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #SwazooSocketTest category: #'Swazoo-Tests'!
+TestCase subclass: #SwazooSocketTest
+	instanceVariableNames: 'input output'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Tests'!
+!classDefinition: 'SwazooSocketTest class' category: #'Swazoo-Tests'!
+SwazooSocketTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #SwazooStreamTest category: #'Swazoo-Tests'!
+TestCase subclass: #SwazooStreamTest
+	instanceVariableNames: 'input output'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Tests'!
+!classDefinition: 'SwazooStreamTest class' category: #'Swazoo-Tests'!
+SwazooStreamTest class
+	instanceVariableNames: ''!
+
 !classDefinition: #SwazooURITest category: #'Swazoo-Tests'!
 TestCase subclass: #SwazooURITest
 	instanceVariableNames: 'fooURI barURI queryURI'
@@ -1070,14 +1096,34 @@ TestCase subclass: #SwazooURITest
 SwazooURITest class
 	instanceVariableNames: ''!
 
-!classDefinition: #SwazooWebSocket category: #'Swazoo-HTTP'!
-Object subclass: #SwazooWebSocket
-	instanceVariableNames: 'version connection recBlock'
+!classDefinition: #URIParsingTest category: #'Swazoo-Tests'!
+TestCase subclass: #URIParsingTest
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Swazoo-HTTP'!
-!classDefinition: 'SwazooWebSocket class' category: #'Swazoo-HTTP'!
-SwazooWebSocket class
+	category: 'Swazoo-Tests'!
+!classDefinition: 'URIParsingTest class' category: #'Swazoo-Tests'!
+URIParsingTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #URIResolutionTest category: #'Swazoo-Tests'!
+TestCase subclass: #URIResolutionTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Tests'!
+!classDefinition: 'URIResolutionTest class' category: #'Swazoo-Tests'!
+URIResolutionTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #WebSocketTest category: #'Swazoo-Tests'!
+TestCase subclass: #WebSocketTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Swazoo-Tests'!
+!classDefinition: 'WebSocketTest class' category: #'Swazoo-Tests'!
+WebSocketTest class
 	instanceVariableNames: ''!
 
 !classDefinition: #TestPseudoSocket category: #'Swazoo-Tests'!
@@ -1110,16 +1156,6 @@ URIIdentifier subclass: #SiteIdentifier
 SiteIdentifier class
 	instanceVariableNames: ''!
 
-!classDefinition: #URIParsingTest category: #'Swazoo-Tests'!
-TestCase subclass: #URIParsingTest
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Tests'!
-!classDefinition: 'URIParsingTest class' category: #'Swazoo-Tests'!
-URIParsingTest class
-	instanceVariableNames: ''!
-
 !classDefinition: #URIResolution category: #'Swazoo-HTTP'!
 Object subclass: #URIResolution
 	instanceVariableNames: 'position request'
@@ -1130,44 +1166,19 @@ Object subclass: #URIResolution
 URIResolution class
 	instanceVariableNames: ''!
 
-!classDefinition: #URIResolutionTest category: #'Swazoo-Tests'!
-TestCase subclass: #URIResolutionTest
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Tests'!
-!classDefinition: 'URIResolutionTest class' category: #'Swazoo-Tests'!
-URIResolutionTest class
-	instanceVariableNames: ''!
 
-!classDefinition: #WebSocketConnection category: #'Swazoo-HTTP'!
-HTTPConnection subclass: #WebSocketConnection
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-HTTP'!
-!classDefinition: 'WebSocketConnection class' category: #'Swazoo-HTTP'!
-WebSocketConnection class
-	instanceVariableNames: ''!
+!HTTPException commentStamp: '<historical>' prior: 0!
+HTTPException immediatelly returns attached HTTP response to client. That way it is easier to respond with different status codes (like 201 Created). Not only error ones!! You can respond somewhere deeply in code of your resource with raising that exception and adding a prepared HTTPResponse. 
+This exception is non-resumable!!
 
-!classDefinition: #WebSocketTest category: #'Swazoo-Tests'!
-TestCase subclass: #WebSocketTest
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Swazoo-Tests'!
-!classDefinition: 'WebSocketTest class' category: #'Swazoo-Tests'!
-WebSocketTest class
-	instanceVariableNames: ''!
+Example of ways to raise http response (200 Ok):
 
+	HTTPException raiseResponse: (HTTPResponse new code: 200).
+	HTTPException raiseResponseCode: 200.
+	HTTPException ok.
 
-!HTTPConnectionField commentStamp: '<historical>' prior: 0!
-c.f. RFC 2616 14.10
-
-   The Connection header has the following grammar:
-
-       Connection = "Connection" ":" 1#(connection-token)
-       connection-token  = token
+Instance Variables:
+	response	<HTTPResponse>	a response to be sent to client
 
 !
 
@@ -1186,40 +1197,6 @@ The DELETE method requests that the origin server delete the resource
    intends to delete the resource or move it to an inaccessible
    location.
  ...
-!
-
-!HTTPETagField commentStamp: '<historical>' prior: 0!
-RFC 2626 14.19 ETag
-
-   The ETag response-header field provides the current value of the
-   entity tag for the requested variant. The headers used with entity
-   tags are described in sections 14.24, 14.26 and 14.44. The entity tag
-   MAY be used for comparison with other entities from the same resource
-   (see section 13.3.3).
-
-      ETag = "ETag" ":" entity-tag
-
-   Examples:
-
-      ETag: "xyzzy"
-      ETag: W/"xyzzy"
-      ETag: ""
-
-!
-
-!HTTPException commentStamp: '<historical>' prior: 0!
-HTTPException immediatelly returns attached HTTP response to client. That way it is easier to respond with different status codes (like 201 Created). Not only error ones!! You can respond somewhere deeply in code of your resource with raising that exception and adding a prepared HTTPResponse. 
-This exception is non-resumable!!
-
-Example of ways to raise http response (200 Ok):
-
-	HTTPException raiseResponse: (HTTPResponse new code: 200).
-	HTTPException raiseResponseCode: 200.
-	HTTPException ok.
-
-Instance Variables:
-	response	<HTTPResponse>	a response to be sent to client
-
 !
 
 !HTTPGet commentStamp: '<historical>' prior: 0!
@@ -1247,6 +1224,132 @@ rfc26216 section 9.4
    request without transferring the entity-body itself. This method is
    often used for testing hypertext links for validity, accessibility,
    and recent modification.
+
+!
+
+!HTTPOptions commentStamp: '<historical>' prior: 0!
+HTTPOptions
+
+rfc26216 section 9.2
+
+   The OPTIONS method represents a request for information about the
+   communication options available on the request/response chain
+   identified by the Request-URI. This method allows the client to
+   determine the options and/or requirements associated with a resource,
+   or the capabilities of a server, without implying a resource action
+   or initiating a resource retrieval.
+
+!
+
+!HTTPPost commentStamp: '<historical>' prior: 0!
+HTTPPost 
+
+rfc26216 section 9.5
+
+   The POST method is used to request that the origin server accept the
+   entity enclosed in the request as a new subordinate of the resource
+   identified by the Request-URI in the Request-Line.
+
+Instance Variables:
+	entityBody	<>	
+	postData	<HTTPPostDataArray>	
+
+!
+
+!HTTPPut commentStamp: '<historical>' prior: 0!
+HTTPPut 
+
+rfc26216 section 9.6
+
+   The PUT method requests that the enclosed entity be stored under the
+   supplied Request-URI. If the Request-URI refers to an already
+   existing resource, the enclosed entity SHOULD be considered as a
+   modified version of the one residing on the origin server. If the
+   Request-URI does not point to an existing resource, and that URI is
+   capable of being defined as a new resource by the requesting user
+   agent, the origin server can create the resource with that URI. If a
+   new resource is created, the origin server MUST inform the user agent
+   via the 201 (Created) response. If an existing resource is modified,
+   either the 200 (OK) or 204 (No Content) response codes SHOULD be sent
+   to indicate successful completion of the request. If the resource
+   could not be created or modified with the Request-URI, an appropriate
+   error response SHOULD be given that reflects the nature of the
+   problem. The recipient of the entity MUST NOT ignore any Content-*
+   (e.g. Content-Range) headers that it does not understand or implement
+   and MUST return a 501 (Not Implemented) response in such cases.
+
+Instance Variables:
+	putData	<>	
+
+!
+
+!HTTPTrace commentStamp: '<historical>' prior: 0!
+HTTPTrace 
+
+rfc26216 section 9.8
+
+   The TRACE method is used to invoke a remote, application-layer loop-
+   back of the request message. The final recipient of the request
+   SHOULD reflect the message received back to the client as the
+   entity-body of a 200 (OK) response
+!
+
+!HTTPStreamedResponse commentStamp: 'mivsek 12/31/2007 15:41' prior: 0!
+HTTPStreamedResponse 
+
+HTTP/1.1 	no length   	chunked
+HTTP/1.1	length		streamed directly, with contentLength
+HTTP/1.0	no length   	simulated streaming: into entity first, then sent as normal response (not yet impl.)
+HTTP/1.0  	length 		streamed directly, with content length
+
+Instance Variables:
+	stream		<SwazooStream> where to stream a response
+	count		<Integer> 		how many bytes already streamed
+	length		<Integer>		announced length of response, optional
+	state		<Symbol>		#header #streaming #closed			
+	semaphore	<Semaphore>	to signal end of response
+
+!
+
+!HTTPPostDataArray commentStamp: '<historical>' prior: 0!
+Introduced the HTTPPostDataArray to hold post data in an HTTPRequest in place of a Dictionary.  This is because it is legal for there to be more than one entry with the same name (key) and using a Dictionary  looses data (!!).
+
+Instance Variables:
+	underlyingCollection	<>	
+
+!
+
+!HTTPString commentStamp: '<historical>' prior: 0!
+This class contains some utility methods that were previously implemented as extentions to system classes.  This is really a stop-gap until, perhaps, the SwazooStream yeilds HTTPStrings.
+
+!
+
+!HTTPConnectionField commentStamp: '<historical>' prior: 0!
+c.f. RFC 2616 14.10
+
+   The Connection header has the following grammar:
+
+       Connection = "Connection" ":" 1#(connection-token)
+       connection-token  = token
+
+!
+
+!HTTPETagField commentStamp: '<historical>' prior: 0!
+RFC 2626 14.19 ETag
+
+   The ETag response-header field provides the current value of the
+   entity tag for the requested variant. The headers used with entity
+   tags are described in sections 14.24, 14.26 and 14.44. The entity tag
+   MAY be used for comparison with other entities from the same resource
+   (see section 13.3.3).
+
+      ETag = "ETag" ":" entity-tag
+
+   Examples:
+
+      ETag: "xyzzy"
+      ETag: W/"xyzzy"
+      ETag: ""
 
 !
 
@@ -1383,70 +1486,6 @@ From RFC 2616:
    either an If-Match or an If-Unmodified-Since header fields is
    undefined by this specification.!
 
-!HTTPOptions commentStamp: '<historical>' prior: 0!
-HTTPOptions
-
-rfc26216 section 9.2
-
-   The OPTIONS method represents a request for information about the
-   communication options available on the request/response chain
-   identified by the Request-URI. This method allows the client to
-   determine the options and/or requirements associated with a resource,
-   or the capabilities of a server, without implying a resource action
-   or initiating a resource retrieval.
-
-!
-
-!HTTPPost commentStamp: '<historical>' prior: 0!
-HTTPPost 
-
-rfc26216 section 9.5
-
-   The POST method is used to request that the origin server accept the
-   entity enclosed in the request as a new subordinate of the resource
-   identified by the Request-URI in the Request-Line.
-
-Instance Variables:
-	entityBody	<>	
-	postData	<HTTPPostDataArray>	
-
-!
-
-!HTTPPostDataArray commentStamp: '<historical>' prior: 0!
-Introduced the HTTPPostDataArray to hold post data in an HTTPRequest in place of a Dictionary.  This is because it is legal for there to be more than one entry with the same name (key) and using a Dictionary  looses data (!!).
-
-Instance Variables:
-	underlyingCollection	<>	
-
-!
-
-!HTTPPut commentStamp: '<historical>' prior: 0!
-HTTPPut 
-
-rfc26216 section 9.6
-
-   The PUT method requests that the enclosed entity be stored under the
-   supplied Request-URI. If the Request-URI refers to an already
-   existing resource, the enclosed entity SHOULD be considered as a
-   modified version of the one residing on the origin server. If the
-   Request-URI does not point to an existing resource, and that URI is
-   capable of being defined as a new resource by the requesting user
-   agent, the origin server can create the resource with that URI. If a
-   new resource is created, the origin server MUST inform the user agent
-   via the 201 (Created) response. If an existing resource is modified,
-   either the 200 (OK) or 204 (No Content) response codes SHOULD be sent
-   to indicate successful completion of the request. If the resource
-   could not be created or modified with the Request-URI, an appropriate
-   error response SHOULD be given that reflects the nature of the
-   problem. The recipient of the entity MUST NOT ignore any Content-*
-   (e.g. Content-Range) headers that it does not understand or implement
-   and MUST return a 501 (Not Implemented) response in such cases.
-
-Instance Variables:
-	putData	<>	
-
-!
-
 !HTTPRefererField commentStamp: '<historical>' prior: 0!
 RFC 2616: 14.36 Referer
 
@@ -1472,39 +1511,6 @@ RFC 2616: 14.36 Referer
 
 !
 
-!HTTPStreamedResponse commentStamp: 'mivsek 12/31/2007 15:41' prior: 0!
-HTTPStreamedResponse 
-
-HTTP/1.1 	no length   	chunked
-HTTP/1.1	length		streamed directly, with contentLength
-HTTP/1.0	no length   	simulated streaming: into entity first, then sent as normal response (not yet impl.)
-HTTP/1.0  	length 		streamed directly, with content length
-
-Instance Variables:
-	stream		<SwazooStream> where to stream a response
-	count		<Integer> 		how many bytes already streamed
-	length		<Integer>		announced length of response, optional
-	state		<Symbol>		#header #streaming #closed			
-	semaphore	<Semaphore>	to signal end of response
-
-!
-
-!HTTPString commentStamp: '<historical>' prior: 0!
-This class contains some utility methods that were previously implemented as extentions to system classes.  This is really a stop-gap until, perhaps, the SwazooStream yeilds HTTPStrings.
-
-!
-
-!HTTPTrace commentStamp: '<historical>' prior: 0!
-HTTPTrace 
-
-rfc26216 section 9.8
-
-   The TRACE method is used to invoke a remote, application-layer loop-
-   back of the request message. The final recipient of the request
-   SHOULD reflect the message received back to the client as the
-   entity-body of a 200 (OK) response
-!
-
 !HTTPUserAgentField commentStamp: '<historical>' prior: 0!
 RFC 2616: 14.43 User-Agent
 
@@ -1525,11 +1531,6 @@ RFC 2616: 14.43 User-Agent
 
        User-Agent: CERN-LineMode/2.15 libwww/2.17b3!
 
-!SwazooBenchmarks commentStamp: '<historical>' prior: 0!
-SwazooBenchmarks stores several benchmarks and performance routines
-
-!
-
 !SwazooBuffer commentStamp: 'janko 7/26/2008 18:23' prior: 0!
 SwazooBuffer is used for efficient buffering of receiving or sending data to TCP socket. Efficiency is achieved with reusing of stream content array instead of initializing it everytime buffer is emptied, as was in previous Swazoo versions. 
 
@@ -1537,8 +1538,16 @@ SwazooBuffer is a subclass of ReadWriteStream, with additional #clear to empty b
 
 !
 
+!SwazooBenchmarks commentStamp: '<historical>' prior: 0!
+SwazooBenchmarks stores several benchmarks and performance routines
+
+!
+
 !SwazooResource commentStamp: 'JM 6/6/2007 13:49' prior: 0!
 Resource is an abstract class for all so called web resources. Such resource has its url address and can serve with responding to web requests. Every resource need to #answerTo: aHTTPRequest with aHTTPResponse. Site is a subclass of a Resource. You can subclass it with your own implementation. There is also a CompositeResource, which can hold many subresources. Site is also aCopmpositeResource and therefore you can add your own resources to your site.!
+
+!SwazooSite commentStamp: 'JM 6/6/2007 13:49' prior: 0!
+Site : Swazoo can serve many sites at once (virtual sites). Class Site is therefore a main class to start configuring your server. It holds an IP, port and hostname of your site.!
 
 !SwazooServer commentStamp: 'mivsek 12/31/2007 16:37' prior: 0!
 SwazooServer is where all begins in Swazoo!!
@@ -1546,9 +1555,6 @@ SwazooServer singleton : return one and only one server which holds the Sites. A
 
 SwazooServer demoStart  will create and run a demo site on http://localhost:8888 which 
                               returns a web page with 'Hello World!!'!
-
-!SwazooSite commentStamp: 'JM 6/6/2007 13:49' prior: 0!
-Site : Swazoo can serve many sites at once (virtual sites). Class Site is therefore a main class to start configuring your server. It holds an IP, port and hostname of your site.!
 
 !SwazooTask commentStamp: '<historical>' prior: 0!
 A SwazooTask is simply a request-response pair.  This class just makes the task (ha!!) of dealing with requests and responses a bit easier.!
@@ -1561,731 +1567,379 @@ TestPseudoSocket is a drop in replacement for a SwazooSocket that can be used du
 
 So, to the HTTP server it must look like a server socket.  To the tester it must look like a write stream (to send bytes to the HTTP server) and a read stream (to read the HTTP responses).!
 
-!CompositeResource methodsFor: 'adding/removing' stamp: ' 14/4/07 23:09'!
-addResource: aResource
-	self children add: aResource.
-	aResource parent: self.
-	aResource onResourceCreated.
-	^aResource! !
+!String methodsFor: '*Swazoo' stamp: 'janko 10/31/2012 17:25'!
+tokensBasedOn: aChar
+	"Answer an array of the substrings that compose the receiver."
+	| result end begin |
+	result := WriteStream on: (Array new: 10).
+	begin := 1.
+	"find one substring each time through this loop"
+	"find the beginning of the next substring"
+	[end := self indexOf: aChar startingAt: begin ifAbsent: [ nil ].
+	end ~~ nil ]
+		whileTrue: [
+			result nextPut: (self copyFrom: begin to: end - 1).
+			begin := end + 1].
+	result nextPut: (self copyFrom: begin to: self size).
+	^result contents 
 
-!CompositeResource methodsFor: 'adding/removing' stamp: ' 14/4/07 23:09'!
-addResources: anOrderedCollection
-	anOrderedCollection do: [ :each |
-		self addResource: each].
-	^anOrderedCollection! !
+" '12, 34, 56' tokensBasedOn: $, "! !
 
-!CompositeResource methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
-children
-	children isNil ifTrue: [self initChildren].
-	^children! !
+!SpEnvironment class methodsFor: '*Swazoo-Extensions-testing' stamp: 'janko 10/31/2012 19:25'!
+onUnix
+	"we are running on Unix, yes or no?"
+	^Smalltalk os platformName = 'unix'! !
 
-!CompositeResource methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
-currentUrl
-	| string |
-	string := super currentUrl.
-	^string last = $/
-		ifTrue: [string]
-		ifFalse: [string , '/']! !
+!SpEnvironment class methodsFor: '*Swazoo-Extensions-testing' stamp: 'gsa 1/10/2013 19:17'!
+onWindows
+	"we are running on Windows, yes or no?"
+	"^Smalltalk os platformName asLowercase = 'win32'"
+	"GSA 10/01/2013 Cuis adaptation"
+	^Smalltalk platformName asLowercase = 'win32'! !
 
-!CompositeResource methodsFor: 'testing' stamp: ' 14/4/07 23:09'!
-hasNoResources
-	^self children isEmpty! !
+!SpFileStream methodsFor: '*Swazoo' stamp: 'janko 10/30/2012 10:57'!
+nextAvailable: aNumber
 
-!CompositeResource methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
-helpResolve: aResolution 
-	^aResolution resolveCompositeResource: self! !
+    ^underlyingStream nextAvailable: aNumber! !
 
-!CompositeResource methodsFor: 'testing' stamp: ' 14/4/07 23:09'!
-includesResource: aResource
-	^self children includes: aResource.! !
+!SpFilename methodsFor: '*Swazoo-accessing' stamp: 'pete 5/28/2008 15:11'!
+asAbsoluteFilename
+	"Answer a Filename pointing to the same file using absolute path.
+	The method may answer the receiver it it is already absolute."
 
-!CompositeResource methodsFor: 'initialize-release' stamp: ' 14/4/07 23:09'!
-initChildren
-	children := OrderedCollection new.! !
+	^self isAbsolute
+		ifTrue: [self]
+		ifFalse: [self class named: 
+			(FileDirectory default pathName, (String with: self separator), 
+				(SpEnvironment onWindows
+					ifTrue: [self asString copyReplaceAll: '.\' with: ''] "windows only"
+					ifFalse: [self asString copyReplaceAll: './' with: ''] "unix only!!"))]! !
 
-!CompositeResource methodsFor: 'initialize-release' stamp: ' 14/4/07 23:09'!
-initialize
-	super initialize.
-	self initChildren! !
-
-!CompositeResource methodsFor: 'testing' stamp: ' 14/4/07 23:09'!
-isRootPath
-	^self uriPattern = '/'! !
-
-!CompositeResource methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
-printUrlOn: aWriteStream 
-	super printUrlOn: aWriteStream.
-	self isRootPath ifFalse: [aWriteStream nextPut: $/]! !
-
-!CompositeResource methodsFor: 'adding/removing' stamp: ' 14/4/07 23:09'!
-removeResource: aResource
-	self children remove: aResource ifAbsent: [nil]! !
-
-!CompositeResourceTest methodsFor: 'testing' stamp: 'jm 2/8/2009 13:52'!
-sampleInSite
-	| site |
-	site := SwazooSite new.
-	site host: 'swazoo.org' ip: '127.0.0.1' port: 8200.
-	site addResource: composite! !
-
-!CompositeResourceTest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
-setUp
-	composite := CompositeResource uriPattern: '/'! !
-
-!CompositeResourceTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testAddResource
-	| child |
-	composite addResource: (child := HelloWorldResource uriPattern: 'hello.html').
-	self assert: composite children size = 1.
-	self assert: composite children first == child.
-	self assert: child parent == composite! !
-
-!CompositeResourceTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testAddResources
-	| child1 child2 |
-	child1 := HelloWorldResource uriPattern: 'hello1.html'.
-	child2 := HelloWorldResource uriPattern: 'hello2.html'.
-	composite addResources: (Array with: child1 with: child2).
-	self assert: composite children size = 2.
-	composite children
-		do: 
-			[:each | 
-			self assert: (composite children includes: each).
-			self assert: each parent == composite]! !
-
-!CompositeResourceTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testCurrentUrl
-	| child leaf |	
-	self sampleInSite.
-	self assert: composite currentUrl = 'http://swazoo.org:8200/'.
-	composite addResource: (child := CompositeResource uriPattern: 'foo').
-	self assert: child currentUrl = 'http://swazoo.org:8200/foo/'.
-	child addResource: (leaf := HelloWorldResource uriPattern: 'hi.html').
-	self assert: leaf currentUrl = 'http://swazoo.org:8200/foo/hi.html'.! !
-
-!CompositeResourceTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testEmptyURIPatternInvalid
-	composite uriPattern: ''.
-	self deny: composite isValidlyConfigured! !
-
-!CompositeResourceTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testNilURIPatternDoesNothing
-	| pattern |
-	pattern := composite uriPattern.
-	composite uriPattern: nil.
-	self assert: composite uriPattern = pattern! !
-
-!CompositeResourceTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testValidlyConfigured
-	self assert: composite isValidlyConfigured! !
-
-!ContentDispositionField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-isContentDisposition
-	^true! !
-
-!ContentDispositionField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
-parameterAt: aString 
-	^parameters at: aString ifAbsent: [nil]! !
-
-!ContentDispositionField methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-parseValueFrom: aString 
-	| sourceStream |
-	sourceStream := aString readStream.
-	type := HTTPString trimBlanksFrom: (sourceStream upTo: $;).
-	parameters := self readParametersFrom: sourceStream.
+!SpFilename methodsFor: '*Swazoo-accessing' stamp: 'JM 4/18/2007 12:34'!
+asFilename
 	^self! !
 
-!ContentDispositionField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'Content-Disposition'! !
+!SpFilename methodsFor: '*Swazoo-private' stamp: 'JM 4/18/2007 15:29'!
+construct: extraFn
+	"Make a new instance, treating the receiver as a directory, and
+	the string argument as a file within the pathname."
 
-!ContentTypeField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-defaultMediaType
-	"^a String
-See RFC 2616 '7.2.1 Type'.  If no media type is specified, application/octet-stream is the default."
+	^self class named: (self filename, (String with: self separator), extraFn)! !
 
-	^'application/octet-stream'! !
-
-!ContentTypeField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-isContentType
-	^true! !
-
-!ContentTypeField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-mediaType
-	^mediaType isNil ifTrue: [self defaultMediaType] ifFalse: [mediaType]! !
-
-!ContentTypeField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-mediaType: aString 
-	mediaType := aString.
-	^self! !
-
-!ContentTypeField methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-parseValueFrom: aString 
-	| sourceStream |
-	sourceStream := aString readStream.
-	mediaType := (HTTPString trimBlanksFrom: (sourceStream upTo: $;)).
-	transferCodings := self readParametersFrom: sourceStream.
-	^self! !
-
-!ContentTypeField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-transferCodings
-	transferCodings isNil ifTrue: [transferCodings := String new].
-	^transferCodings! !
-
-!ContentTypeField methodsFor: 'printing' stamp: 'mivsek 9/28/2007 22:57'!
-valuesAsStringOn: aStream 
-	aStream nextPutAll: self mediaType.
-	self transferCodings isEmpty ifFalse: 
-		[self transferCodings keysAndValuesDo: 
-			[:name :value | 
-			aStream
-				nextPutAll: ' ';
-				nextPutAll: name;
-				nextPut: $=;
-				nextPutAll: value]].
-	^self! !
-
-!ContentTypeField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'Content-Type'! !
-
-!FileMappingResource methodsFor: 'serving' stamp: ' 14/4/07 23:10'!
-answerTo: aRequest 
-	(self checkExistence: aRequest) ifFalse: [^nil].
-	(self checkURI: aRequest) 
-		ifFalse: 
-			[| response |
-			response := HTTPResponse movedPermanently.
-			response headers 
-				addField: (HTTPLocationField new uriString: aRequest uri identifier , '/').
-			^response].
-	^self file: (self fileFor: aRequest) answerTo: aRequest! !
-
-!FileMappingResource methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-checkExistence: aRequest 
-	(self rootFileFor: aRequest) exists ifFalse: [^false].
-	^(self fileFor: aRequest) exists! !
-
-!FileMappingResource methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-checkURI: aRequest 
-	| needsFinalSlash |
-	needsFinalSlash := (self rootFileFor: aRequest) isDirectory 
-				and: [aRequest uri isDirectory not].
-	^needsFinalSlash not! !
-
-!FileMappingResource methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-directoryIndex
-	^directoryIndex! !
-
-!FileMappingResource methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-directoryIndex: aString 
-	directoryIndex := aString! !
-
-!FileMappingResource methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-file: aFilename answerTo: aRequest 
-	^self subclassResponsibility! !
-
-!FileMappingResource methodsFor: 'private' stamp: 'mivsek 8/16/2007 22:05'!
-fileDirectory
-	^SpFilename named: self filePath! !
-
-!FileMappingResource methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-fileFor: aRequest 
-	| fn |
-	fn := self rootFileFor: aRequest.
-	fn isDirectory ifTrue: [fn := fn construct: self directoryIndex].
-	^fn! !
-
-!FileMappingResource methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-filePath
-	^filePath! !
-
-!FileMappingResource methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-filePath: aString 
-	filePath := aString! !
-
-!FileMappingResource methodsFor: 'private-initialize' stamp: ' 14/4/07 23:10'!
-initialize
-	super initialize.
-	self directoryIndex: 'index.html'! !
-
-!FileMappingResource methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-rootFileFor: aRequest 
-	^aRequest tailPath inject: self fileDirectory
-		into: 
-			[:subPath :each | 
-			(#('.' '..') includes: (HTTPString trimBlanksFrom: each)) 
-				ifTrue: [subPath]
-				ifFalse: [subPath construct: each]]! !
-
-!FileMappingResource class methodsFor: 'instance creation' stamp: ' 14/4/07 23:10'!
-uriPattern: aString filePath: aFilePath 
-	^(self uriPattern: aString) filePath: aFilePath! !
-
-!FileMappingResource class methodsFor: 'instance creation' stamp: ' 14/4/07 23:10'!
-uriPattern: aString filePath: aFilePath directoryIndex: anotherString 
-	^(self uriPattern: aString)
-		filePath: aFilePath;
-		directoryIndex: anotherString! !
-
-!FileResource methodsFor: 'private'!
-contentTypeFor: aString 
-	^ContentTypes 
-		at: aString asLowercase 
-		ifAbsent: ['application/octet-stream']! !
-
-!FileResource methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-file: aFilename answerTo: aRequest 
-	| cacheControl response |
-	cacheControl := SwazooCacheControl new request: aRequest
-				cacheTarget: aFilename.
-	response := cacheControl isNotModified 
-				ifTrue: [HTTPResponse notModified]
-				ifFalse: 
-					[FileResponse ok entity: ((MimeObject new)
-								value: aFilename;
-								contentType: (self contentTypeFor: aFilename extension))].
-	cacheControl addResponseHeaders: response.
-	^response! !
-
-!FileResource class methodsFor: 'class initialization' stamp: 'hmm 6/9/2012 21:46'!
-initialize
-	"self initialize"
-
-	ContentTypes := (Dictionary new)
-				add: '.txt' -> 'text/plain';
-				add: '.html' -> 'text/html';
-				add: '.htm' -> 'text/html';
-				add: '.css' -> 'text/css';
-				add: '.xml' -> 'text/xml';
-				add: '.js' -> 'text/javascript';
-				add: '.png' -> 'image/png';
-				add: '.gif' -> 'image/gif';
-				add: '.jpg' -> 'image/jpeg';
-				add: '.m3u' -> 'audio/mpegurl';
-				add: '.ico' -> 'image/x-icon';
-				add: '.pdf' -> 'application/pdf';
-				yourself! !
-
-!FileResourceTest methodsFor: 'running' stamp: 'mivsek 8/16/2007 22:09'!
-setUp
-	| directory firstFile ws |
-	directory := SpFilename named: 'fResTest'.
-	directory exists ifFalse: [directory makeDirectory].
-	firstFile :=  (SpFilename named: 'fResTest') construct: 'abc.html'.
-	ws := firstFile writeStream.
-	[ws nextPutAll: 'hello'] ensure: [ws close].
-	resource := FileResource uriPattern: 'foo' filePath: 'fResTest'! !
-
-!FileResourceTest methodsFor: 'running' stamp: 'mivsek 8/16/2007 22:09'!
-tearDown
-	((SpFilename named: 'fResTest') construct: 'abc.html') delete.
-	(SpFilename named: 'fResTest') delete! !
-
-!FileResourceTest methodsFor: 'testing' stamp: 'JM 4/18/2007 16:34'!
-testContentType
-	self assert: (resource contentTypeFor: '.txt') = 'text/plain'.
-	self assert: (resource contentTypeFor: '.html') = 'text/html'
+!SpFilename methodsFor: '*Swazoo-services' stamp: 'mivsek 8/22/2007 22:16'!
+contentsOfEntireFile
+	| stream |
+	[stream := FileStream oldFileNamed: self filename.
+	^stream contentsOfEntireFile]
+		ensure: [stream close]
 ! !
 
-!FileResourceTest methodsFor: 'testing'!
-testDirectoryIndex
-	| request response |
-	request := HTTPGet request: 'foo/'.
-	resource directoryIndex: 'abc.html'.
-	response := URIResolution resolveRequest: request startingAt: resource.
-	self assert: response statusCode = 200.
-	self assert: request resourcePath size = 1.
-	self assert: request resourcePath first = 'foo'! !
+!SpFilename methodsFor: '*Swazoo-accessing' stamp: 'mivsek 8/22/2007 16:51'!
+createdTimestamp
+	"a SpTimestamp
+	timestamp of file creation. "
+	| dir entry |
+	dir := FileDirectory forFileName: self asAbsoluteFilename asString.
+	entry := dir directoryEntryFor: self tail.
+	^SpTimestamp fromSeconds: entry creationTime "is this correct on all OSes?"
+! !
 
-!FileResourceTest methodsFor: 'testing'!
-testETag
-	"Filename etags do not have the leading and trailing double quotes.  Header fields add the quotes as necessary"
+!SpFilename methodsFor: '*Swazoo-services' stamp: 'JM 4/18/2007 15:24'!
+delete
+	| dir |
+	dir := FileDirectory forFileName: self asAbsoluteFilename asString.
+	self isDirectory
+		ifTrue: [dir deleteDirectory: self asString]
+		ifFalse: [dir deleteFileNamed: self tail ifAbsent: [] ]! !
 
-	| request response etag |
-	request := HTTPGet request: 'foo/abc.html'.
-	response := URIResolution resolveRequest: request startingAt: resource.
-	self assert: response statusCode = 200.
-	self 
-		assert: (etag := (response headers fieldOfClass: HTTPETagField) entityTag) 
-				notNil.
-	request := HTTPGet request: 'foo/abc.html'.
-	request headers addField: (HTTPIfNoneMatchField new addEntityTag: etag).
-	response := URIResolution resolveRequest: request startingAt: resource.
-	self assert: response statusCode = 304.
-	self assert: (response headers fieldOfClass: HTTPETagField) entityTag = etag.
-	request := HTTPGet request: 'foo/abc.html'.
-	request headers addField: (HTTPIfNoneMatchField new valueFrom: '"wrong"').
-	response := URIResolution resolveRequest: request startingAt: resource.
-	self assert: response statusCode = 200.
-	self assert: (response headers fieldOfClass: HTTPETagField) entityTag = etag! !
+!SpFilename methodsFor: '*Swazoo-accessing' stamp: 'JM 4/18/2007 15:13'!
+directory
+	"a filename of the directory for this Filename."
+	^self class named: self head! !
 
-!FileResourceTest methodsFor: 'testing'!
-testExistantFile
-	| request response |
-	request := HTTPGet request: 'foo/abc.html'.
-	response := URIResolution resolveRequest: request startingAt: resource.
-	self assert: response statusCode = 200.
-	self assert: request resourcePath size = 1.
-	self assert: request resourcePath first = 'foo'! !
-
-!FileResourceTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testNonexistantFile
-	| request response |
-	request := HTTPGet request: 'foo/notThere.html'.
-	response := URIResolution resolveRequest: request startingAt: resource.
-	self assert: response isNil! !
-
-!FileResourceTest methodsFor: 'testing'!
-testRedirection
-	| request response |
-	request := HTTPGet request: 'foo'.
-	resource directoryIndex: 'abc.html'.
-	response := URIResolution resolveRequest: request startingAt: resource.
-	self assert: response statusCode = 301.
-	self assert: (response headers fieldNamed: 'Location') uri asString 
-				= 'http://foo/'.
-	self assert: (response headers fieldNamed: 'Location') uri host = 'foo'! !
-
-!FileResourceTest methodsFor: 'testing' stamp: 'JM 4/18/2007 16:33'!
-testRelativeFile
-"it doesn't work anyway!!
-	| request response |
-	request := HTTPGet request: 'foo/../', resource fileDirectory tail, '/abc.html'.
-	response := URIResolution resolveRequest: request startingAt: resource.
-	self assert: response isNil
-"! !
-
-!FileResourceTest methodsFor: 'testing'!
-testSafeConstruct
-	| request response |
-	request := HTTPGet request: 'foo/../abc.html'.
-	response := URIResolution resolveRequest: request startingAt: resource.
-	self assert: response statusCode = 200.
-	request := HTTPGet request: 'foo/.. /./abc.html'.
-	response := URIResolution resolveRequest: request startingAt: resource.
-	self assert: response statusCode = 200! !
-
-!FileResponse methodsFor: 'accessing-headers' stamp: ' 14/4/07 23:10'!
-contentType
-	^self entity contentType! !
-
-!FileResponse methodsFor: 'accessing' stamp: 'hmm 6/5/2012 15:44'!
-entity: aMimeObject 
-	body := aMimeObject! !
-
-!FileResponse methodsFor: 'private-printing' stamp: ' 14/4/07 23:10'!
-printContentLengthOn: aStream 
-	self entity isNil 
-		ifFalse: 
-			[aStream
-				nextPutAll: 'Content-Length: ';
-				print: self entity value fileSize.
-			self crlfOn: aStream]! !
-
-!FileResponse methodsFor: 'private-printing' stamp: 'hmm 6/9/2012 19:50'!
-printEntityOn: aStream 
-	| rs |
-	self entity isNil 
-		ifFalse: 
-			[rs := self entity value readStream.
-			rs binary.
-			SpExceptionContext 
-				for: 
-					[[[rs atEnd] whileFalse: [aStream nextPutAll: (rs nextAvailable: 4096)]] 
-						ensure: [rs close]]
-				on: SpError
-				do: [:ex | ex return]]! !
-
-!FileResponse methodsFor: 'private-printing' stamp: ' 14/4/07 23:10'!
-printHeadersOn: aStream 
-	self contentType: self entity contentType.
-	super printHeadersOn: aStream! !
-
-!GenericHeaderField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
-combineWith: aHeaderField 
-	"^self
-I simply take my values and concatenate the values of aHeaderField."
-
-	value := self value , ', ' , aHeaderField value.
-	^self! !
-
-!GenericHeaderField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-1 halt: 'use >>name instead'.
-	^self name! !
-
-!GenericHeaderField methodsFor: 'initialize-release' stamp: ' 14/4/07 23:10'!
-forFieldName: fieldNameString andValue: fieldValueString 
-	name := fieldNameString.
-	value := fieldValueString.
-	^self! !
-
-!GenericHeaderField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-name
-	^name! !
-
-!GenericHeaderField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-value
-	^value! !
-
-!GenericHeaderField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-values
-	^(HTTPString subCollectionsFrom: self value delimitedBy: $,) 
-		collect: [:each | HTTPString trimBlanksFrom: each]! !
-
-!GenericHeaderField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
-valuesAsStringOn: aStream 
-	aStream nextPutAll: value.
-	^self! !
-
-!GenericHeaderField class methodsFor: 'instance creation' stamp: ' 14/4/07 23:10'!
-newForFieldName: fieldNameString withValueFrom: fieldValueString 
-	^self new forFieldName: fieldNameString andValue: fieldValueString! !
-
-!HTTPAcceptField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
-combineWith: aHeaderField 
-	"^self
-I simply take my values and concatenate the values of aHeaderField."
-
-	self mediaTypes addAll: aHeaderField mediaTypes.
-	^self! !
-
-!HTTPAcceptField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-mediaTypes
-	mediaTypes isNil ifTrue: [mediaTypes := OrderedCollection new].
-	^mediaTypes! !
-
-!HTTPAcceptField methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-parseValueFrom: aString 
-	mediaTypes := HTTPString subCollectionsFrom: aString delimitedBy: $,.
-	^self! !
-
-!HTTPAcceptField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
-valuesAsStringOn: targetStream 
-	self mediaTypes isEmpty 
-		ifFalse: 
-			[targetStream nextPutAll: self mediaTypes first.
-			2 to: self mediaTypes size
-				do: 
-					[:methodIndex | 
-					targetStream
-						nextPut: $,;
-						nextPutAll: (self mediaTypes at: methodIndex)]].
-	^self! !
-
-!HTTPAcceptField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'Accept'! !
-
-!HTTPAllowField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-methods
-	methods isNil ifTrue: [methods := OrderedCollection new].
-	^methods! !
-
-!HTTPAllowField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
-valuesAsStringOn: targetStream 
-	self methods isEmpty 
-		ifFalse: 
-			[targetStream nextPutAll: self methods first.
-			2 to: self methods size
-				do: 
-					[:methodIndex | 
-					targetStream
-						nextPut: $,;
-						nextPutAll: (self methods at: methodIndex)]].
-	^self! !
-
-!HTTPAllowField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'Allow'! !
-
-!HTTPAuthenticationBasicChallenge class methodsFor: 'instance creation'!
-newForResource: aResource
-	^self unauthorized 
-		resource: aResource;
-		entity: aResource unauthorizedResponsePage;
-		prepareAuthenticationChallenge! !
-
-!HTTPAuthenticationChallenge class methodsFor: 'instance creation'!
-newForResource: aResource
-	^aResource authenticationScheme = #Basic 
-		ifTrue: [HTTPAuthenticationBasicChallenge newForResource: aResource]
-		ifFalse: [aResource authenticationScheme = #Digest
-			ifTrue: [HTTPAuthenticationDigestChallenge newForResource: aResource]
-			ifFalse: [HTTPResponse unauthorized] ]! !
-
-!HTTPAuthenticationDigestChallenge class methodsFor: 'instance creation'!
-newForResource: aResource
-	^self unauthorized 
-		resource: aResource;
-		entity: aResource unauthorizedResponsePage;
-		prepareAuthenticationChallenge! !
-
-!HTTPAuthorizationBasicField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
-password
+!SpFilename methodsFor: '*Swazoo-accessing' stamp: 'JM 4/18/2007 16:23'!
+etag
 	"^a String
-I return the password string (as defined in RFC 2617 pp.2) part of the user-pass value in my credentials."
+	The etag of a file entity is taken to be the date last modified as a String. 
+	We use the SpTimestamp in "
 
-	password isNil ifTrue: [self resolveUserPass].
-	^password! !
+	^self lastModified asRFC1123String! !
 
-!HTTPAuthorizationBasicField methodsFor: 'private' stamp: 'np 3/24/2008 02:36'!
-resolveUserPass
-	"^self
-I look at my credentials string and pull out the userid and password.  Note that having to check for atEnd before the upToEnd is for GemStone which crashes if upToEnd is used when already atEnd."
+!SpFilename methodsFor: '*Swazoo-accessing' stamp: 'JM 4/18/2007 15:16'!
+extension
+	"Answer the receiver's extension if any.  This is the characters from the
+	 last occurrence of a period to the end, inclusive. E.g. the extension of
+	 'squeak.image' is '.image'. Answer nil if none.  Note that e.g. .login has no
+	 extension."
 
-	"(Base64EncodingReadStream on: 'YnJ1Y2U6c3F1aWRzdXBwbGllZHBhc3N3b3Jk' ) upToEnd asString "
+	| string periodIndex |
+	string := self tail.
+	periodIndex := string lastIndexOf: $..
+	^periodIndex > 1 ifTrue: [string copyFrom: periodIndex to: string size]! !
 
-	| userPassString sourceStream |
-	userPassString := userPassString := Base64MimeConverter mimeDecode: self credentials as: String.
-	sourceStream := ReadStream on: userPassString.
-	userid := sourceStream upTo: $:.
-	password := sourceStream atEnd 
-				ifTrue: [String new]
-				ifFalse: [sourceStream upToEnd].
-	^self! !
+!SpFilename methodsFor: '*Swazoo-accessing' stamp: 'mivsek 8/22/2007 22:05'!
+fileSize
+	| dir entry |
+	dir := FileDirectory forFileName: self asAbsoluteFilename asString.
+	entry := dir directoryEntryFor: self tail.
+	^entry fileSize 
+! !
 
-!HTTPAuthorizationBasicField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
-userid
-	"^a String
-I return the userid string (as defined in RFC 2617 pp.2) part of the user-pass value in my credentials."
+!SpFilename methodsFor: '*Swazoo-private' stamp: 'JM 4/18/2007 12:31'!
+filename
+	 "^a String"
+	^filename! !
 
-	userid isNil ifTrue: [self resolveUserPass].
-	^userid! !
+!SpFilename methodsFor: '*Swazoo-accessing' stamp: 'JM 4/18/2007 15:06'!
+head
+	"Answer the directory prefix as a String."
 
-!HTTPAuthorizationBasicField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
-valuesAsStringOn: aStream 
-	aStream nextPutAll: 'Basic '.
-	super valuesAsStringOn: aStream.
-	^self! !
+	| index |
+	(index := self lastSeparatorIndex) notNil
+		ifTrue:	[index := index max: 2.
+				^self asString copyFrom: 1 to: index-1]
+		ifFalse:	[^FileDirectory default pathName]! !
 
-!HTTPAuthorizationDigestField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
-valuesAsStringOn: aStream 
-	aStream nextPutAll: 'Digest '.
-	super valuesAsStringOn: aStream.
-	^self! !
+!SpFilename methodsFor: '*Swazoo-testing' stamp: 'pete 5/28/2008 15:06'!
+isAbsolute
+	"Answer true if this name is absolute (e.g. not relative to the
+	'current directory')."
 
-!HTTPAuthorizationField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-credentials
-	^credentials! !
+	self asString size = 0 ifTrue:	[^false].
+	SpEnvironment onWindows ifTrue: [
+		^(self asString at: 1) isLetter and: [(self asString at: 2) = $:]]. "absolute pathnames on windows looks like 'C:'"
+	^(self asString at: 1) == self separator! !
 
-!HTTPAuthorizationField methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-parseValueFrom: aString 
-	credentials := HTTPString trimBlanksFrom: aString.
-	^self! !
+!SpFilename methodsFor: '*Swazoo-testing' stamp: 'JM 4/18/2007 14:33'!
+isDirectory
+	^FileDirectory default directoryExists: self asString! !
 
-!HTTPAuthorizationField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
-valuesAsStringOn: aStream 
-	aStream nextPutAll: self credentials.
-	^self! !
+!SpFilename methodsFor: '*Swazoo-testing' stamp: 'JM 4/18/2007 13:00'!
+isRelative
+	"Answer true if this name must be interpreted relative to some directory."
+	^self isAbsolute not! !
 
-!HTTPAuthorizationField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'Authorization'! !
+!SpFilename methodsFor: '*Swazoo-accessing' stamp: 'hmm 6/5/2012 16:30'!
+lastModified
+	^self modifiedTimestamp! !
 
-!HTTPAuthorizationField class methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-newForFieldName: fieldNameString withValueFrom: fieldValueString 
-	"^an HTTPAuthorizationField
-I return an instance of one of my concrete subclasses.  To get to this point, the field name *must* be 'AUTHORIZATION'."
+!SpFilename methodsFor: '*Swazoo-private' stamp: 'JM 4/18/2007 15:07'!
+lastSeparatorIndex
+	^self asString lastIndexOf: self separator ifAbsent: [nil]! !
 
-	| sourceStream schemeName |
-	sourceStream := ReadStream on: fieldValueString.
-	schemeName := sourceStream upTo: Character space.
-	^schemeName = 'Basic' 
-		ifTrue: [HTTPAuthorizationBasicField newWithValueFrom: sourceStream upToEnd]
-		ifFalse: [HTTPAuthorizationDigestField newWithValueFrom: sourceStream upToEnd]! !
+!SpFilename methodsFor: '*Swazoo-services' stamp: 'pete 5/28/2008 15:15'!
+makeDirectory
+	| dir |
+	dir := FileDirectory forFileName: self asAbsoluteFilename asString.
+	[dir createDirectory: self asString]
+		on: Error
+		do: [:ex | ].! !
 
-!HTTPCacheControlField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-directives
-	"for easy setting directives in one string"
-	^directives! !
+!SpFilename methodsFor: '*Swazoo-accessing' stamp: 'mivsek 8/22/2007 16:51'!
+modifiedTimestamp
+	"a SpTimestamp
+	timestamp of last file modification"
+	| dir entry |
+	dir := FileDirectory forFileName: self asAbsoluteFilename asString.
+	entry := dir directoryEntryFor: self tail.
+	^SpTimestamp fromSeconds: entry modificationTime "is this correct on all OSes?"
+! !
 
-!HTTPCacheControlField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-directives: aString 
-	"for easy setting directives in one string"
-	"example: 'no-store, no-cache, must-revalidate'"
-	directives := aString! !
+!SpFilename methodsFor: '*Swazoo-private' stamp: 'JM 4/18/2007 13:49'!
+separator
+	"Answer the platform's filename component separator."
 
-!HTTPCacheControlField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-maxAge
-	"^an Integer or nil
-I return my max age which is either an integer number of seconds for which the entity can be considdered fresh, or nil, in which case other headers such as Expires can be used by a cache to determine the expiration time of the entity."
+	^FileDirectory primPathNameDelimiter! !
 
-	^maxAge! !
+!SpFilename methodsFor: '*Swazoo-accessing' stamp: 'JM 4/18/2007 15:06'!
+tail
+	"Answer the filename suffix as a String."
 
-!HTTPCacheControlField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
-maxAge: anIntegerOrNil 
-	"^self
-I record the number of seconds for which the resource is 'fresh' and after which will expire and become 'stale' for caching purposes.  Setting this to nil means the max age is unspecified, and this is the default.  This directive takes presidence over any Expires header when a cache or client is handling an HTTP message."
+	| index nm |
+	nm := self asString.
+	(index := self lastSeparatorIndex) notNil
+		ifTrue:	[^nm copyFrom: index+1 to: nm size]
+		ifFalse:	[^nm copy]! !
 
-	maxAge := anIntegerOrNil.
-	^self! !
+!SpTimestamp methodsFor: '*Swazoo' stamp: 'janko 10/30/2012 10:54'!
+milliseconds
+	"Squeak specific"
+	^self underlyingTimestamp nanoSecond // 1000
+			
+"SpTimestamp now milliseconds"! !
 
-!HTTPCacheControlField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-private
-	"^a Boolean or nil
-There are three possible values for private.  Explicity true (the entity can only be cached in private caches), explicity false (this is a public entity and can be held in a shared/public cache perhaps even when stale) or nil (the default which means that the entity may be held in a public shared cache, but only until it goes stale)."
+!HTTPException methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+response
+	^response! !
 
-	^private! !
+!HTTPException methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+response: aHTTPResponse
+	response := aHTTPResponse! !
 
-!HTTPCacheControlField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
-setNotPublicOrPrivate
-	"^self
-I am being told that the entity in my message is not explicity public or private.  This is the default and means that public caches may retain copies of the resource, but should not be as relaxed about the rules as with an explicitly public resource. c.f >>setPublic & >>setPrivate."
+!HTTPException class methodsFor: 'responses-succesfull' stamp: ' 14/4/07 23:10'!
+accepted
+	^self raiseResponse: (HTTPResponse new code: 202)! !
 
-	private := nil.
-	^self! !
+!HTTPException class methodsFor: 'responses-server error' stamp: ' 14/4/07 23:10'!
+badGateway
+	^self raiseResponse: (HTTPResponse new code: 502)! !
 
-!HTTPCacheControlField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
-setPrivate
-	"^self
-I am being told that the entity in my message is a private one that can only be cached on private caches, i.e. caches that can be drawn upon a single clients.  An example of a private cache is the one *inside* your web browser.   This is probably what you want if the entity contains personal information."
+!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
+badRequest
+	^self raiseResponse: (HTTPResponse new code: 400)! !
 
-	private := true.
-	^self! !
+!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
+conflict
+	^self raiseResponse: (HTTPResponse new code: 409)! !
 
-!HTTPCacheControlField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
-setPublic
-	"^self
-I am being told that the entity in my message is a public one that can be cached on public caches, i.e. caches that can be drawn upon by many clients.  This is probably not what you want if the entity contains personal information!!  c.f. >>setPrivate  Note that expicitly setting cache-control public actually loosens some other rules and means resources can be used by cached beyond their normal life."
+!HTTPException class methodsFor: 'responses-informational' stamp: ' 14/4/07 23:10'!
+continue
+	^self raiseResponse: (HTTPResponse new code: 100)! !
 
-	private := false.
-	^self! !
+!HTTPException class methodsFor: 'responses-succesfull' stamp: ' 14/4/07 23:10'!
+created
+	^self raiseResponse: (HTTPResponse new code: 201)! !
 
-!HTTPCacheControlField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
-valuesAsStringOn: aStream 
-	aStream nextPut: Character space.
-	self directives notNil ifTrue: [aStream nextPutAll: self directives].
-	self private notNil 
-		ifTrue: 
-			[self writePublicOrPrivateTo: aStream.
-			self maxAge notNil ifTrue: [aStream nextPutAll: ', ']].
-	self maxAge notNil ifTrue: [self writeMaxAgeTo: aStream].
-	^self! !
+!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
+expectationFailed
+	^self raiseResponse: (HTTPResponse new code: 416)! !
 
-!HTTPCacheControlField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
-writeMaxAgeTo: aStream 
-	"^self
-I write the maxAge directive to aStream"
+!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
+forbidden
+	^self raiseResponse: (HTTPResponse new code: 403)! !
 
-	aStream nextPutAll: 'max-age='.
-	self maxAge printOn: aStream.
-	^self! !
+!HTTPException class methodsFor: 'responses-redirection' stamp: ' 14/4/07 23:10'!
+found
+	^self raiseResponse: (HTTPResponse new code: 302)! !
 
-!HTTPCacheControlField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
-writePublicOrPrivateTo: aStream 
-	"^self
-I write the either the public or the private directive to aStream"
+!HTTPException class methodsFor: 'responses-server error' stamp: ' 14/4/07 23:10'!
+gatewayTimeout
+	^self raiseResponse: (HTTPResponse new code: 504)! !
 
-	self private 
-		ifTrue: [aStream nextPutAll: 'private']
-		ifFalse: [aStream nextPutAll: 'public'].
-	^self! !
+!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
+gone
+	^self raiseResponse: (HTTPResponse new code: 410)! !
 
-!HTTPCacheControlField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'Cache-Control'! !
+!HTTPException class methodsFor: 'responses-server error' stamp: ' 14/4/07 23:10'!
+httpVersionNotSupported
+	^self raiseResponse: (HTTPResponse new code: 505)! !
+
+!HTTPException class methodsFor: 'responses-server error' stamp: ' 14/4/07 23:10'!
+internalServerError
+	^self raiseResponse: (HTTPResponse new code: 500)! !
+
+!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
+lengthRequired
+	^self raiseResponse: (HTTPResponse new code: 411)! !
+
+!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
+methodNotAllowed
+	^self raiseResponse: (HTTPResponse new code: 405)! !
+
+!HTTPException class methodsFor: 'responses-redirection' stamp: ' 14/4/07 23:10'!
+movedPermanently
+	^self raiseResponse: (HTTPResponse new code: 301)! !
+
+!HTTPException class methodsFor: 'responses-redirection' stamp: ' 14/4/07 23:10'!
+multipleChoices
+	^self raiseResponse: (HTTPResponse new code: 300)! !
+
+!HTTPException class methodsFor: 'responses-succesfull' stamp: ' 14/4/07 23:10'!
+noContent
+	^self raiseResponse: (HTTPResponse new code: 204)! !
+
+!HTTPException class methodsFor: 'responses-succesfull' stamp: ' 14/4/07 23:10'!
+nonAuthorativeInformation
+	^self raiseResponse: (HTTPResponse new code: 203)! !
+
+!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
+notAcceptable
+	^self raiseResponse: (HTTPResponse new code: 406)! !
+
+!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
+notFound
+	^self raiseResponse: (HTTPResponse new code: 404)! !
+
+!HTTPException class methodsFor: 'responses-server error' stamp: ' 14/4/07 23:10'!
+notImplemented
+	^self raiseResponse: (HTTPResponse new code: 501)! !
+
+!HTTPException class methodsFor: 'responses-redirection' stamp: ' 14/4/07 23:10'!
+notModified
+	^self raiseResponse: (HTTPResponse new code: 304)! !
+
+!HTTPException class methodsFor: 'responses-succesfull' stamp: ' 14/4/07 23:10'!
+ok
+	^self raiseResponse: HTTPResponse ok! !
+
+!HTTPException class methodsFor: 'responses-succesfull' stamp: ' 14/4/07 23:10'!
+partialContent
+	^self raiseResponse: (HTTPResponse new code: 206)! !
+
+!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
+paymentRequired
+	^self raiseResponse: (HTTPResponse new code: 402)! !
+
+!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
+preconditionFailed
+	^self raiseResponse: (HTTPResponse new code: 412)! !
+
+!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
+proxyAuthenticationRequired
+	^self raiseResponse: (HTTPResponse new code: 407)! !
+
+!HTTPException class methodsFor: 'signalling' stamp: ' 14/4/07 23:10'!
+raiseResponseCode: aNumber
+	"Raise an exception to immediatelly return http response with that code"
+	^self raiseResponse: (HTTPResponse new code: aNumber)! !
+
+!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
+requestEntityTooLarge
+	^self raiseResponse: (HTTPResponse new code: 413)! !
+
+!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
+requestTimeout
+	^self raiseResponse: (HTTPResponse new code: 408)! !
+
+!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
+requestURITooLong
+	^self raiseResponse: (HTTPResponse new code: 414)! !
+
+!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
+requestedRangeNotSatisfiable
+	^self raiseResponse: (HTTPResponse new code: 416)! !
+
+!HTTPException class methodsFor: 'responses-succesfull' stamp: ' 14/4/07 23:10'!
+resetContent
+	^self raiseResponse: (HTTPResponse new code: 205)! !
+
+!HTTPException class methodsFor: 'responses-redirection' stamp: ' 14/4/07 23:10'!
+seeOther
+	^self raiseResponse: (HTTPResponse new code: 303)! !
+
+!HTTPException class methodsFor: 'responses-server error' stamp: ' 14/4/07 23:10'!
+serviceUnavailable
+	^self raiseResponse: (HTTPResponse new code: 503)! !
+
+!HTTPException class methodsFor: 'responses-informational' stamp: ' 14/4/07 23:10'!
+switchingProtocols
+	^self raiseResponse: (HTTPResponse new code: 101)! !
+
+!HTTPException class methodsFor: 'responses-redirection' stamp: ' 14/4/07 23:10'!
+temporaryRedirect
+	^self raiseResponse: (HTTPResponse new code: 307)! !
+
+!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
+unathorized
+	^self raiseResponse: (HTTPResponse new code: 401)! !
+
+!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
+unsupportedMediaType
+	^self raiseResponse: (HTTPResponse new code: 415)! !
+
+!HTTPException class methodsFor: 'responses-redirection' stamp: ' 14/4/07 23:10'!
+useProxy
+	^self raiseResponse: (HTTPResponse new code: 305)! !
 
 !HTTPConnection methodsFor: 'serving'!
 close
@@ -2543,340 +2197,140 @@ webSocket: aWebSocektResource
 socket: aSocket 
 	^self new stream: aSocket stream! !
 
-!HTTPConnectionField methodsFor: 'services'!
-combineWith: aConnectionHeaderField
-	self connectionToken: 
-		self connectionToken, ', ' , aConnectionHeaderField connectionToken.! !
+!WebSocketConnection methodsFor: 'private-framing'!
+frameString: aString
+	"This is currently only used to satisfy the unit test, actual framing is done differently (which should be reflected in the test soon)"
+	| out len utf8String |
+	utf8String := self toUtf8: aString.
+	out := WriteStream on: (String new: utf8String size + 16).
+	out nextPut: 129 asCharacter.	"text frame, FIN=1, RSV1,RSV2,RSV3 all zero"
+	len := utf8String size.
+	len <= 125
+		ifTrue: [out nextPut: len asCharacter.	"7 bits, MASK = 0"]
+		ifFalse: [
+			len < 65536
+				ifTrue: [out nextPut: 126 asCharacter; nextNumber: 2 put: len]
+				ifFalse: [out nextPut: 127 asCharacter; nextNumber: 8 put: len]].
+	out nextPutAll: utf8String.
+	^out contents! !
 
-!HTTPConnectionField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-connectionToken
-	"^a String
-Common values are 'close' and 'keep-alive'."
+!WebSocketConnection methodsFor: 'private-framing' stamp: 'gsa 1/24/2013 08:41'!
+fromUtf8: aString
+	"Squeak specific"
 
-	^connectionToken! !
+	"gsa 14/01/2013 for Cuis port"
+	"^[aString convertFromEncoding: #utf8] on: Error do: [:ex | aString ]"
 
-!HTTPConnectionField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-connectionToken: aString 
-	"^self"
+	"Cuis specific"	
+	^ aString! !
 
-	connectionToken := aString.
-	^self! !
+!WebSocketConnection methodsFor: 'private-serving' stamp: 'janko 7/13/2011 20:43'!
+getAndDispatchMessages
+	self stream anyDataReady  "wait for data and if anything read, proceed"
+		ifTrue:
+			[self receiveMessage]
+		ifFalse: 
+			[(Delay forMilliseconds: 100) wait. "to finish sending, if any"
+			self close].! !
 
-!HTTPConnectionField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-connectionTokenIsClose
-	^self connectionToken = 'close'! !
+!WebSocketConnection methodsFor: 'sending-receiving' stamp: 'hmm 6/6/2012 16:00'!
+handleBinaryMessage: aByteString
+	self webSocket receiveBlock value: aByteString asByteArray! !
 
-!HTTPConnectionField methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-parseValueFrom: aString 
-	connectionToken := HTTPString trimBlanksFrom: aString.
-	^self! !
+!WebSocketConnection methodsFor: 'sending-receiving'!
+handleCloseMessage: aByteString
+	"not used right now"! !
 
-!HTTPConnectionField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
-setToClose
-	self connectionToken: 'close'.
-	^self! !
+!WebSocketConnection methodsFor: 'sending-receiving' stamp: 'hmm 6/6/2012 16:11'!
+handleContinuationMessage: aByteString
+	"not used right now"! !
 
-!HTTPConnectionField methodsFor: 'services' stamp: 'mivsek 12/31/2007 14:00'!
-setToKeepAlive
-	self connectionToken: 'keep-alive'.
-	^self! !
+!WebSocketConnection methodsFor: 'sending-receiving' stamp: 'hmm 6/6/2012 16:10'!
+handlePingMessage: aByteString
+	self sendFramedData: aByteString opcode: 10! !
 
-!HTTPConnectionField methodsFor: 'services'!
-setToUpgrade
-	self connectionToken: 'Upgrade'.
-	^self! !
+!WebSocketConnection methodsFor: 'sending-receiving' stamp: 'hmm 6/6/2012 16:10'!
+handlePongMessage: aByteString
+	"not used right now"! !
 
-!HTTPConnectionField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
-valuesAsStringOn: aStream 
-	aStream nextPutAll: connectionToken.
-	^self! !
+!WebSocketConnection methodsFor: 'sending-receiving'!
+handleTextMessage: aByteString
+	self webSocket receiveBlock value: (self fromUtf8: aByteString)! !
 
-!HTTPConnectionField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'Connection'! !
+!WebSocketConnection methodsFor: 'testing'!
+isHTTPConnection
+	^false! !
 
-!HTTPContentLengthField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-contentLength
-	^contentLength! !
-
-!HTTPContentLengthField methodsFor: 'accessing' stamp: 'mivsek 12/31/2007 14:01'!
-contentLength: anInteger
-	contentLength := anInteger! !
-
-!HTTPContentLengthField methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-parseValueFrom: aString
-	contentLength := aString asNumber.
-	^self! !
-
-!HTTPContentLengthField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
-valuesAsStringOn: aStream 
-	self contentLength printOn: aStream.
-	^self! !
-
-!HTTPContentLengthField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'Content-Length'! !
-
-!HTTPCookieField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'Cookie'! !
-
-!HTTPDateField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-date
-	^date! !
-
-!HTTPDateField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-date: aDate 
-	"^self
-Note that this is an HTTP Date, and so is really a timestamp :-/ "
-
-	date := aDate.
-	^self! !
-
-!HTTPDateField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
-valuesAsStringOn: aStream 
-	self date asRFC1123StringOn: aStream.
-	^self! !
-
-!HTTPDateField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'Date'! !
-
-!HTTPDelete methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-isDelete
+!WebSocketConnection methodsFor: 'testing'!
+isWebSocketConnection
 	^true! !
 
-!HTTPDelete class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-methodName
-	"HTTP method used for a request"
-	^'DELETE'! !
+!WebSocketConnection methodsFor: 'sending-receiving'!
+receiveMessage
+	| message flags maskingKey mask len b opc |
+	[
+		flags := self stream next asInteger.
+		len := self stream next asInteger.
+		mask := len >= 128.
+		len := len bitAnd: 127.
+		len > 125 ifTrue: [len := self stream nextNumber: (len = 126 ifTrue: [2] ifFalse: [8])].
+		mask ifTrue: [maskingKey := self stream next: 4].
+		flags < 128 ifTrue: [self close. self halt: 'FIN not set'].
+		message := self stream next: len.
+		mask ifTrue: [
+			1 to: len do: [:i |
+				b := message byteAt: i.
+				b := b bitXor: (maskingKey byteAt: i-1\\4+1).
+				message byteAt: i put: b]].
+		opc := flags bitAnd: 15.
+		opc = 0 ifTrue: [self handleContinuationMessage: message].
+		opc = 1 ifTrue: [self handleTextMessage: message].
+		opc = 2 ifTrue: [self handleBinaryMessage: message].
+		opc = 8 ifTrue: [self handleCloseMessage: message].
+		opc = 9 ifTrue: [self handlePingMessage: message].
+		opc = 10 ifTrue: [self handlePongMessage: message]
+	] 
+		on: Error 
+		do: [:ex | self close]! !
 
-!HTTPETagField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-entityTag
-	^entityTag! !
+!WebSocketConnection methodsFor: 'sending-receiving'!
+sendFramedData: data opcode: opc
+	| len |
+	[self stream nextPut: 128 + opc.
+	len := data size.
+	len <= 125
+		ifTrue: [self stream nextPut: len]
+		ifFalse: [
+			len < 65536
+				ifTrue: [self stream nextPut: 126; nextNumber: 2 put: len]
+				ifFalse: [self stream nextPut: 127; nextNumber: 8 put: len]].
+	[self stream nextPutAll: data; flush]
+		on: Error
+		do: [:ex | "ignore"]
+	]
+		ifCurtailed: [self close]! !
 
-!HTTPETagField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-entityTag: aString 
-	entityTag := aString.
-	^self! !
+!WebSocketConnection methodsFor: 'sending-receiving'!
+sendMessage: aStringOrByteArray
+	aStringOrByteArray isString
+		ifTrue: [self sendFramedData: (self toUtf8: aStringOrByteArray) opcode: 1]
+		ifFalse: [self sendFramedData: aStringOrByteArray opcode: 2]! !
 
-!HTTPETagField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
-valuesAsStringOn: aStream 
-	aStream
-		nextPut: $";
-		nextPutAll: self entityTag;
-		nextPut: $".
-	^self! !
+!WebSocketConnection methodsFor: 'private-framing' stamp: 'gsa 1/24/2013 08:41'!
+toUtf8: aString
+	"Squeak specific"
+"
+	| converter in out |
+	converter := UTF8TextConverter new.
+	in := aString readStream.
+	out := WriteStream on: ''.
+	[in atEnd] whileFalse: 
+		[converter nextPut: in next toStream: out].
+	^out contents
+"
 
-!HTTPETagField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'ETag'! !
-
-!HTTPException methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-response
-	^response! !
-
-!HTTPException methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-response: aHTTPResponse
-	response := aHTTPResponse! !
-
-!HTTPException class methodsFor: 'responses-succesfull' stamp: ' 14/4/07 23:10'!
-accepted
-	^self raiseResponse: (HTTPResponse new code: 202)! !
-
-!HTTPException class methodsFor: 'responses-server error' stamp: ' 14/4/07 23:10'!
-badGateway
-	^self raiseResponse: (HTTPResponse new code: 502)! !
-
-!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
-badRequest
-	^self raiseResponse: (HTTPResponse new code: 400)! !
-
-!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
-conflict
-	^self raiseResponse: (HTTPResponse new code: 409)! !
-
-!HTTPException class methodsFor: 'responses-informational' stamp: ' 14/4/07 23:10'!
-continue
-	^self raiseResponse: (HTTPResponse new code: 100)! !
-
-!HTTPException class methodsFor: 'responses-succesfull' stamp: ' 14/4/07 23:10'!
-created
-	^self raiseResponse: (HTTPResponse new code: 201)! !
-
-!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
-expectationFailed
-	^self raiseResponse: (HTTPResponse new code: 416)! !
-
-!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
-forbidden
-	^self raiseResponse: (HTTPResponse new code: 403)! !
-
-!HTTPException class methodsFor: 'responses-redirection' stamp: ' 14/4/07 23:10'!
-found
-	^self raiseResponse: (HTTPResponse new code: 302)! !
-
-!HTTPException class methodsFor: 'responses-server error' stamp: ' 14/4/07 23:10'!
-gatewayTimeout
-	^self raiseResponse: (HTTPResponse new code: 504)! !
-
-!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
-gone
-	^self raiseResponse: (HTTPResponse new code: 410)! !
-
-!HTTPException class methodsFor: 'responses-server error' stamp: ' 14/4/07 23:10'!
-httpVersionNotSupported
-	^self raiseResponse: (HTTPResponse new code: 505)! !
-
-!HTTPException class methodsFor: 'responses-server error' stamp: ' 14/4/07 23:10'!
-internalServerError
-	^self raiseResponse: (HTTPResponse new code: 500)! !
-
-!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
-lengthRequired
-	^self raiseResponse: (HTTPResponse new code: 411)! !
-
-!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
-methodNotAllowed
-	^self raiseResponse: (HTTPResponse new code: 405)! !
-
-!HTTPException class methodsFor: 'responses-redirection' stamp: ' 14/4/07 23:10'!
-movedPermanently
-	^self raiseResponse: (HTTPResponse new code: 301)! !
-
-!HTTPException class methodsFor: 'responses-redirection' stamp: ' 14/4/07 23:10'!
-multipleChoices
-	^self raiseResponse: (HTTPResponse new code: 300)! !
-
-!HTTPException class methodsFor: 'responses-succesfull' stamp: ' 14/4/07 23:10'!
-noContent
-	^self raiseResponse: (HTTPResponse new code: 204)! !
-
-!HTTPException class methodsFor: 'responses-succesfull' stamp: ' 14/4/07 23:10'!
-nonAuthorativeInformation
-	^self raiseResponse: (HTTPResponse new code: 203)! !
-
-!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
-notAcceptable
-	^self raiseResponse: (HTTPResponse new code: 406)! !
-
-!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
-notFound
-	^self raiseResponse: (HTTPResponse new code: 404)! !
-
-!HTTPException class methodsFor: 'responses-server error' stamp: ' 14/4/07 23:10'!
-notImplemented
-	^self raiseResponse: (HTTPResponse new code: 501)! !
-
-!HTTPException class methodsFor: 'responses-redirection' stamp: ' 14/4/07 23:10'!
-notModified
-	^self raiseResponse: (HTTPResponse new code: 304)! !
-
-!HTTPException class methodsFor: 'responses-succesfull' stamp: ' 14/4/07 23:10'!
-ok
-	^self raiseResponse: HTTPResponse ok! !
-
-!HTTPException class methodsFor: 'responses-succesfull' stamp: ' 14/4/07 23:10'!
-partialContent
-	^self raiseResponse: (HTTPResponse new code: 206)! !
-
-!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
-paymentRequired
-	^self raiseResponse: (HTTPResponse new code: 402)! !
-
-!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
-preconditionFailed
-	^self raiseResponse: (HTTPResponse new code: 412)! !
-
-!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
-proxyAuthenticationRequired
-	^self raiseResponse: (HTTPResponse new code: 407)! !
-
-!HTTPException class methodsFor: 'signalling' stamp: ' 14/4/07 23:10'!
-raiseResponseCode: aNumber
-	"Raise an exception to immediatelly return http response with that code"
-	^self raiseResponse: (HTTPResponse new code: aNumber)! !
-
-!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
-requestEntityTooLarge
-	^self raiseResponse: (HTTPResponse new code: 413)! !
-
-!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
-requestTimeout
-	^self raiseResponse: (HTTPResponse new code: 408)! !
-
-!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
-requestURITooLong
-	^self raiseResponse: (HTTPResponse new code: 414)! !
-
-!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
-requestedRangeNotSatisfiable
-	^self raiseResponse: (HTTPResponse new code: 416)! !
-
-!HTTPException class methodsFor: 'responses-succesfull' stamp: ' 14/4/07 23:10'!
-resetContent
-	^self raiseResponse: (HTTPResponse new code: 205)! !
-
-!HTTPException class methodsFor: 'responses-redirection' stamp: ' 14/4/07 23:10'!
-seeOther
-	^self raiseResponse: (HTTPResponse new code: 303)! !
-
-!HTTPException class methodsFor: 'responses-server error' stamp: ' 14/4/07 23:10'!
-serviceUnavailable
-	^self raiseResponse: (HTTPResponse new code: 503)! !
-
-!HTTPException class methodsFor: 'responses-informational' stamp: ' 14/4/07 23:10'!
-switchingProtocols
-	^self raiseResponse: (HTTPResponse new code: 101)! !
-
-!HTTPException class methodsFor: 'responses-redirection' stamp: ' 14/4/07 23:10'!
-temporaryRedirect
-	^self raiseResponse: (HTTPResponse new code: 307)! !
-
-!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
-unathorized
-	^self raiseResponse: (HTTPResponse new code: 401)! !
-
-!HTTPException class methodsFor: 'responses-client error' stamp: ' 14/4/07 23:10'!
-unsupportedMediaType
-	^self raiseResponse: (HTTPResponse new code: 415)! !
-
-!HTTPException class methodsFor: 'responses-redirection' stamp: ' 14/4/07 23:10'!
-useProxy
-	^self raiseResponse: (HTTPResponse new code: 305)! !
-
-!HTTPExpiresField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-timestamp
-	^timestamp! !
-
-!HTTPExpiresField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-timestamp: aTimestamp
-	timestamp := aTimestamp.! !
-
-!HTTPExpiresField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
-valuesAsStringOn: aStream 
-	self timestamp asRFC1123StringOn: aStream.
-	^self! !
-
-!HTTPExpiresField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'Expires'! !
-
-!HTTPGet methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-isGet
-	^true! !
-
-!HTTPGet class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-methodName
-	^'GET'! !
-
-!HTTPHead methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-isHead
-	^true! !
-
-!HTTPHead class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-methodName
-	^'HEAD'! !
+	"Cuis specific"
+	^ aString! !
 
 !HTTPHeaders methodsFor: 'services' stamp: ' 14/4/07 23:10'!
 addField: aField 
@@ -3025,224 +2479,6 @@ I return a new instance of myself which contains fields parsed from aStream."
 
 	^self new readFrom: aSwazooStream! !
 
-!HTTPHostField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-hostName
-	^hostName! !
-
-!HTTPHostField methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-parseValueFrom: aString 
-	| sourceStream portNumberString |
-	sourceStream := ReadStream on: aString.
-	hostName := sourceStream upTo: $:.
-	portNumberString := sourceStream atEnd 
-				ifTrue: [String new]
-				ifFalse: [sourceStream upToEnd].
-	portNumberString notEmpty 
-		ifTrue: [portNumber := portNumberString asNumber].
-	^self! !
-
-!HTTPHostField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-portNumber
-	^portNumber isNil ifTrue: [80] ifFalse: [portNumber]! !
-
-!HTTPHostField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
-valuesAsStringOn: aStream 
-	aStream nextPutAll: self hostName.
-	portNumber notNil 
-		ifTrue: 
-			[aStream nextPut: $:.
-			self portNumber printOn: aStream].
-	^self! !
-
-!HTTPHostField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'Host'! !
-
-!HTTPIfMatchField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-isCacheHitFor: anEntity 
-	"^a Boolean
-I return true if an anEntity is a cache hit given the conditional I represent. 
-anEntity *must* respond to >>entutyTag"
-
-	1 halt.
-	^self! !
-
-!HTTPIfMatchField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'If-Match'! !
-
-!HTTPIfModifiedSinceField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-date
-	^date! !
-
-!HTTPIfModifiedSinceField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-isCacheHitFor: anEntity 
-	"^a Boolean
-I return true if an anEntity is a cache hit given the conditional I represent.  So in my case, I'm looking to see that the entity has not changed since my date.
-anEntity *must* respond to >>lastModified"
-
-	^anEntity lastModified <= self date! !
-
-!HTTPIfModifiedSinceField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-isConditional
-	^true! !
-
-!HTTPIfModifiedSinceField methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-parseValueFrom: aString 
-	date := SpTimestamp fromRFC1123String: aString.
-	^self! !
-
-!HTTPIfModifiedSinceField methodsFor: 'printing' stamp: 'janko 7/26/2008 13:51'!
-valuesAsStringOn: aStream 
-	self date notNil ifTrue: [self date asRFC1123StringOn: aStream].
-	^self! !
-
-!HTTPIfModifiedSinceField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'If-Modified-Since'! !
-
-!HTTPIfNoneMatchField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-isCacheHitFor: anEntity 
-	"^a Boolean
-I return true if an anEntity is a cache hit given the conditional I represent.  So in my case, I'm looking to see that the entity has a tag which is in my collection of entityTags.
-anEntity *must* respond to >>entityTag"
-
-	^self entityTags includes: anEntity entityTag! !
-
-!HTTPIfNoneMatchField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'If-None-Match'! !
-
-!HTTPIfRangeField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'If-Range'! !
-
-!HTTPIfUnmodifiedSinceField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-isCacheHitFor: anEntity 
-	"^a Boolean
-I return true if an anEntity is a cache hit given the conditional I represent. 
-anEntity *must* respond to >>entutyTag"
-
-	1 halt.
-	^self! !
-
-!HTTPIfUnmodifiedSinceField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-isConditional
-	^true! !
-
-!HTTPIfUnmodifiedSinceField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'If-Unmodified-Since'! !
-
-!HTTPLastModifiedField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-timestamp
-	^timestamp! !
-
-!HTTPLastModifiedField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-timestamp: aTimestamp
-	timestamp := aTimestamp.! !
-
-!HTTPLastModifiedField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
-valuesAsStringOn: aStream 
-	self timestamp asRFC1123StringOn: aStream.
-	^self! !
-
-!HTTPLastModifiedField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'Last-Modified'! !
-
-!HTTPLocationField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-uri
-	^uri! !
-
-!HTTPLocationField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-uri: aSwazooURI 
-	uri := aSwazooURI.
-	^self! !
-
-!HTTPLocationField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-uriString: aString 
-	uri := SwazooURI fromString: aString.
-	^self! !
-
-!HTTPLocationField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
-valuesAsStringOn: aStream 
-	self uri printOn: aStream.
-	^self! !
-
-!HTTPLocationField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'Location'! !
-
-!HTTPMatchField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
-addEntityTag: aString 
-	self entityTags add: aString.
-	^self! !
-
-!HTTPMatchField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
-combineWith: aHeaderField 
-	"^self
-I add the entity tags of aHeaderField to my own collection of entity tags."
-
-	self entityTags addAll: aHeaderField entityTags.
-	^self! !
-
-!HTTPMatchField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-entityTags
-	^self matchesAnyCurrentEntity 
-		ifTrue: [nil]
-		ifFalse: 
-			[entityTags isNil ifTrue: [entityTags := OrderedCollection new].
-			entityTags]! !
-
-!HTTPMatchField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-isConditional
-	^true! !
-
-!HTTPMatchField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-matchesAnyCurrentEntity
-	^entityTags = '*'! !
-
-!HTTPMatchField methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-parseValueFrom: aString 
-	aString = '*' 
-		ifTrue: [entityTags := aString]
-		ifFalse: 
-			[| sourceStream |
-			entityTags := OrderedCollection new.
-			sourceStream := ReadStream on: aString.
-			[sourceStream atEnd] whileFalse: 
-					[| entityTag |
-					sourceStream upTo: $".
-					entityTag := sourceStream upTo: $".
-					entityTags add: entityTag.
-					sourceStream upTo: $,]].
-	^self! !
-
-!HTTPMatchField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
-valuesAsStringOn: targetStream 
-	self write: self entityTags first asQuotedStringTo: targetStream.
-	2 to: self entityTags size
-		do: 
-			[:tagIndex | 
-			targetStream nextPut: $,.
-			self write: (self entityTags at: tagIndex) asQuotedStringTo: targetStream].
-	^self! !
-
-!HTTPMatchField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
-write: aString asQuotedStringTo: targetStream 
-	"^self
-See RFC 2616 2.2"
-
-	targetStream nextPut: $".
-	aString do: 
-			[:character | 
-			character == $" 
-				ifTrue: [targetStream nextPutAll: '\"']
-				ifFalse: [targetStream nextPut: character]].
-	targetStream nextPut: $".
-	^self! !
-
 !HTTPMessage methodsFor: 'initialize-release' stamp: ' 14/4/07 23:10'!
 addInitialHeaders
 	"^self 
@@ -3285,832 +2521,6 @@ task
 !HTTPMessage methodsFor: 'accessing' stamp: 'mivsek 12/31/2007 15:28'!
 task: aSwazooTask
 	task := aSwazooTask! !
-
-!HTTPOptions methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-isOptions
-	^true! !
-
-!HTTPOptions methodsFor: 'services' stamp: ' 14/4/07 23:10'!
-respondUsing: responseBlock 
-	"^an HTTPResponse
-I represent a request for the options supported by this server.  I respond with a 200 (OK) and a list of my supported methods in an Allow: header.  I ignore the responseBlock."
-
-	| response allowField |
-	response := HTTPResponse ok.
-	allowField := HTTPAllowField new.
-	allowField methods addAll: self class allMethodNames.
-	response headers addField: allowField.
-	^response! !
-
-!HTTPOptions class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-methodName
-	^'OPTIONS'! !
-
-!HTTPPost methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-applicationOctetStreamFrom: aStream 
-	"^self 
-rfc 2046 says:
-The recommended action for an implementation that receives an 'application/octet-stream' entity is to simply offer to put the data in a file, with any Content-Transfer-Encoding undone, or perhaps to use it as input to a user-specified process.
-This method used to do a crlf -> cr conversion on the octet-stream, but was not clear why."
-
-	self entityBody: (HTTPString 
-				stringFromBytes: (aStream nextBytes: self contentLength)).
-	^self! !
-
-!HTTPPost methodsFor: 'private-parsing support' stamp: 'janko 8/4/2008 13:16'!
-blockStreamingFrom: aSwazooStream to: outStream until: aBoundaryBytes "detected"
-	"copy by 8k blocks for optimal performance until a boundary of MIME part is detected"
-	"Finish appropriatelly streaming at the end (skip crlf etc.)"
-	| boundary start nrOfBoundary contents inPrevious remainingBoundary boundaryIndex |
-	boundary := aSwazooStream readBuffer isBinary 
-		ifTrue: [aBoundaryBytes asByteArray] ifFalse: [aBoundaryBytes asByteString].
-	start := self readPosition.
-	[true] whileTrue:
-		[nrOfBoundary := 0.
-		[nrOfBoundary = 0] whileTrue:
-			[nrOfBoundary := aSwazooStream readBuffer signsOfBoundary: boundary.
-			nrOfBoundary = 0 ifTrue: "no boundary in current buffer content"
-				[contents := aSwazooStream readBuffer readContents.
-				outStream nextPutAll: contents. 
-				self incReadPosition: contents size.
-				self checkToEnlargeBufferIn: aSwazooStream from: start. "for effective streaming"
-				aSwazooStream fillBuffer] ].
-		"copy and stream out content up to potential boundary"
-		boundaryIndex := aSwazooStream readBuffer indexOfBoundary: boundary.
-		inPrevious := aSwazooStream readBuffer copyBufferTo: boundaryIndex-1.
-		outStream nextPutAll: 
-			(inPrevious copyFrom: 1 to: (inPrevious size-2 max: 0) "without potential crlf"). 
-		self incReadPosition: inPrevious size. "potential crlf included!!"
-
-		nrOfBoundary = boundary size ifTrue: "full boundary detected, lets finish here"
-			[aSwazooStream skip: boundary size. "skip boundary"
-			self incReadPosition: boundary size.
-			^true].  "streaming complete"
-
-		self incReadPosition: nrOfBoundary.
-		aSwazooStream fillBuffer. "let's get next buffer"
-		remainingBoundary := boundary copyFrom: nrOfBoundary+1 to: boundary size.
-		(aSwazooStream readBuffer startsWith:  remainingBoundary) ifTrue: "bound. ends in next buff?"
-			[aSwazooStream skip: remainingBoundary size + 2.  "skip remaining bound. and crlf"
-			self incReadPosition: remainingBoundary size + 2.
-			^true]. "streaming complete"
-
-		outStream 
-			nextPutAll: (inPrevious copyFrom: inPrevious size-2 to: inPrevious size);  "potential crlf"
-			nextPutAll: (boundary copyFrom: 1 to: nrOfBoundary).  "boundary part in prev.buff."
-		] "continue from the start"! !
-
-!HTTPPost methodsFor: 'private-parsing support' stamp: 'janko 8/3/2008 17:21'!
-checkToEnlargeBufferIn: aSwazooStream from: startPosition
-	"enlarge buffer to 1MB (if not already) if more than 100KB already read"
-	aSwazooStream readBuffer isEnlarged ifTrue: [^nil].
-	(self readPosition - startPosition) > 100000 "about 100KB" 
-		ifTrue: [aSwazooStream readBuffer resizeEnlarge].! !
-
-!HTTPPost methodsFor: 'private-parsing support'!
-containsHeaderNecessaryFields
-	"content type and (content length or chunked transfer encoding)"
-	(self headers includesFieldOfClass: HTTPContentLengthField) ifTrue: [^true].
-	(self headers includesFieldOfClass: ContentTypeField) ifFalse: [^false].
-	^(self headers fieldNamed: 'Transfer-encoding' ifNone: [^false]) value = 'chunked'! !
-
-!HTTPPost methodsFor: 'accessing' stamp: 'mivsek 7/19/2007 22:13'!
-emptyData
-	self ensureFullRead.
-	^self postData select: [:each | each value isEmpty]! !
-
-!HTTPPost methodsFor: 'parsing' stamp: 'mivsek 7/19/2007 22:11'!
-ensureFullRead
-	"that is, everything is read from a socket stream. Important because of defered parsing
-	of postData"
-	self postData isParsed ifFalse: 
-		[self parsePostDataFrom: self postData stream.
-		self postData setParsed]! !
-
-!HTTPPost methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-entityBody
-	^entityBody! !
-
-!HTTPPost methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-entityBody: aString
-	entityBody := aString! !
-
-!HTTPPost methodsFor: 'parsing' stamp: 'mivsek 7/19/2007 22:12'!
-for: aRequestLine readFrom: aSwazooStream 
-	super for: aRequestLine readFrom: aSwazooStream.
-	self initPostDataFor: aSwazooStream.
-"	self parsePostDataFrom: aSwazooStream." "defered until first access of postData!! "! !
-
-!HTTPPost methodsFor: 'private' stamp: ' 10/7/07 17:21'!
-incReadPosition
-	self readPosition: self readPosition + 1! !
-
-!HTTPPost methodsFor: 'private' stamp: 'janko 7/26/2008 18:43'!
-incReadPosition: anInteger
-	self readPosition: self readPosition + anInteger! !
-
-!HTTPPost methodsFor: 'initialize-release' stamp: 'mivsek 7/19/2007 22:12'!
-initPostDataFor: aSwazooStream
-	postData := HTTPPostDataArray newOn: aSwazooStream! !
-
-!HTTPPost methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-isPost
-	^true! !
-
-!HTTPPost methodsFor: 'testing' stamp: 'mivsek 7/19/2007 22:13'!
-isPostDataEmpty
-	self ensureFullRead.
-	^self postData isEmpty! !
-
-!HTTPPost methodsFor: 'testing' stamp: 'mivsek 7/21/2007 22:47'!
-isPostDataStreamedAt: aKey
-	^(self postData at: aKey ifAbsent: [^false]) isStreamed! !
-
-!HTTPPost methodsFor: 'private-parsing' stamp: 'jm 2/8/2009 14:55'!
-multipartDataFrom: aSwazooStream
-	"read all mime parts and put them in postData" 
-	"read directly from stream, without intermediate buffers"
-	| contentTypeField boundary part |
-	contentTypeField := self headers fieldOfClass: ContentTypeField
-				ifNone: [^aSwazooStream nextBytes: self contentLength]. "just skip"
-	boundary := contentTypeField transferCodings at: 'boundary'
-				ifAbsent: [^aSwazooStream nextBytes: self contentLength]. "just skip"
-	self skipMimePreambleAndBoundary: boundary from: aSwazooStream. 
-	part := #something. 
-	[part notNil] whileTrue: 
-		[part := self partFromStream: aSwazooStream boundary: boundary.
-		part notNil ifTrue: [self postDataAt: part key put: part value]].
-	self skipMimeEpilogueFrom: aSwazooStream. "all to the end  as defined by contentLegth"
-	aSwazooStream readBuffer isEnlarged  "if MIME part larger that 100KB was read"
-		ifTrue: [aSwazooStream readBuffer resizeShrink]. "that is, release memory"! !
-
-!HTTPPost methodsFor: 'parsing'!
-parsePostDataFrom: aSwazooStream 
-	| contentType |
-	self containsHeaderNecessaryFields ifFalse: 
-		[^SwazooHTTPPostError raiseSignal: 'Content-Type and Content-Length or chunked needed'].
-	contentType := self headers fieldOfClass: ContentTypeField.
-	contentType notNil ifTrue: 
-		[contentType mediaType = 'application/x-www-form-urlencoded' 
-			ifTrue: [^self urlencodedDataFrom: aSwazooStream].
-		contentType mediaType = 'multipart/form-data' 
-			ifTrue: [^self multipartDataFrom: aSwazooStream] ].
-	^self applicationOctetStreamFrom: aSwazooStream.! !
-
-!HTTPPost methodsFor: 'private-parsing' stamp: 'jm 2/8/2009 23:59'!
-partFromStream: aSwazooStream boundary: aBoundaryBytes
-	"one mime part from a stream. Nil if no more multipart data"
-	"Squeak specific"
-	| bytes name filename datum contentType |
-	bytes := aSwazooStream nextBytes: 2. self incReadPosition: 2.
-	bytes = '--' asByteArray  ifTrue: [^nil].    "end of multipart data"
-		
-	name := nil. datum := nil. contentType := nil. "just to avoid compilation warning"
-	[true] whileTrue: [| line |  "read all lines and at the end a body of that part"
-		line := [(aSwazooStream upTo: Character cr asInteger) asString] "Squeak specific"
-			on: Error do: [:ex | ''].  "usually nothing to read anymore), why happen this anyway?"
-		self readPosition: self readPosition + line size + 1 "cr".
-		line := bytes asString, line. bytes := ''.
-		aSwazooStream peekByte = Character lf asInteger ifTrue: [| field | "this is a name line"
-			aSwazooStream nextByte.  self incReadPosition. "skip linefeed"
-			line isEmpty 	ifTrue: [| | "empty line indicates start of entity"
-				name isNil ifTrue: [^nil].  "name must be read in previous circle"
-				datum contentType: contentType. "completes datum's contentType read in a prev step"
- 				^name -> (self readEntityFrom: aSwazooStream 
-					datum: datum boundary: aBoundaryBytes)].
-			field := HeaderField fromLine: line.
-			field isContentDisposition ifTrue: 
-					[name := (field parameterAt: 'name') copyWithout: $". 
-					datum := (self isPostDataStreamedAt: name)
-						ifTrue: [self postData at: name]  "streamed datum must exist before"
-						ifFalse: [HTTPPostDatum new].
-					contentType notNil ifTrue: [datum contentType: contentType]. "if read in prev.circle"
-					filename := field parameterAt: 'filename' .   "only for file uploads"
-					filename notNil ifTrue: [datum filename: (filename copyWithout: $")] ].
-			field isContentType ifTrue: [contentType := field mediaType ] ] ]! !
-
-!HTTPPost methodsFor: 'private' stamp: 'mivsek 7/19/2007 22:12'!
-postData
-	^postData! !
-
-!HTTPPost methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-postDataAt: aKey 
-	^self postDataAt: aKey ifAbsent: [nil]! !
-
-!HTTPPost methodsFor: 'accessing' stamp: 'mivsek 7/24/2007 21:05'!
-postDataAt: aKey beforeStreamingDo: aBlockClosure
-	"announce that you want to receive post data directly to a binary stream, which will be set
-	by aBlockClosure. That block must receive and argument, which is a HTTPostDatum and 
-	here it can set a writeStream"
-	"Fails if post data is already read"
-	self postData isParsed 
-		ifTrue: [^self error: 'HTTPost already parsed, streaming not possible anymore!!'].
-	^self postDataAt: aKey put: (HTTPPostDatum new writeBlock: aBlockClosure)! !
-
-!HTTPPost methodsFor: 'accessing' stamp: 'mivsek 7/19/2007 22:15'!
-postDataAt: aKey do: aBlock 
-	| val |
-	self ensureFullRead. "defered parsing of postData"
-	val := self postData at: aKey ifAbsent: [nil].
-	val isNil ifFalse: [aBlock value: val]! !
-
-!HTTPPost methodsFor: 'accessing' stamp: 'mivsek 7/19/2007 22:15'!
-postDataAt: aKey ifAbsent: aBlock 
-	self ensureFullRead. "defered parsing of postData"
-	^self postData at: aKey ifAbsent: aBlock! !
-
-!HTTPPost methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-postDataAt: aKey put: aPostDatum 
-	"for testing purposes"
-
-	self postData at: aKey put: aPostDatum! !
-
-!HTTPPost methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-postDataAt: aKey putString: aString 
-	"for testing purposes"
-
-	self postDataAt: aKey put: (HTTPPostDatum new value: aString)! !
-
-!HTTPPost methodsFor: 'accessing' stamp: 'mivsek 7/20/2007 23:45'!
-postDataAt: aKey streamTo: aWriteStream
-	"announce that you want to receive post data directly to aWriteStream, 
-	which must be binary. Fails if post data is already read"
-	self postData isParsed 
-		ifTrue: [^self error: 'HTTPost already parsed, streaming not possible anymore!!'].
-	^self postDataAt: aKey put: (HTTPPostDatum new writeStream: aWriteStream)! !
-
-!HTTPPost methodsFor: 'accessing' stamp: 'mivsek 7/19/2007 22:15'!
-postDataKeys
-	self ensureFullRead. "defered parsing of postData"
-	^self postData keys! !
-
-!HTTPPost methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-postDataStringAt: aKey 
-	^(self postDataAt: aKey ifAbsent: [^nil]) value! !
-
-!HTTPPost methodsFor: 'accessing' stamp: 'mivsek 7/19/2007 22:15'!
-postKeysAndValuesDo: aTwoArgBlock 
-	self ensureFullRead. "defered parsing of postData"
-	self postData 
-		keysAndValuesDo: [:key :each | aTwoArgBlock value: key value: each value]! !
-
-!HTTPPost methodsFor: 'private-parsing' stamp: 'janko 7/26/2008 18:48'!
-readEntityFrom: aSwazooStream datum: aDatum boundary: aBoundaryBytes
-	"read one entity from a stream and put into datum. Stream it if streamed. Also call a block 
-	(if any) just before start of streaming, with a datum as parameter. This block can then set 
-	a write stream in datum (for instance open a output file and stream on it)"
-	| outStream |
-	aDatum writeBlock notNil 
-		ifTrue: [aDatum writeBlock value: aDatum]. "this should set writeStream if not already!!" 
-	outStream := (aDatum isStreamed and: [aDatum writeStream notNil])
-		ifTrue: [aDatum writeStream] ifFalse: [WriteStream on: ByteArray new].
-	self blockStreamingFrom: aSwazooStream to: outStream until: ('--', aBoundaryBytes). "efficient streaming"
-	aDatum isStreamed not ifTrue: "otherwise entity is already streamed to the output"
-		[aDatum value: outStream contents asString].
-	^aDatum! !
-
-!HTTPPost methodsFor: 'private' stamp: ' 10/7/07 17:21'!
-readPosition
-	"position in a read stream. just temporary"
-	readPosition isNil ifTrue: [^1].
-	^readPosition! !
-
-!HTTPPost methodsFor: 'private' stamp: ' 10/7/07 17:21'!
-readPosition: aNumber
-	readPosition := aNumber! !
-
-!HTTPPost methodsFor: 'private-parsing support' stamp: 'mivsek 8/7/2007 18:53'!
-skipMimeEpilogueFrom: aSwazooStream
-	"skip a mime epilogue until end of post data defined by contentLength"
-	"example:
-		--boundary--
-		This is the epilogue.  It is also to be ignored
-	"
-	[self readPosition < self contentLength] whileTrue: 
-		[aSwazooStream next. "just skip"
-		self incReadPosition].! !
-
-!HTTPPost methodsFor: 'private-parsing support' stamp: 'janko 7/26/2008 18:49'!
-skipMimePreambleAndBoundary: aBoundaryBytes from: aSwazooStream
-	"skip a mime preamble until first boundary starts then skip that boundary too"
-	"example:
-		Content-type: multipart/mixed; boundary=''boundary''
-
-		This is the preamble.  It is to be ignored, though it is
-		a handy place to include an explanatory note to non-MIME compliant readers.
-		--boundary
-		..."
-	| dummy |
-	dummy := WriteStream on: ByteArray new.
-	self blockStreamingFrom: aSwazooStream to: dummy until: ('--', aBoundaryBytes)! !
-
-!HTTPPost methodsFor: 'private-parsing' stamp: 'mivsek 12/31/2007 15:29'!
-urlencodedDataFrom: aStream 
-	| entity tokens |
-	(self headers includesFieldOfClass: HTTPContentLengthField) ifFalse: [^self].
-	entity := aStream nextBytes: self contentLength.
-	tokens := HTTPString subCollectionsFrom: (HTTPString stringFromBytes: entity) delimitedBy: $&.
-	(tokens collect: [:each | HTTPString subCollectionsFrom: each delimitedBy: $=]) 
-		do: 	[:keyVal | | datum key |
-			datum := HTTPPostDatum new.
-			datum value: (HTTPString decodedHTTPFrom: 
- 				(keyVal last collect: [:char | 
-					char = $+ ifTrue: [Character space] ifFalse: [char]])).
-			key := (HTTPString decodedHTTPFrom: 
- 				(keyVal first collect: [:char | 
-					char = $+ ifTrue: [Character space] ifFalse: [char]])).
-			self postDataAt: key put: datum]! !
-
-!HTTPPost class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-methodName
-	^'POST'! !
-
-!HTTPPostDataArray methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-allAt: aKey 
-	| candidates |
-	candidates := self underlyingCollection 
-				select: [:anAssociation | anAssociation key = aKey].
-	^candidates collect: [:anAssociation| anAssociation value]! !
-
-!HTTPPostDataArray methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-allNamesForValue: aString 
-	| candidates |
-	candidates := self underlyingCollection 
-				select: [:anAssociation | anAssociation value value = aString].
-	^candidates collect: [:anAssociation| anAssociation key]! !
-
-!HTTPPostDataArray methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-associations
-	^self underlyingCollection! !
-
-!HTTPPostDataArray methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-at: aKey 
-	^(self allAt: aKey) last! !
-
-!HTTPPostDataArray methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-at: aKey ifAbsent: aBlock 
-	| candidates |
-	candidates := self underlyingCollection 
-				select: [:anAssociation | anAssociation key = aKey].
-	^candidates isEmpty ifTrue: [aBlock value] ifFalse: [candidates last value]! !
-
-!HTTPPostDataArray methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-at: key put: anObject 
-	self underlyingCollection add: (Association key: key value: anObject).
-	^anObject! !
-
-!HTTPPostDataArray methodsFor: 'accessing' stamp: 'mivsek 7/19/2007 22:07'!
-clearParsed
-	parsed := false! !
-
-!HTTPPostDataArray methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-includesKey: aKey 
-	| candidates |
-	candidates := self underlyingCollection 
-				select: [:anAssociation | anAssociation key = aKey].
-	^candidates notEmpty! !
-
-!HTTPPostDataArray methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-includesValue: aString 
-	| candidates |
-	candidates := self underlyingCollection 
-				select: [:anAssociation | anAssociation value value = aString].
-	^candidates notEmpty! !
-
-!HTTPPostDataArray methodsFor: 'initialize-release' stamp: 'mivsek 7/19/2007 22:07'!
-initialize
-	self clearParsed! !
-
-!HTTPPostDataArray methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-isEmpty
-	^self underlyingCollection isEmpty! !
-
-!HTTPPostDataArray methodsFor: 'testing' stamp: 'mivsek 7/19/2007 22:08'!
-isParsed
-	"postdata is already read and parsed from a request"
-	^parsed! !
-
-!HTTPPostDataArray methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-keys
-"^a Set
-I mimick the behavior of a Dictionay which I replace.  I return a set of the keys in my underlying collection of associations."
-
-	^(self underlyingCollection collect: [:anAssociation| anAssociation key]) asSet! !
-
-!HTTPPostDataArray methodsFor: 'enumerating' stamp: ' 14/4/07 23:10'!
-keysAndValuesDo: aTwoArgumentBlock 
-	self underlyingCollection do: 
-		[:anAssociation | aTwoArgumentBlock value: anAssociation key value: anAssociation value]! !
-
-!HTTPPostDataArray methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-nameForValue: aString
-	^(self allNamesForValue: aString) last! !
-
-!HTTPPostDataArray methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-printOn: aStream
-	aStream nextPutAll: 'a Swazoo.HttpPostDataArray 
-	'.
-	self underlyingCollection do: [:each | aStream nextPutAll: each key printString , '->', 
-		each value value printString, '
-	'].! !
-
-!HTTPPostDataArray methodsFor: 'enumerating' stamp: ' 14/4/07 23:10'!
-select: aBlock 
-"^an Object
-I run the select on the values of the associations in my underlying collection.  This mimicks the behavior when a Dictionary was used in my place."
-	^self underlyingCollection select:  [:anAssociation| aBlock value: anAssociation value]! !
-
-!HTTPPostDataArray methodsFor: 'accessing' stamp: 'mivsek 7/19/2007 22:08'!
-setParsed
-	parsed := true! !
-
-!HTTPPostDataArray methodsFor: 'private' stamp: 'mivsek 7/19/2007 22:08'!
-stream
-	^stream! !
-
-!HTTPPostDataArray methodsFor: 'private' stamp: 'mivsek 7/19/2007 22:08'!
-stream: aSwazooStream
-	"needed for defered postData parsing"
-	stream := aSwazooStream! !
-
-!HTTPPostDataArray methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-underlyingCollection
-	underlyingCollection isNil 
-		ifTrue: [underlyingCollection := OrderedCollection new].
-	^underlyingCollection! !
-
-!HTTPPostDataArray class methodsFor: 'instance creation' stamp: 'mivsek 7/19/2007 22:09'!
-newOn: aSwazooStream
-	^super new 
-		initialize;
-		stream: aSwazooStream! !
-
-!HTTPPostDatum methodsFor: 'private-accessing' stamp: ' 14/4/07 23:10'!
-defaultContentType
-	^'text/plain'! !
-
-!HTTPPostDatum methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-filename
-	^filename! !
-
-!HTTPPostDatum methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-filename: aString
-	filename := aString! !
-
-!HTTPPostDatum methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-filenameWithoutPath
-	"M$ Internet Explorer includes full path in filename of uploaded file!! "
-	self filename isNil ifTrue: [^nil].
-	^(self filename includes: $\ ) 
-		ifTrue: [self filename copyFrom: (self filename lastIndexOf: $\ )+1 to: self filename size]
-		ifFalse: [self filename]! !
-
-!HTTPPostDatum methodsFor: 'testing' stamp: 'mivsek 7/24/2007 21:04'!
-isStreamed
-	"this postDatum is streamed - it has an output stream to receive data into or a block 
-	which will set it"
-	^self writeStream notNil or: [self writeBlock notNil]! !
-
-!HTTPPostDatum methodsFor: 'accessing' stamp: 'mivsek 7/24/2007 21:03'!
-writeBlock
-	^writeBlock! !
-
-!HTTPPostDatum methodsFor: 'accessing' stamp: 'mivsek 7/24/2007 21:03'!
-writeBlock: aBlockClosure
-	"this block will be called just before start of streaming to writeStream. It can be used to 
-	open the writeStream, because on that time we already know the filename of uploaded file. 
-	As a parameter this postDatum is sent"
-	writeBlock := aBlockClosure! !
-
-!HTTPPostDatum methodsFor: 'accessing' stamp: 'mivsek 7/20/2007 23:44'!
-writeStream
-	^writeStream! !
-
-!HTTPPostDatum methodsFor: 'accessing' stamp: 'mivsek 7/20/2007 23:44'!
-writeStream: aWriteStream
-	"a binary stream where to put directly a post data"
-	writeStream := aWriteStream! !
-
-!HTTPPostTest methodsFor: 'requests' stamp: 'janko 7/26/2008 15:36'!
-crlf
-	^String with: Character cr with: Character lf.! !
-
-!HTTPPostTest methodsFor: 'requests' stamp: 'janko 7/26/2008 15:33'!
-fileContents
-	"HTTPRequestTest new fileContents"
-	| stream |
-	stream := SwazooStream on: String new.
-	stream
-		nextPutLine: 'BEGIN:VCALENDAR';
-		nextPutLine: 'PRODID:-//Squeak-iCalendar//-';
-		nextPutLine: 'VERSION:2.0';
-		nextPutLine: 'X-WR-CALNAME:test';
-		nextPutLine: 'METHOD:PUBLISH';
-		nextPutLine: 'BEGIN:VEVENT';
-		nextPutLine: 'UID:an event with a start date and not date and time';
-		nextPutLine: 'CATEGORIES:category1,category2';
-		nextPutLine: 'CREATED:20050501T110231Z';
-		nextPutLine: 'SEQUENCE:0';
-		nextPutLine: 'SUMMARY:aTitle';
-		nextPutLine: 'PRIORITY:5';
-		nextPutLine: 'DTSTART;VALUE=DATE:20050425';
-		nextPutLine: 'END:VEVENT';
-		nextPutLine: 'END:VCALENDAR'.
-
-	^stream writeBuffer contents asString! !
-
-!HTTPPostTest methodsFor: 'requests' stamp: 'janko 7/26/2008 15:33'!
-postDashes
-	| requestStream |
-	requestStream := SwazooStream on: String new.
-	requestStream
-		nextPutLine: 'POST  /document/aab.html HTTP/1.1';
-		nextPutLine: 'Host: biart.eranova.si';
-		nextPutLine: 'Content-Type: multipart/form-data; boundary= boundary';
-		nextPutLine: 'Content-Length: 149';
-            crlf;
-		nextPutLine: '--boundary';
-		nextPutLine: 'Content-Disposition: form-data; name="id5273"';
-		crlf; 
-		nextPutLine: '----';
-		nextPutLine: '--boundary';
-		nextPutLine: 'Content-Disposition: form-data; name="field2"';
-		crlf; 
-		nextPutLine: '- --';
-		nextPutLine: '--boundary--'.
-
-	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
-
-!HTTPPostTest methodsFor: 'requests' stamp: 'janko 7/26/2008 15:33'!
-postEmpty
-	"post entity with empty value"
-	| requestStream |
-	requestStream := SwazooStream on: String new.
-	requestStream
-		nextPutLine: 'POST  /document/aab.html HTTP/1.1';
-		nextPutLine: 'Host: biart.eranova.si';
-		nextPutLine: 'Content-Type: multipart/form-data; boundary= boundary';
-		nextPutLine: 'Content-Length: 75';
-            crlf;
-		nextPutLine: '--boundary';
-		nextPutLine: 'Content-Disposition: form-data; name="id5273"';
-		crlf; 
-		nextPutLine: '';
-		nextPutLine: '--boundary--'.
-
-	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
-
-!HTTPPostTest methodsFor: 'requests' stamp: 'janko 7/26/2008 15:33'!
-postFile
-	| requestStream |
-	requestStream := SwazooStream on: String new.
-	requestStream
-		nextPutLine: 'POST  /document/aab.html HTTP/1.1';
-		nextPutLine: 'Connection: Keep-Alive';
-		nextPutLine: 'User-Agent: Mozilla/4.72 [en] (X11; I; Linux 2.3.51 i686)';
-		nextPutLine: 'Host: biart.eranova.si';
-		nextPutLine: 'Referer: http://www.bar.com/takeMeThere.html';
-		nextPutLine: 'Content-Type: multipart/form-data; boundary= -----------------20752836116568320241700153999';
-		nextPutLine: 'Content-Length: ', (527+self fileContents size) printString;
-            crlf;
-		nextPutLine: '-------------------20752836116568320241700153999';
-		nextPutLine: 'Content-Disposition: form-data; name="id5273"';
-		crlf; 
-		nextPutLine: 'main';
-		nextPutLine: '-------------------20752836116568320241700153999';
-		nextPutLine: 'Content-Disposition: form-data; name="field2"';
-		crlf; crlf;
-		nextPutLine: '-------------------20752836116568320241700153999';
-		nextPutLine: 'Content-Disposition: form-data; name="field7"; filename="event.ical"';
-		nextPutLine: 'Content-Type: application/octet-stream';
-		crlf;
-
-		nextPutAll: self fileContents;
-
-		crlf;
-		nextPutLine: '-------------------20752836116568320241700153999';
-		nextPutLine: 'Content-Disposition: form-data; name="attach"';
-		crlf;
-		nextPutLine: 'Attach';
-		nextPutLine: '-------------------20752836116568320241700153999--'.
-
-	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
-
-!HTTPPostTest methodsFor: 'requests' stamp: 'janko 7/26/2008 15:33'!
-postPreambleEpilogue
-	| requestStream |
-	requestStream := SwazooStream on: String new.
-	requestStream
-		nextPutLine: 'POST  /document/aab.html HTTP/1.1';
-		nextPutLine: 'Host: biart.eranova.si';
-		nextPutLine: 'Content-Type: multipart/form-data; boundary= boundary';
-		nextPutLine: 'Content-Length: 146';
-            crlf;
-		nextPutLine: 'This is a multi-part message in MIME format';
-		nextPutLine: '--boundary';
-		nextPutLine: 'Content-Disposition: form-data; name="id5273"';
-		crlf; 
-		nextPutLine: 'main';
-		nextPutLine: '--boundary--';
-		nextPutLine: 'This is the epilogue'.
-
-	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
-
-!HTTPPostTest methodsFor: 'requests' stamp: 'janko 7/26/2008 15:33'!
-postSimple
-	| requestStream |
-	requestStream := SwazooStream on: String new.
-	requestStream
-		nextPutLine: 'POST  /document/aab.html HTTP/1.1';
-		nextPutLine: 'Host: biart.eranova.si';
-		nextPutLine: 'Content-Type: multipart/form-data; boundary= boundary';
-		nextPutLine: 'Content-Length: 79';
-            crlf;
-		nextPutLine: '--boundary';
-		nextPutLine: 'Content-Disposition: form-data; name="id5273"';
-		crlf; 
-		nextPutLine: 'main';
-		nextPutLine: '--boundary--'.
-
-	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
-
-!HTTPPostTest methodsFor: 'requests' stamp: 'janko 7/26/2008 15:33'!
-postUrlEncoded
-	| requestStream |
-	requestStream := SwazooStream on: String new.
-	requestStream
-		nextPutLine: 'POST  /document/aab.html HTTP/1.1';
-		nextPutLine: 'Host: biart.eranova.si';
-		nextPutLine: 'Content-Type: application/x-www-form-urlencoded';
-		nextPutLine: 'Content-Length: 36';
-            crlf;
-		nextPutAll: 'home=Cosby+one&favorite+flavor=flies'.
-
-	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
-
-!HTTPPostTest methodsFor: 'testing-mime parsing' stamp: 'janko 7/26/2008 15:35'!
-testBlockCopy
-	"streaming with 8k blocks for performance"
-	"this is just a basic test with content shorter that one block"
-	| boundary message in out |
-	boundary := '--boundary--'.
-	message := 'just something'. 
-	in := SwazooStream on: message, self crlf, boundary.
-	out := WriteStream on: String new.
-	HTTPPost new blockStreamingFrom: in to: out until: boundary.
-	self assert: out contents = message.! !
-
-!HTTPPostTest methodsFor: 'testing-posts' stamp: 'janko 7/26/2008 15:33'!
-testPost10Simple
-	"just one entity"
-	| post |
-	post := self postSimple.
-	self assert: post isPostDataEmpty not.
-	self assert: (post postDataStringAt: 'id5273') = 'main'.! !
-
-!HTTPPostTest methodsFor: 'testing-posts' stamp: 'janko 7/26/2008 15:33'!
-testPost2Empty
-	"post entity with empty value"
-	| post |
-	post := self postEmpty.
-	self assert: post isPostDataEmpty not.
-	self assert: (post postDataStringAt: 'id5273') = ''.! !
-
-!HTTPPostTest methodsFor: 'testing-posts' stamp: 'janko 7/26/2008 15:33'!
-testPost3Dashes
-	"some ---- inside post data"
-	| post |
-	post := self postDashes.
-	self assert: post isPostDataEmpty not.
-	self assert: (post postDataStringAt: 'id5273') = '----'.
-	self assert: (post postDataStringAt: 'field2') = '- --'.! !
-
-!HTTPPostTest methodsFor: 'testing-file posts' stamp: 'janko 7/26/2008 15:33'!
-testPost40File
-	| post |
-	post := self postFile.
-	self assert: post isPostDataEmpty not.
-	self assert: (post postDataStringAt: 'id5273') = 'main'.
-	self assert: (post postDataStringAt: 'field2') = ''.
-	self assert: (post postDataAt: 'field7') filename = 'event.ical'.
-	self assert: ((post postDataStringAt: 'field7') readStream upTo: Character cr) = 'BEGIN:VCALENDAR'.
-	self assert: (post postDataStringAt: 'field7') = self fileContents.
-	self assert: (post postDataStringAt: 'attach') = 'Attach'.! !
-
-!HTTPPostTest methodsFor: 'testing-file posts' stamp: 'janko 7/26/2008 15:33'!
-testPost41FileStreamed
-	| post stream |
-	post := self postFile.
-	stream := WriteStream on: ByteArray new.
-	post postDataAt: 'field7' streamTo: stream.
-	self assert: (post isPostDataStreamedAt: 'field7').
-	self deny: post postData isParsed. "post data read from socket defered"
-	self assert: (post postDataStringAt: 'id5273') = 'main'. 
-	self assert: post postData isParsed.  "first access to post data trigger full read and parse"
-	self assert: (post postDataAt: 'field7') filename = 'event.ical'.
-	self assert: (stream contents asString readStream upTo: Character cr) = 'BEGIN:VCALENDAR'.
-	self assert: stream contents asString = self fileContents.
-	self assert: (post postDataStringAt: 'attach') = 'Attach'.! !
-
-!HTTPPostTest methodsFor: 'testing-file posts' stamp: 'janko 7/26/2008 15:33'!
-testPost42FileContentType
-	| post |
-	post := self postFile. "set the data to the post"
-	self assert: post isPostDataEmpty not. "read the content of the stream"
-	self assert: (post postDataAt: 'field7') contentType = 'application/octet-stream'.! !
-
-!HTTPPostTest methodsFor: 'testing-posts' stamp: 'janko 7/26/2008 15:33'!
-testPost5UrlEncoded
-	"just one entity"
-	| post |
-	post := self postUrlEncoded.
-	self assert: post isPostDataEmpty not.
-	self assert: (post postDataStringAt: 'home') = 'Cosby one'.
-	self assert: (post postDataStringAt: 'favorite flavor') = 'flies'.! !
-
-!HTTPPostTest methodsFor: 'testing-posts' stamp: 'janko 7/26/2008 15:33'!
-testPostPreambleEpilogue
-	"mime preamble before first part and epilogue at the end. See #postPreambleEpilogue"
-	| post |
-	post := self postPreambleEpilogue.
-	self assert: post isPostDataEmpty not.
-	self assert: (post postDataStringAt: 'id5273') = 'main'.! !
-
-!HTTPPostTest methodsFor: 'testing-posts' stamp: 'janko 7/26/2008 15:33'!
-testPostRawEntity
-	| requestStream post |
-	requestStream := SwazooStream on: String new.
-	requestStream
-		nextPutLine: 'POST /foobar HTTP/1.0';
-		nextPutLine: 'Host: foo.com';
-		nextPutLine: 'Content-Type: text/plain';
-		nextPutLine: 'Content-Length: 12';
-		crlf;
-		nextPutLine: 'Hello, World'.
-	post := HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents).
-	self assert: post isPostDataEmpty.
-	self assert: post entityBody = 'Hello, World'! !
-
-!HTTPPostTest methodsFor: 'testing-posts' stamp: 'janko 7/26/2008 15:33'!
-testPostUrlEncodedData
-	| requestStream post |
-	requestStream := SwazooStream on: String new.
-	requestStream
-		nextPutLine: 'POST / HTTP/1.1';
-		nextPutLine: 'Host: foo.com';
-		nextPutLine: 'Content-Type: application/x-www-form-urlencoded';
-		nextPutLine: 'Content-Length: 31';
-		crlf;
-		nextPutLine: 'address=+fs&product=&quantity=1'.
-	post := HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents).
-	self assert: (post postDataAt: 'address') value = ' fs'.
-	self assert: (post postDataAt: 'product') value = ''.
-	self assert: (post postDataAt: 'quantity') value = '1'! !
-
-!HTTPPut methodsFor: 'reading'!
-for: aRequestLine readFrom: aSwazooStream 
-	super for: aRequestLine readFrom: aSwazooStream .
-	self octetDataFrom: aSwazooStream.! !
-
-!HTTPPut methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-isPut
-	^true! !
-
-!HTTPPut methodsFor: 'reading' stamp: ' 14/4/07 23:10'!
-octetDataFrom: aStream 
-	self headers fieldOfClass: HTTPContentLengthField
-		ifNone: [^SwazooHTTPPutError raiseSignal: 'Missing Content-Length'].
-	self putData: (aStream nextBytes: self contentLength)! !
-
-!HTTPPut methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-putData
-	^putData! !
-
-!HTTPPut methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-putData: aString
-	putData := aString! !
-
-!HTTPPut class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-methodName
-	^'PUT'! !
-
-!HTTPRefererField methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-parseValueFrom: aString 
-	uri := SwazooURI fromString: aString.
-	^self! !
-
-!HTTPRefererField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-uri
-	^uri! !
-
-!HTTPRefererField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
-valuesAsStringOn: aStream 
-	self uri printOn: aStream.
-	^self! !
-
-!HTTPRefererField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'Referer'! !
 
 !HTTPRequest methodsFor: 'private' stamp: ' 14/4/07 23:10'!
 authenticated
@@ -4563,302 +2973,404 @@ This may result in a corrupt or invalid request, but that's the natutre of testi
 		from: aHostString
 		at: anIPString! !
 
-!HTTPRequestLine methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-httpVersion
-	^httpVersion! !
+!HTTPDelete methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+isDelete
+	^true! !
 
-!HTTPRequestLine methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-httpVersion: anArray 
-	httpVersion := anArray.
+!HTTPDelete class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+methodName
+	"HTTP method used for a request"
+	^'DELETE'! !
+
+!HTTPGet methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+isGet
+	^true! !
+
+!HTTPGet class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+methodName
+	^'GET'! !
+
+!HTTPHead methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+isHead
+	^true! !
+
+!HTTPHead class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+methodName
+	^'HEAD'! !
+
+!HTTPOptions methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+isOptions
+	^true! !
+
+!HTTPOptions methodsFor: 'services' stamp: ' 14/4/07 23:10'!
+respondUsing: responseBlock 
+	"^an HTTPResponse
+I represent a request for the options supported by this server.  I respond with a 200 (OK) and a list of my supported methods in an Allow: header.  I ignore the responseBlock."
+
+	| response allowField |
+	response := HTTPResponse ok.
+	allowField := HTTPAllowField new.
+	allowField methods addAll: self class allMethodNames.
+	response headers addField: allowField.
+	^response! !
+
+!HTTPOptions class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+methodName
+	^'OPTIONS'! !
+
+!HTTPPost methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+applicationOctetStreamFrom: aStream 
+	"^self 
+rfc 2046 says:
+The recommended action for an implementation that receives an 'application/octet-stream' entity is to simply offer to put the data in a file, with any Content-Transfer-Encoding undone, or perhaps to use it as input to a user-specified process.
+This method used to do a crlf -> cr conversion on the octet-stream, but was not clear why."
+
+	self entityBody: (HTTPString 
+				stringFromBytes: (aStream nextBytes: self contentLength)).
 	^self! !
 
-!HTTPRequestLine methodsFor: 'testing' stamp: 'mivsek 12/31/2007 15:48'!
-isHttp10
-	^self httpVersion last = 0! !
+!HTTPPost methodsFor: 'private-parsing support' stamp: 'janko 8/4/2008 13:16'!
+blockStreamingFrom: aSwazooStream to: outStream until: aBoundaryBytes "detected"
+	"copy by 8k blocks for optimal performance until a boundary of MIME part is detected"
+	"Finish appropriatelly streaming at the end (skip crlf etc.)"
+	| boundary start nrOfBoundary contents inPrevious remainingBoundary boundaryIndex |
+	boundary := aSwazooStream readBuffer isBinary 
+		ifTrue: [aBoundaryBytes asByteArray] ifFalse: [aBoundaryBytes asByteString].
+	start := self readPosition.
+	[true] whileTrue:
+		[nrOfBoundary := 0.
+		[nrOfBoundary = 0] whileTrue:
+			[nrOfBoundary := aSwazooStream readBuffer signsOfBoundary: boundary.
+			nrOfBoundary = 0 ifTrue: "no boundary in current buffer content"
+				[contents := aSwazooStream readBuffer readContents.
+				outStream nextPutAll: contents. 
+				self incReadPosition: contents size.
+				self checkToEnlargeBufferIn: aSwazooStream from: start. "for effective streaming"
+				aSwazooStream fillBuffer] ].
+		"copy and stream out content up to potential boundary"
+		boundaryIndex := aSwazooStream readBuffer indexOfBoundary: boundary.
+		inPrevious := aSwazooStream readBuffer copyBufferTo: boundaryIndex-1.
+		outStream nextPutAll: 
+			(inPrevious copyFrom: 1 to: (inPrevious size-2 max: 0) "without potential crlf"). 
+		self incReadPosition: inPrevious size. "potential crlf included!!"
 
-!HTTPRequestLine methodsFor: 'testing' stamp: 'mivsek 12/31/2007 15:48'!
-isHttp11
-	^self httpVersion last = 1! !
+		nrOfBoundary = boundary size ifTrue: "full boundary detected, lets finish here"
+			[aSwazooStream skip: boundary size. "skip boundary"
+			self incReadPosition: boundary size.
+			^true].  "streaming complete"
 
-!HTTPRequestLine methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-method
-	^method! !
+		self incReadPosition: nrOfBoundary.
+		aSwazooStream fillBuffer. "let's get next buffer"
+		remainingBoundary := boundary copyFrom: nrOfBoundary+1 to: boundary size.
+		(aSwazooStream readBuffer startsWith:  remainingBoundary) ifTrue: "bound. ends in next buff?"
+			[aSwazooStream skip: remainingBoundary size + 2.  "skip remaining bound. and crlf"
+			self incReadPosition: remainingBoundary size + 2.
+			^true]. "streaming complete"
 
-!HTTPRequestLine methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-method: aString
-"For development testing only"
-	method := aString.
-	^self! !
+		outStream 
+			nextPutAll: (inPrevious copyFrom: inPrevious size-2 to: inPrevious size);  "potential crlf"
+			nextPutAll: (boundary copyFrom: 1 to: nrOfBoundary).  "boundary part in prev.buff."
+		] "continue from the start"! !
 
-!HTTPRequestLine methodsFor: 'parsing' stamp: 'mivsek 7/26/2007 13:07'!
-parseHTTPVersionFrom: aSwazooStream 
-	| major minor |
-	self skipSpacesIn: aSwazooStream.
-	aSwazooStream upTo: $/ asInteger.
-	major := (aSwazooStream upTo: $. asInteger) asString asNumber.
-	minor := (aSwazooStream upTo: Character cr asInteger) asString asNumber.
-	self httpVersion: (Array with: major with: minor).
-	aSwazooStream next.
-	^self! !
+!HTTPPost methodsFor: 'private-parsing support' stamp: 'janko 8/3/2008 17:21'!
+checkToEnlargeBufferIn: aSwazooStream from: startPosition
+	"enlarge buffer to 1MB (if not already) if more than 100KB already read"
+	aSwazooStream readBuffer isEnlarged ifTrue: [^nil].
+	(self readPosition - startPosition) > 100000 "about 100KB" 
+		ifTrue: [aSwazooStream readBuffer resizeEnlarge].! !
 
-!HTTPRequestLine methodsFor: 'parsing' stamp: 'mivsek 7/26/2007 13:06'!
-parseURIFrom: aSwazooStream 
-	"^self
-	Really, we should parse the URI directly out of the stream."
+!HTTPPost methodsFor: 'private-parsing support'!
+containsHeaderNecessaryFields
+	"content type and (content length or chunked transfer encoding)"
+	(self headers includesFieldOfClass: HTTPContentLengthField) ifTrue: [^true].
+	(self headers includesFieldOfClass: ContentTypeField) ifFalse: [^false].
+	^(self headers fieldNamed: 'Transfer-encoding' ifNone: [^false]) value = 'chunked'! !
 
-	self skipSpacesIn: aSwazooStream.
-	requestURI := SwazooURI fromString: 
-		(aSwazooStream upTo: Character space asInteger) asString.
-	^self! !
+!HTTPPost methodsFor: 'accessing' stamp: 'mivsek 7/19/2007 22:13'!
+emptyData
+	self ensureFullRead.
+	^self postData select: [:each | each value isEmpty]! !
 
-!HTTPRequestLine methodsFor: 'parsing' stamp: 'mivsek 7/10/2007 18:52'!
-readFrom: aSwazooStream 
-	"^self
-I initialize myself to represents a request line read from aStream.  If no valid request line can be found, I throw an exception."
+!HTTPPost methodsFor: 'parsing' stamp: 'mivsek 7/19/2007 22:11'!
+ensureFullRead
+	"that is, everything is read from a socket stream. Important because of defered parsing
+	of postData"
+	self postData isParsed ifFalse: 
+		[self parsePostDataFrom: self postData stream.
+		self postData setParsed]! !
 
-	self skipLeadingBlankLinesIn: aSwazooStream.
-	method := (aSwazooStream upTo: Character space asInteger) asString.
-	self parseURIFrom: aSwazooStream.
-	self parseHTTPVersionFrom: aSwazooStream.
-	^self! !
+!HTTPPost methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+entityBody
+	^entityBody! !
 
-!HTTPRequestLine methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-requestURI
-	^requestURI! !
+!HTTPPost methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+entityBody: aString
+	entityBody := aString! !
 
-!HTTPRequestLine methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-requestURI: aString 
-	"Development testing only!!"
+!HTTPPost methodsFor: 'parsing' stamp: 'mivsek 7/19/2007 22:12'!
+for: aRequestLine readFrom: aSwazooStream 
+	super for: aRequestLine readFrom: aSwazooStream.
+	self initPostDataFor: aSwazooStream.
+"	self parsePostDataFrom: aSwazooStream." "defered until first access of postData!! "! !
 
-	requestURI := aString.
-	^self! !
+!HTTPPost methodsFor: 'private' stamp: ' 10/7/07 17:21'!
+incReadPosition
+	self readPosition: self readPosition + 1! !
 
-!HTTPRequestLine methodsFor: 'private' stamp: ' 10/7/07 17:21'!
-skipLeadingBlankLinesIn: aSwazooStream 
-	"^self
-RFC 2616:
-In the interest of robustness, servers SHOULD ignore any empty
-line(s) received where a Request-Line is expected. In other words, if
-the server is reading the protocol stream at the beginning of a
-message and receives a CRLF first, it should ignore the CRLF."
+!HTTPPost methodsFor: 'private' stamp: 'janko 7/26/2008 18:43'!
+incReadPosition: anInteger
+	self readPosition: self readPosition + anInteger! !
 
-	[aSwazooStream peek == Character cr asInteger] whileTrue: 
-			[(((aSwazooStream next: 2) at: 2) == Character lf asInteger) 
-				ifFalse: [SwazooHTTPParseError raiseSignal: 'CR without LF']].
-	^self! !
+!HTTPPost methodsFor: 'initialize-release' stamp: 'mivsek 7/19/2007 22:12'!
+initPostDataFor: aSwazooStream
+	postData := HTTPPostDataArray newOn: aSwazooStream! !
 
-!HTTPRequestLine methodsFor: 'private' stamp: 'mivsek 7/26/2007 13:27'!
-skipSpacesIn: aSwazooStream 
-	[aSwazooStream peek = Character space] 
-		whileTrue: [aSwazooStream next].
-	^self! !
+!HTTPPost methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+isPost
+	^true! !
 
-!HTTPRequestLine class methodsFor: 'instance creation' stamp: 'janko 7/26/2008 18:42'!
-readFrom: aSwazooStream 
-	^self new readFrom: aSwazooStream! !
+!HTTPPost methodsFor: 'testing' stamp: 'mivsek 7/19/2007 22:13'!
+isPostDataEmpty
+	self ensureFullRead.
+	^self postData isEmpty! !
 
-!HTTPRequestTest methodsFor: 'requests-gets' stamp: ' 10/7/07 18:48'!
-basicGet
-	| requestStream |
-	requestStream := SwazooStream on: String new.
-	requestStream
-		nextPutLine: 'GET / HTTP/1.1';
-		nextPutLine: 'Host: foo.com';
-		crlf.
-	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
+!HTTPPost methodsFor: 'testing' stamp: 'mivsek 7/21/2007 22:47'!
+isPostDataStreamedAt: aKey
+	^(self postData at: aKey ifAbsent: [^false]) isStreamed! !
 
-!HTTPRequestTest methodsFor: 'requests-gets' stamp: ' 10/7/07 18:48'!
-basicGetHTTP10
-	| requestStream |
-	requestStream := SwazooStream on: String new.
-	requestStream
-		nextPutLine: 'GET / HTTP/1.0';
-		crlf.
-	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
+!HTTPPost methodsFor: 'private-parsing' stamp: 'jm 2/8/2009 14:55'!
+multipartDataFrom: aSwazooStream
+	"read all mime parts and put them in postData" 
+	"read directly from stream, without intermediate buffers"
+	| contentTypeField boundary part |
+	contentTypeField := self headers fieldOfClass: ContentTypeField
+				ifNone: [^aSwazooStream nextBytes: self contentLength]. "just skip"
+	boundary := contentTypeField transferCodings at: 'boundary'
+				ifAbsent: [^aSwazooStream nextBytes: self contentLength]. "just skip"
+	self skipMimePreambleAndBoundary: boundary from: aSwazooStream. 
+	part := #something. 
+	[part notNil] whileTrue: 
+		[part := self partFromStream: aSwazooStream boundary: boundary.
+		part notNil ifTrue: [self postDataAt: part key put: part value]].
+	self skipMimeEpilogueFrom: aSwazooStream. "all to the end  as defined by contentLegth"
+	aSwazooStream readBuffer isEnlarged  "if MIME part larger that 100KB was read"
+		ifTrue: [aSwazooStream readBuffer resizeShrink]. "that is, release memory"! !
 
-!HTTPRequestTest methodsFor: 'requests-gets' stamp: ' 10/7/07 18:48'!
-basicGetHTTP10Keepalive
-	| requestStream |
-	requestStream := SwazooStream on: String new.
-	requestStream
-		nextPutLine: 'GET / HTTP/1.0';
-		nextPutLine: 'Connection: Keep-Alive';
-		crlf.
-	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
+!HTTPPost methodsFor: 'parsing'!
+parsePostDataFrom: aSwazooStream 
+	| contentType |
+	self containsHeaderNecessaryFields ifFalse: 
+		[^SwazooHTTPPostError raiseSignal: 'Content-Type and Content-Length or chunked needed'].
+	contentType := self headers fieldOfClass: ContentTypeField.
+	contentType notNil ifTrue: 
+		[contentType mediaType = 'application/x-www-form-urlencoded' 
+			ifTrue: [^self urlencodedDataFrom: aSwazooStream].
+		contentType mediaType = 'multipart/form-data' 
+			ifTrue: [^self multipartDataFrom: aSwazooStream] ].
+	^self applicationOctetStreamFrom: aSwazooStream.! !
 
-!HTTPRequestTest methodsFor: 'requests-gets' stamp: ' 10/7/07 18:48'!
-basicHead
-	| requestStream |
-	requestStream := SwazooStream on: String new.
-	requestStream
-		nextPutLine: 'HEAD / HTTP/1.1';
-		nextPutLine: 'Host: foo.com';
-		crlf.
-	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
+!HTTPPost methodsFor: 'private-parsing' stamp: 'jm 2/8/2009 23:59'!
+partFromStream: aSwazooStream boundary: aBoundaryBytes
+	"one mime part from a stream. Nil if no more multipart data"
+	"Squeak specific"
+	| bytes name filename datum contentType |
+	bytes := aSwazooStream nextBytes: 2. self incReadPosition: 2.
+	bytes = '--' asByteArray  ifTrue: [^nil].    "end of multipart data"
+		
+	name := nil. datum := nil. contentType := nil. "just to avoid compilation warning"
+	[true] whileTrue: [| line |  "read all lines and at the end a body of that part"
+		line := [(aSwazooStream upTo: Character cr asInteger) asString] "Squeak specific"
+			on: Error do: [:ex | ''].  "usually nothing to read anymore), why happen this anyway?"
+		self readPosition: self readPosition + line size + 1 "cr".
+		line := bytes asString, line. bytes := ''.
+		aSwazooStream peekByte = Character lf asInteger ifTrue: [| field | "this is a name line"
+			aSwazooStream nextByte.  self incReadPosition. "skip linefeed"
+			line isEmpty 	ifTrue: [| | "empty line indicates start of entity"
+				name isNil ifTrue: [^nil].  "name must be read in previous circle"
+				datum contentType: contentType. "completes datum's contentType read in a prev step"
+ 				^name -> (self readEntityFrom: aSwazooStream 
+					datum: datum boundary: aBoundaryBytes)].
+			field := HeaderField fromLine: line.
+			field isContentDisposition ifTrue: 
+					[name := (field parameterAt: 'name') copyWithout: $". 
+					datum := (self isPostDataStreamedAt: name)
+						ifTrue: [self postData at: name]  "streamed datum must exist before"
+						ifFalse: [HTTPPostDatum new].
+					contentType notNil ifTrue: [datum contentType: contentType]. "if read in prev.circle"
+					filename := field parameterAt: 'filename' .   "only for file uploads"
+					filename notNil ifTrue: [datum filename: (filename copyWithout: $")] ].
+			field isContentType ifTrue: [contentType := field mediaType ] ] ]! !
 
-!HTTPRequestTest methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-crlfOn: aStream 
-	aStream
-		nextPut: Character cr;
-		nextPut: Character lf! !
+!HTTPPost methodsFor: 'private' stamp: 'mivsek 7/19/2007 22:12'!
+postData
+	^postData! !
 
-!HTTPRequestTest methodsFor: 'requests-gets' stamp: ' 10/7/07 18:48'!
-fullGet
-	| requestStream |
-	requestStream := SwazooStream on: String new.
-	requestStream
-		nextPutLine: 'GET /aaa/bbb/ccc.html?foo=bar&baz=quux HTTP/1.1';
-		nextPutLine: 'Connection: Keep-Alive';
-		nextPutLine: 'User-Agent: Mozilla/4.72 [en] (X11; I; Linux 2.3.51 i686)';
-		nextPutLine: 'Host: foo.com:8888';
-		nextPutLine: 'Referer: http://www.bar.com/takeMeThere.html';
-		crlf.
-	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
+!HTTPPost methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+postDataAt: aKey 
+	^self postDataAt: aKey ifAbsent: [nil]! !
 
-!HTTPRequestTest methodsFor: 'requests-gets' stamp: 'mivsek 9/28/2007 22:56'!
-getMultiValueHeader
-	| requestStream |
-	requestStream := SwazooStream on: String new.
-	requestStream
-		nextPutLine: 'GET /aaa/bbb/ccc.html?foo=bar&baz=quux HTTP/1.1';
-		nextPutLine: 'Content-Type: multipart/form-data; boundary= --boundary';
-		crlf.
-	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
+!HTTPPost methodsFor: 'accessing' stamp: 'mivsek 7/24/2007 21:05'!
+postDataAt: aKey beforeStreamingDo: aBlockClosure
+	"announce that you want to receive post data directly to a binary stream, which will be set
+	by aBlockClosure. That block must receive and argument, which is a HTTPostDatum and 
+	here it can set a writeStream"
+	"Fails if post data is already read"
+	self postData isParsed 
+		ifTrue: [^self error: 'HTTPost already parsed, streaming not possible anymore!!'].
+	^self postDataAt: aKey put: (HTTPPostDatum new writeBlock: aBlockClosure)! !
 
-!HTTPRequestTest methodsFor: 'requests-gets' stamp: ' 10/7/07 18:48'!
-portedGet
-	| requestStream |
-	requestStream := SwazooStream on: String new.
-	requestStream
-		nextPutLine: 'GET / HTTP/1.1';
-		nextPutLine: 'Host: foo.com:8888';
-		crlf.
-	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
+!HTTPPost methodsFor: 'accessing' stamp: 'mivsek 7/19/2007 22:15'!
+postDataAt: aKey do: aBlock 
+	| val |
+	self ensureFullRead. "defered parsing of postData"
+	val := self postData at: aKey ifAbsent: [nil].
+	val isNil ifFalse: [aBlock value: val]! !
 
-!HTTPRequestTest methodsFor: 'testing-other' stamp: ' 14/4/07 23:10'!
-test10ConnectionClose
-	request := self basicGetHTTP10.
-	self assert: request wantsConnectionClose! !
+!HTTPPost methodsFor: 'accessing' stamp: 'mivsek 7/19/2007 22:15'!
+postDataAt: aKey ifAbsent: aBlock 
+	self ensureFullRead. "defered parsing of postData"
+	^self postData at: aKey ifAbsent: aBlock! !
 
-!HTTPRequestTest methodsFor: 'testing-other' stamp: ' 14/4/07 23:10'!
-test10KeepAliveConnectionClose
-	request := self basicGetHTTP10Keepalive.
-	self deny: request wantsConnectionClose! !
+!HTTPPost methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+postDataAt: aKey put: aPostDatum 
+	"for testing purposes"
 
-!HTTPRequestTest methodsFor: 'testing-gets' stamp: 'mivsek 12/31/2007 13:50'!
-testBasicGet
-	request := self basicGet.
-	self assert: request isGet.
-	self assert: request isHttp11.
-	self deny: request isHead.
-	self deny: request isPost.
-	self deny: request isPut! !
+	self postData at: aKey put: aPostDatum! !
 
-!HTTPRequestTest methodsFor: 'testing-gets' stamp: 'mivsek 12/31/2007 13:51'!
-testBasicGetHTTP10
-	request := self basicGetHTTP10.
-	self assert: request isGet.
-	self assert: request isHttp10.
-	self deny: request isHead.
-	self deny: request isPost.
-	self deny: request isPut! !
+!HTTPPost methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+postDataAt: aKey putString: aString 
+	"for testing purposes"
 
-!HTTPRequestTest methodsFor: 'testing-gets' stamp: ' 10/7/07 17:21'!
-testBasicGetHost
-	request := self basicGet.
-	self assert: request host = 'foo.com'! !
+	self postDataAt: aKey put: (HTTPPostDatum new value: aString)! !
 
-!HTTPRequestTest methodsFor: 'testing-gets' stamp: ' 10/7/07 17:21'!
-testBasicGetPort
-	request := self basicGet.
-	self assert: request port = 80! !
+!HTTPPost methodsFor: 'accessing' stamp: 'mivsek 7/20/2007 23:45'!
+postDataAt: aKey streamTo: aWriteStream
+	"announce that you want to receive post data directly to aWriteStream, 
+	which must be binary. Fails if post data is already read"
+	self postData isParsed 
+		ifTrue: [^self error: 'HTTPost already parsed, streaming not possible anymore!!'].
+	^self postDataAt: aKey put: (HTTPPostDatum new writeStream: aWriteStream)! !
 
-!HTTPRequestTest methodsFor: 'testing-gets' stamp: ' 10/7/07 17:21'!
-testBasicHead
-	request := self basicHead.
-	self assert: request isHead.
-	self deny: request isGet.
-	self deny: request isPost.
-	self deny: request isPut! !
+!HTTPPost methodsFor: 'accessing' stamp: 'mivsek 7/19/2007 22:15'!
+postDataKeys
+	self ensureFullRead. "defered parsing of postData"
+	^self postData keys! !
 
-!HTTPRequestTest methodsFor: 'testing-other' stamp: ' 14/4/07 23:10'!
-testConnection
-	request := self fullGet.
-	self assert: request connection = 'Keep-Alive'! !
+!HTTPPost methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+postDataStringAt: aKey 
+	^(self postDataAt: aKey ifAbsent: [^nil]) value! !
 
-!HTTPRequestTest methodsFor: 'testing-gets' stamp: 'mivsek 9/28/2007 22:57'!
-testGetMultiValueHeader
-	| header |
-	request := self getMultiValueHeader.
-	header := request headerAt: 'Content-Type' ifAbsent: [nil].
-	self assert: header mediaType = 'multipart/form-data'.
-	self assert: (header transferCodings at: 'boundary') = '--boundary'.
-	self assert: header valuesAsString = 'multipart/form-data boundary=--boundary'.
+!HTTPPost methodsFor: 'accessing' stamp: 'mivsek 7/19/2007 22:15'!
+postKeysAndValuesDo: aTwoArgBlock 
+	self ensureFullRead. "defered parsing of postData"
+	self postData 
+		keysAndValuesDo: [:key :each | aTwoArgBlock value: key value: each value]! !
 
-" 'Content-Type: multipart/form-data; boundary= --boundary'; "! !
+!HTTPPost methodsFor: 'private-parsing' stamp: 'janko 7/26/2008 18:48'!
+readEntityFrom: aSwazooStream datum: aDatum boundary: aBoundaryBytes
+	"read one entity from a stream and put into datum. Stream it if streamed. Also call a block 
+	(if any) just before start of streaming, with a datum as parameter. This block can then set 
+	a write stream in datum (for instance open a output file and stream on it)"
+	| outStream |
+	aDatum writeBlock notNil 
+		ifTrue: [aDatum writeBlock value: aDatum]. "this should set writeStream if not already!!" 
+	outStream := (aDatum isStreamed and: [aDatum writeStream notNil])
+		ifTrue: [aDatum writeStream] ifFalse: [WriteStream on: ByteArray new].
+	self blockStreamingFrom: aSwazooStream to: outStream until: ('--', aBoundaryBytes). "efficient streaming"
+	aDatum isStreamed not ifTrue: "otherwise entity is already streamed to the output"
+		[aDatum value: outStream contents asString].
+	^aDatum! !
 
-!HTTPRequestTest methodsFor: 'testing-other' stamp: ' 14/4/07 23:10'!
-testHeaderAtIfPresent
-	request := self basicGet.
-	self assert: (request headers 
-				fieldOfClass: HTTPIfRangeField
-				ifPresent: [:header | header == (request headers fieldOfClass: HTTPIfRangeField)]
-				ifAbsent: [true]).
-	self assert: (request headers 
-				fieldOfClass: HTTPHostField
-				ifPresent: [:header | header == (request headers fieldOfClass: HTTPHostField)]
-				ifAbsent: [false])! !
+!HTTPPost methodsFor: 'private' stamp: ' 10/7/07 17:21'!
+readPosition
+	"position in a read stream. just temporary"
+	readPosition isNil ifTrue: [^1].
+	^readPosition! !
 
-!HTTPRequestTest methodsFor: 'testing-other' stamp: ' 14/4/07 23:10'!
-testNo11ConnectionClose
-	request := self basicGet.
-	self deny: request wantsConnectionClose! !
+!HTTPPost methodsFor: 'private' stamp: ' 10/7/07 17:21'!
+readPosition: aNumber
+	readPosition := aNumber! !
 
-!HTTPRequestTest methodsFor: 'testing-other' stamp: ' 10/7/07 18:48'!
-testNoEqualsQueries
-	"The last assert here used to check that 'request queryAt: 'WSDL'' is nil, but a test for an empty string is more consistent with query argument formats."
+!HTTPPost methodsFor: 'private-parsing support' stamp: 'mivsek 8/7/2007 18:53'!
+skipMimeEpilogueFrom: aSwazooStream
+	"skip a mime epilogue until end of post data defined by contentLength"
+	"example:
+		--boundary--
+		This is the epilogue.  It is also to be ignored
+	"
+	[self readPosition < self contentLength] whileTrue: 
+		[aSwazooStream next. "just skip"
+		self incReadPosition].! !
 
-	| requestStream |
-	requestStream := SwazooStream on: String new.
-	requestStream
-		nextPutLine: 'GET /test/typed.asmx?WSDL HTTP/1.1';
-		nextPutLine: 'Host: foo.com:8888';
-		crlf.
-	request := HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents).
-	self assert: (request includesQuery: 'WSDL').
-	self assert: (request queryAt: 'WSDL') isEmpty! !
+!HTTPPost methodsFor: 'private-parsing support' stamp: 'janko 7/26/2008 18:49'!
+skipMimePreambleAndBoundary: aBoundaryBytes from: aSwazooStream
+	"skip a mime preamble until first boundary starts then skip that boundary too"
+	"example:
+		Content-type: multipart/mixed; boundary=''boundary''
 
-!HTTPRequestTest methodsFor: 'testing-gets' stamp: ' 10/7/07 17:21'!
-testPortedGetPort
-	request := self portedGet.
-	self assert: request port = 8888! !
+		This is the preamble.  It is to be ignored, though it is
+		a handy place to include an explanatory note to non-MIME compliant readers.
+		--boundary
+		..."
+	| dummy |
+	dummy := WriteStream on: ByteArray new.
+	self blockStreamingFrom: aSwazooStream to: dummy until: ('--', aBoundaryBytes)! !
 
-!HTTPRequestTest methodsFor: 'testing-other' stamp: ' 14/4/07 23:10'!
-testReferer
-	request := self fullGet.
-	self 
-		assert: request referer asString = 'http://www.bar.com/takeMeThere.html'! !
+!HTTPPost methodsFor: 'private-parsing' stamp: 'mivsek 12/31/2007 15:29'!
+urlencodedDataFrom: aStream 
+	| entity tokens |
+	(self headers includesFieldOfClass: HTTPContentLengthField) ifFalse: [^self].
+	entity := aStream nextBytes: self contentLength.
+	tokens := HTTPString subCollectionsFrom: (HTTPString stringFromBytes: entity) delimitedBy: $&.
+	(tokens collect: [:each | HTTPString subCollectionsFrom: each delimitedBy: $=]) 
+		do: 	[:keyVal | | datum key |
+			datum := HTTPPostDatum new.
+			datum value: (HTTPString decodedHTTPFrom: 
+ 				(keyVal last collect: [:char | 
+					char = $+ ifTrue: [Character space] ifFalse: [char]])).
+			key := (HTTPString decodedHTTPFrom: 
+ 				(keyVal first collect: [:char | 
+					char = $+ ifTrue: [Character space] ifFalse: [char]])).
+			self postDataAt: key put: datum]! !
 
-!HTTPRequestTest methodsFor: 'testing-other' stamp: 'mivsek 7/21/2007 22:46'!
-testRequestWithCRButNoLF
+!HTTPPost class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+methodName
+	^'POST'! !
 
-"	| requestStream result |
-	requestStream := SwazooStream on: String new.
-	requestStream
-		nextPutAll: 'GET / HTTP/1.1';
-		cr.
-	result := SpExceptionContext 
-				for: [HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)]
-				on: SpError
-				do: [:ex | ex].
-	self assert: result class == SwazooHTTPParseError.
-	^self"! !
+!HTTPPut methodsFor: 'reading'!
+for: aRequestLine readFrom: aSwazooStream 
+	super for: aRequestLine readFrom: aSwazooStream .
+	self octetDataFrom: aSwazooStream.! !
 
-!HTTPRequestTest methodsFor: 'testing-other' stamp: ' 14/4/07 23:10'!
-testUserAgent
-	request := self fullGet.
-	self 
-		assert: request userAgent = 'Mozilla/4.72 [en] (X11; I; Linux 2.3.51 i686)'! !
+!HTTPPut methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+isPut
+	^true! !
+
+!HTTPPut methodsFor: 'reading' stamp: ' 14/4/07 23:10'!
+octetDataFrom: aStream 
+	self headers fieldOfClass: HTTPContentLengthField
+		ifNone: [^SwazooHTTPPutError raiseSignal: 'Missing Content-Length'].
+	self putData: (aStream nextBytes: self contentLength)! !
+
+!HTTPPut methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+putData
+	^putData! !
+
+!HTTPPut methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+putData: aString
+	putData := aString! !
+
+!HTTPPut class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+methodName
+	^'PUT'! !
+
+!HTTPTrace methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+isTrace
+	^true! !
+
+!HTTPTrace class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+methodName
+	^'TRACE'! !
 
 !HTTPResponse methodsFor: 'initialize-release' stamp: ' 14/4/07 23:10'!
 addDateHeader
@@ -5284,40 +3796,432 @@ webSocketHandshake
 		statusCode: 101;
 		statusText: 'WebSocket Protocol Handshake'! !
 
-!HTTPResponseTest methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-crlf
-	^String with: Character cr with: Character lf! !
+!FileResponse methodsFor: 'accessing-headers' stamp: ' 14/4/07 23:10'!
+contentType
+	^self entity contentType! !
 
-!HTTPResponseTest methodsFor: 'testing' stamp: 'mivsek 7/19/2007 19:28'!
-testInternalServerError
-	| ws rs |
-	response := HTTPResponse internalServerError.
-	ws := SwazooStream on: String new.
-	response printStatusOn: ws.
-	rs := SwazooStream on: ws writeBuffer contents.
-	self assert: rs nextLine = 'HTTP/1.1 500 Internal Server Error'! !
+!FileResponse methodsFor: 'accessing' stamp: 'hmm 6/5/2012 15:44'!
+entity: aMimeObject 
+	body := aMimeObject! !
 
-!HTTPResponseTest methodsFor: 'testing' stamp: 'mivsek 7/19/2007 19:28'!
-testOK
-	| ws rs |
-	response := HTTPResponse ok.
-	ws := SwazooStream on: String new.
-	response printStatusOn: ws.
-	rs := SwazooStream on: ws writeBuffer contents.
-	self assert: rs nextLine = 'HTTP/1.1 200 OK'! !
+!FileResponse methodsFor: 'private-printing' stamp: ' 14/4/07 23:10'!
+printContentLengthOn: aStream 
+	self entity isNil 
+		ifFalse: 
+			[aStream
+				nextPutAll: 'Content-Length: ';
+				print: self entity value fileSize.
+			self crlfOn: aStream]! !
 
-!HTTPResponseTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testResponseTypes
-	self assert: (HTTPResponse badRequest) isBadRequest.
-	self assert: (HTTPResponse found) isFound.
-	self assert: (HTTPResponse internalServerError) isInternalServerError.
-	self assert: (HTTPResponse movedPermanently) isMovedPermanently.
-	self assert: (HTTPResponse notFound) isNotFound.
-	self assert: (HTTPResponse notImplemented) isNotImplemented.
-	self assert: (HTTPResponse notModified) isNotModified.
-	self assert: (HTTPResponse ok) isOk.
-	self assert: (HTTPResponse redirectLink) isRedirectLink.
-	self assert: (HTTPResponse seeOther) isSeeOther.! !
+!FileResponse methodsFor: 'private-printing' stamp: 'hmm 6/9/2012 19:50'!
+printEntityOn: aStream 
+	| rs |
+	self entity isNil 
+		ifFalse: 
+			[rs := self entity value readStream.
+			rs binary.
+			SpExceptionContext 
+				for: 
+					[[[rs atEnd] whileFalse: [aStream nextPutAll: (rs nextAvailable: 4096)]] 
+						ensure: [rs close]]
+				on: SpError
+				do: [:ex | ex return]]! !
+
+!FileResponse methodsFor: 'private-printing' stamp: ' 14/4/07 23:10'!
+printHeadersOn: aStream 
+	self contentType: self entity contentType.
+	super printHeadersOn: aStream! !
+
+!HTTPAuthenticationChallenge class methodsFor: 'instance creation'!
+newForResource: aResource
+	^aResource authenticationScheme = #Basic 
+		ifTrue: [HTTPAuthenticationBasicChallenge newForResource: aResource]
+		ifFalse: [aResource authenticationScheme = #Digest
+			ifTrue: [HTTPAuthenticationDigestChallenge newForResource: aResource]
+			ifFalse: [HTTPResponse unauthorized] ]! !
+
+!HTTPAuthenticationBasicChallenge class methodsFor: 'instance creation'!
+newForResource: aResource
+	^self unauthorized 
+		resource: aResource;
+		entity: aResource unauthorizedResponsePage;
+		prepareAuthenticationChallenge! !
+
+!HTTPAuthenticationDigestChallenge class methodsFor: 'instance creation'!
+newForResource: aResource
+	^self unauthorized 
+		resource: aResource;
+		entity: aResource unauthorizedResponsePage;
+		prepareAuthenticationChallenge! !
+
+!HTTPStreamedResponse methodsFor: 'initialize-release' stamp: 'mivsek 12/31/2007 15:33'!
+close
+	"mandatory!! It signals that streaming is finished and response can end"
+	self testForUnderflow. "if streamed but not chunked: all data sent?"
+	self stream closeResponse.
+	self setClosed.
+	self stream: nil. "to avoid unintential writing"
+	self semaphore signal. "to signal close to all waiting processes"! !
+
+!HTTPStreamedResponse methodsFor: 'accessing' stamp: 'mivsek 12/31/2007 15:35'!
+contentSize
+	self length notNil ifTrue: [^self length].
+	self entity notNil ifTrue: [self entity size].
+	^nil! !
+
+!HTTPStreamedResponse methodsFor: 'accessing' stamp: 'mivsek 12/31/2007 15:35'!
+count
+	"how many bytes already streamed"
+	count isNil ifTrue: [self count: 0].
+	^count! !
+
+!HTTPStreamedResponse methodsFor: 'private' stamp: 'mivsek 12/31/2007 15:38'!
+count: aNumber
+	count := aNumber! !
+
+!HTTPStreamedResponse methodsFor: 'accessing-stream' stamp: 'janko 7/26/2008 13:50'!
+flush
+	"force sending to a TCP socket"
+	self stream flush! !
+
+!HTTPStreamedResponse methodsFor: 'initialize-release' stamp: 'mivsek 12/31/2007 15:34'!
+initSemaphore
+	semaphore := Semaphore new! !
+
+!HTTPStreamedResponse methodsFor: 'initialize-release' stamp: ' 14/8/07 21:49'!
+initialize
+	self setHeader! !
+
+!HTTPStreamedResponse methodsFor: 'private-state' stamp: ' 14/8/07 21:49'!
+isClosed
+	"is response closed?. No streaming or anything else possible anymore"
+	^state = #closed! !
+
+!HTTPStreamedResponse methodsFor: 'private-state' stamp: ' 14/8/07 21:49'!
+isHeader
+	"is response in header state?. this is initial one"
+	^state = #header! !
+
+!HTTPStreamedResponse methodsFor: 'testing' stamp: ' 14/8/07 21:49'!
+isStreamed
+	^true! !
+
+!HTTPStreamedResponse methodsFor: 'private-state' stamp: ' 14/8/07 21:49'!
+isStreaming
+	"is response in streaming state? All nextPut to stream is sent in chunked format to browser"
+	^state = #streaming! !
+
+!HTTPStreamedResponse methodsFor: 'accessing' stamp: 'mivsek 12/31/2007 15:36'!
+length
+	"how many bytes response is expected to have. 
+	This is optional, if set before streaming begin, then we stream without chunking (and 
+	therefore we can stream on HTTP 1.0 !!)"
+	^length! !
+
+!HTTPStreamedResponse methodsFor: 'accessing' stamp: 'mivsek 12/31/2007 15:36'!
+length: aNumber
+	length := aNumber! !
+
+!HTTPStreamedResponse methodsFor: 'accessing-stream' stamp: 'mivsek 12/31/2007 15:36'!
+nextPut: aCharacterOrByte
+	self isHeader ifTrue: [self sendHeaderAndStartStreaming].
+	self count: self count + 1.
+	self testForOverflow.
+	^self stream nextPut: aCharacterOrByte! !
+
+!HTTPStreamedResponse methodsFor: 'accessing-stream' stamp: 'mivsek 12/31/2007 15:36'!
+nextPutAll: aByteStringOrArray
+	self isHeader ifTrue: [self sendHeaderAndStartStreaming].
+	self count: self count + aByteStringOrArray size.
+	self testForOverflow.
+	^self stream nextPutAll: aByteStringOrArray! !
+
+!HTTPStreamedResponse methodsFor: 'private' stamp: 'mivsek 12/31/2007 15:39'!
+semaphore
+	"semahore to signal end of streaming = all data sent"
+	semaphore isNil ifTrue: [self initSemaphore].
+	^semaphore! !
+
+!HTTPStreamedResponse methodsFor: 'private' stamp: 'mivsek 12/31/2007 15:39'!
+sendHeaderAndStartStreaming
+	self shouldSimulateStreaming 
+		ifTrue: [self error: 'simulated streaming not yet implemented!!'].
+	self writeHeaderTo: self stream.
+	self stream flush. "to push sending of header immediately"
+	self shouldBeChunked ifTrue: [self stream setChunked]. 
+	self setStreaming.! !
+
+!HTTPStreamedResponse methodsFor: 'private-state' stamp: ' 14/8/07 21:49'!
+setClosed
+	"response is closed. No streaming or anything else possible anymore"
+	state := #closed! !
+
+!HTTPStreamedResponse methodsFor: 'private-state' stamp: ' 14/8/07 21:49'!
+setHeader
+	"response in header state. this is initial one"
+	state := #header! !
+
+!HTTPStreamedResponse methodsFor: 'private-state' stamp: ' 14/8/07 21:49'!
+setStreaming
+	"response in streaming state. All nextPut to stream is sent in chunked format to browser"
+	state := #streaming! !
+
+!HTTPStreamedResponse methodsFor: 'testing' stamp: 'mivsek 12/31/2007 15:37'!
+shouldBeChunked
+	^self isHttp11 and: [self length isNil]! !
+
+!HTTPStreamedResponse methodsFor: 'testing' stamp: 'mivsek 12/31/2007 15:37'!
+shouldSimulateStreaming
+	"stream to entity first then send all at once (because only now we 
+	know the length of response)"
+	^self isHttp10 and: [self length isNil]! !
+
+!HTTPStreamedResponse methodsFor: 'private' stamp: ' 14/8/07 21:49'!
+stream
+	^stream! !
+
+!HTTPStreamedResponse methodsFor: 'private' stamp: ' 14/8/07 21:49'!
+stream: aSwazooStream
+	stream := aSwazooStream! !
+
+!HTTPStreamedResponse methodsFor: 'private' stamp: 'mivsek 12/31/2007 15:40'!
+testForOverflow
+	"if streaming but not chunking, then count must never be larger than announced length"
+	(self length notNil and: [self count > self length]) 
+		ifTrue: [self error: 'streaming overflow']! !
+
+!HTTPStreamedResponse methodsFor: 'private' stamp: 'mivsek 12/31/2007 15:40'!
+testForUnderflow
+	"if streaming but not chunking, then count must be exactly the announced 
+	length at the end"
+	(self length notNil and: [self count ~= self length]) 
+		ifTrue: [self error: 'not enough data streamed ']! !
+
+!HTTPStreamedResponse methodsFor: 'waiting' stamp: 'mivsek 12/31/2007 15:38'!
+waitClose
+	"wait until all data is sent-streamed out and response is closed"
+	^self semaphore wait! !
+
+!HTTPStreamedResponse class methodsFor: 'instance creation' stamp: 'janko 3/16/2008 14:19'!
+on: aSwazooTask stream: aSwazooStream
+	^super ok
+		task: aSwazooTask;
+		stream: aSwazooStream;
+		initialize! !
+
+!HTTPPostDataArray methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+allAt: aKey 
+	| candidates |
+	candidates := self underlyingCollection 
+				select: [:anAssociation | anAssociation key = aKey].
+	^candidates collect: [:anAssociation| anAssociation value]! !
+
+!HTTPPostDataArray methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+allNamesForValue: aString 
+	| candidates |
+	candidates := self underlyingCollection 
+				select: [:anAssociation | anAssociation value value = aString].
+	^candidates collect: [:anAssociation| anAssociation key]! !
+
+!HTTPPostDataArray methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+associations
+	^self underlyingCollection! !
+
+!HTTPPostDataArray methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+at: aKey 
+	^(self allAt: aKey) last! !
+
+!HTTPPostDataArray methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+at: aKey ifAbsent: aBlock 
+	| candidates |
+	candidates := self underlyingCollection 
+				select: [:anAssociation | anAssociation key = aKey].
+	^candidates isEmpty ifTrue: [aBlock value] ifFalse: [candidates last value]! !
+
+!HTTPPostDataArray methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+at: key put: anObject 
+	self underlyingCollection add: (Association key: key value: anObject).
+	^anObject! !
+
+!HTTPPostDataArray methodsFor: 'accessing' stamp: 'mivsek 7/19/2007 22:07'!
+clearParsed
+	parsed := false! !
+
+!HTTPPostDataArray methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+includesKey: aKey 
+	| candidates |
+	candidates := self underlyingCollection 
+				select: [:anAssociation | anAssociation key = aKey].
+	^candidates notEmpty! !
+
+!HTTPPostDataArray methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+includesValue: aString 
+	| candidates |
+	candidates := self underlyingCollection 
+				select: [:anAssociation | anAssociation value value = aString].
+	^candidates notEmpty! !
+
+!HTTPPostDataArray methodsFor: 'initialize-release' stamp: 'mivsek 7/19/2007 22:07'!
+initialize
+	self clearParsed! !
+
+!HTTPPostDataArray methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+isEmpty
+	^self underlyingCollection isEmpty! !
+
+!HTTPPostDataArray methodsFor: 'testing' stamp: 'mivsek 7/19/2007 22:08'!
+isParsed
+	"postdata is already read and parsed from a request"
+	^parsed! !
+
+!HTTPPostDataArray methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+keys
+"^a Set
+I mimick the behavior of a Dictionay which I replace.  I return a set of the keys in my underlying collection of associations."
+
+	^(self underlyingCollection collect: [:anAssociation| anAssociation key]) asSet! !
+
+!HTTPPostDataArray methodsFor: 'enumerating' stamp: ' 14/4/07 23:10'!
+keysAndValuesDo: aTwoArgumentBlock 
+	self underlyingCollection do: 
+		[:anAssociation | aTwoArgumentBlock value: anAssociation key value: anAssociation value]! !
+
+!HTTPPostDataArray methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+nameForValue: aString
+	^(self allNamesForValue: aString) last! !
+
+!HTTPPostDataArray methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+printOn: aStream
+	aStream nextPutAll: 'a Swazoo.HttpPostDataArray 
+	'.
+	self underlyingCollection do: [:each | aStream nextPutAll: each key printString , '->', 
+		each value value printString, '
+	'].! !
+
+!HTTPPostDataArray methodsFor: 'enumerating' stamp: ' 14/4/07 23:10'!
+select: aBlock 
+"^an Object
+I run the select on the values of the associations in my underlying collection.  This mimicks the behavior when a Dictionary was used in my place."
+	^self underlyingCollection select:  [:anAssociation| aBlock value: anAssociation value]! !
+
+!HTTPPostDataArray methodsFor: 'accessing' stamp: 'mivsek 7/19/2007 22:08'!
+setParsed
+	parsed := true! !
+
+!HTTPPostDataArray methodsFor: 'private' stamp: 'mivsek 7/19/2007 22:08'!
+stream
+	^stream! !
+
+!HTTPPostDataArray methodsFor: 'private' stamp: 'mivsek 7/19/2007 22:08'!
+stream: aSwazooStream
+	"needed for defered postData parsing"
+	stream := aSwazooStream! !
+
+!HTTPPostDataArray methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+underlyingCollection
+	underlyingCollection isNil 
+		ifTrue: [underlyingCollection := OrderedCollection new].
+	^underlyingCollection! !
+
+!HTTPPostDataArray class methodsFor: 'instance creation' stamp: 'mivsek 7/19/2007 22:09'!
+newOn: aSwazooStream
+	^super new 
+		initialize;
+		stream: aSwazooStream! !
+
+!HTTPRequestLine methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+httpVersion
+	^httpVersion! !
+
+!HTTPRequestLine methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+httpVersion: anArray 
+	httpVersion := anArray.
+	^self! !
+
+!HTTPRequestLine methodsFor: 'testing' stamp: 'mivsek 12/31/2007 15:48'!
+isHttp10
+	^self httpVersion last = 0! !
+
+!HTTPRequestLine methodsFor: 'testing' stamp: 'mivsek 12/31/2007 15:48'!
+isHttp11
+	^self httpVersion last = 1! !
+
+!HTTPRequestLine methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+method
+	^method! !
+
+!HTTPRequestLine methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+method: aString
+"For development testing only"
+	method := aString.
+	^self! !
+
+!HTTPRequestLine methodsFor: 'parsing' stamp: 'mivsek 7/26/2007 13:07'!
+parseHTTPVersionFrom: aSwazooStream 
+	| major minor |
+	self skipSpacesIn: aSwazooStream.
+	aSwazooStream upTo: $/ asInteger.
+	major := (aSwazooStream upTo: $. asInteger) asString asNumber.
+	minor := (aSwazooStream upTo: Character cr asInteger) asString asNumber.
+	self httpVersion: (Array with: major with: minor).
+	aSwazooStream next.
+	^self! !
+
+!HTTPRequestLine methodsFor: 'parsing' stamp: 'mivsek 7/26/2007 13:06'!
+parseURIFrom: aSwazooStream 
+	"^self
+	Really, we should parse the URI directly out of the stream."
+
+	self skipSpacesIn: aSwazooStream.
+	requestURI := SwazooURI fromString: 
+		(aSwazooStream upTo: Character space asInteger) asString.
+	^self! !
+
+!HTTPRequestLine methodsFor: 'parsing' stamp: 'mivsek 7/10/2007 18:52'!
+readFrom: aSwazooStream 
+	"^self
+I initialize myself to represents a request line read from aStream.  If no valid request line can be found, I throw an exception."
+
+	self skipLeadingBlankLinesIn: aSwazooStream.
+	method := (aSwazooStream upTo: Character space asInteger) asString.
+	self parseURIFrom: aSwazooStream.
+	self parseHTTPVersionFrom: aSwazooStream.
+	^self! !
+
+!HTTPRequestLine methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+requestURI
+	^requestURI! !
+
+!HTTPRequestLine methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+requestURI: aString 
+	"Development testing only!!"
+
+	requestURI := aString.
+	^self! !
+
+!HTTPRequestLine methodsFor: 'private' stamp: ' 10/7/07 17:21'!
+skipLeadingBlankLinesIn: aSwazooStream 
+	"^self
+RFC 2616:
+In the interest of robustness, servers SHOULD ignore any empty
+line(s) received where a Request-Line is expected. In other words, if
+the server is reading the protocol stream at the beginning of a
+message and receives a CRLF first, it should ignore the CRLF."
+
+	[aSwazooStream peek == Character cr asInteger] whileTrue: 
+			[(((aSwazooStream next: 2) at: 2) == Character lf asInteger) 
+				ifFalse: [SwazooHTTPParseError raiseSignal: 'CR without LF']].
+	^self! !
+
+!HTTPRequestLine methodsFor: 'private' stamp: 'mivsek 7/26/2007 13:27'!
+skipSpacesIn: aSwazooStream 
+	[aSwazooStream peek = Character space] 
+		whileTrue: [aSwazooStream next].
+	^self! !
+
+!HTTPRequestLine class methodsFor: 'instance creation' stamp: 'janko 7/26/2008 18:42'!
+readFrom: aSwazooStream 
+	^self new readFrom: aSwazooStream! !
 
 !HTTPServer methodsFor: 'private'!
 acceptConnection
@@ -5561,242 +4465,6 @@ shutDown
 	self allInstances do: [:each | each stop].
 	SpEnvironment removeShutdownActionFor: self.! !
 
-!HTTPServerField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-productTokens
-	^productTokens! !
-
-!HTTPServerField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-productTokens: aString 
-	productTokens := aString.
-	^self! !
-
-!HTTPServerField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
-valuesAsStringOn: aStream 
-	aStream nextPutAll: self productTokens.
-	^self! !
-
-!HTTPServerField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'Server'! !
-
-!HTTPServerTest methodsFor: 'running' stamp: 'gsa 1/22/2013 08:02'!
-setUp
-	| socket |
-	(Delay forMilliseconds: 100) wait.
-	server := HTTPServer new.
-	[server ip: 'localhost'; port: 8123.
-	server start]
-		fork.
-	(Delay forMilliseconds: 100) wait.
-" 	stream := (SocketAccessor newTCPclientToHost: 'localhost' port: 8123) 
-				readAppendStream"
-	socket := SpSocket connectToServerOnHost:  'localhost' port: 8123.
-	stream := SwazooStream socket: socket ! !
-
-!HTTPServerTest methodsFor: 'running' stamp: 'JM 4/16/2007 22:57'!
-tearDown
-	server stop.
-	stream close.
-	stream := nil.
-	Delay forMilliseconds: 500.
-! !
-
-!HTTPServerTest methodsFor: 'tests' stamp: ' 14/4/07 23:10'!
-testServing
-	self assert: server isServing! !
-
-!HTTPServerTest methodsFor: 'tests' stamp: ' 14/4/07 23:10'!
-testStopServing
-	server stop.
-	self deny: server isServing! !
-
-!HTTPSetCookieField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
-addCookie: aCookieString
-	^self cookies add: aCookieString! !
-
-!HTTPSetCookieField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
-combineWith: aSetCookieField 
-	"^self
-I add the cookies of aSetCookieField to my own collection of cookies."
-
-	self cookies addAll: aSetCookieField cookies.
-	^self! !
-
-!HTTPSetCookieField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-cookies
-	cookies isNil ifTrue: [cookies := OrderedCollection new].
-	^cookies! !
-
-!HTTPSetCookieField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
-valuesAsStringOn: aStream 
-	aStream nextPutAll: (self cookies at: 1).
-	2 to: self cookies size
-		do: 
-			[:cookieIndex | 
-			aStream
-				nextPutAll: ', ';
-				nextPutAll: (self cookies at: cookieIndex)].
-	^self! !
-
-!HTTPSetCookieField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'Set-Cookie'! !
-
-!HTTPStreamedResponse methodsFor: 'initialize-release' stamp: 'mivsek 12/31/2007 15:33'!
-close
-	"mandatory!! It signals that streaming is finished and response can end"
-	self testForUnderflow. "if streamed but not chunked: all data sent?"
-	self stream closeResponse.
-	self setClosed.
-	self stream: nil. "to avoid unintential writing"
-	self semaphore signal. "to signal close to all waiting processes"! !
-
-!HTTPStreamedResponse methodsFor: 'accessing' stamp: 'mivsek 12/31/2007 15:35'!
-contentSize
-	self length notNil ifTrue: [^self length].
-	self entity notNil ifTrue: [self entity size].
-	^nil! !
-
-!HTTPStreamedResponse methodsFor: 'accessing' stamp: 'mivsek 12/31/2007 15:35'!
-count
-	"how many bytes already streamed"
-	count isNil ifTrue: [self count: 0].
-	^count! !
-
-!HTTPStreamedResponse methodsFor: 'private' stamp: 'mivsek 12/31/2007 15:38'!
-count: aNumber
-	count := aNumber! !
-
-!HTTPStreamedResponse methodsFor: 'accessing-stream' stamp: 'janko 7/26/2008 13:50'!
-flush
-	"force sending to a TCP socket"
-	self stream flush! !
-
-!HTTPStreamedResponse methodsFor: 'initialize-release' stamp: 'mivsek 12/31/2007 15:34'!
-initSemaphore
-	semaphore := Semaphore new! !
-
-!HTTPStreamedResponse methodsFor: 'initialize-release' stamp: ' 14/8/07 21:49'!
-initialize
-	self setHeader! !
-
-!HTTPStreamedResponse methodsFor: 'private-state' stamp: ' 14/8/07 21:49'!
-isClosed
-	"is response closed?. No streaming or anything else possible anymore"
-	^state = #closed! !
-
-!HTTPStreamedResponse methodsFor: 'private-state' stamp: ' 14/8/07 21:49'!
-isHeader
-	"is response in header state?. this is initial one"
-	^state = #header! !
-
-!HTTPStreamedResponse methodsFor: 'testing' stamp: ' 14/8/07 21:49'!
-isStreamed
-	^true! !
-
-!HTTPStreamedResponse methodsFor: 'private-state' stamp: ' 14/8/07 21:49'!
-isStreaming
-	"is response in streaming state? All nextPut to stream is sent in chunked format to browser"
-	^state = #streaming! !
-
-!HTTPStreamedResponse methodsFor: 'accessing' stamp: 'mivsek 12/31/2007 15:36'!
-length
-	"how many bytes response is expected to have. 
-	This is optional, if set before streaming begin, then we stream without chunking (and 
-	therefore we can stream on HTTP 1.0 !!)"
-	^length! !
-
-!HTTPStreamedResponse methodsFor: 'accessing' stamp: 'mivsek 12/31/2007 15:36'!
-length: aNumber
-	length := aNumber! !
-
-!HTTPStreamedResponse methodsFor: 'accessing-stream' stamp: 'mivsek 12/31/2007 15:36'!
-nextPut: aCharacterOrByte
-	self isHeader ifTrue: [self sendHeaderAndStartStreaming].
-	self count: self count + 1.
-	self testForOverflow.
-	^self stream nextPut: aCharacterOrByte! !
-
-!HTTPStreamedResponse methodsFor: 'accessing-stream' stamp: 'mivsek 12/31/2007 15:36'!
-nextPutAll: aByteStringOrArray
-	self isHeader ifTrue: [self sendHeaderAndStartStreaming].
-	self count: self count + aByteStringOrArray size.
-	self testForOverflow.
-	^self stream nextPutAll: aByteStringOrArray! !
-
-!HTTPStreamedResponse methodsFor: 'private' stamp: 'mivsek 12/31/2007 15:39'!
-semaphore
-	"semahore to signal end of streaming = all data sent"
-	semaphore isNil ifTrue: [self initSemaphore].
-	^semaphore! !
-
-!HTTPStreamedResponse methodsFor: 'private' stamp: 'mivsek 12/31/2007 15:39'!
-sendHeaderAndStartStreaming
-	self shouldSimulateStreaming 
-		ifTrue: [self error: 'simulated streaming not yet implemented!!'].
-	self writeHeaderTo: self stream.
-	self stream flush. "to push sending of header immediately"
-	self shouldBeChunked ifTrue: [self stream setChunked]. 
-	self setStreaming.! !
-
-!HTTPStreamedResponse methodsFor: 'private-state' stamp: ' 14/8/07 21:49'!
-setClosed
-	"response is closed. No streaming or anything else possible anymore"
-	state := #closed! !
-
-!HTTPStreamedResponse methodsFor: 'private-state' stamp: ' 14/8/07 21:49'!
-setHeader
-	"response in header state. this is initial one"
-	state := #header! !
-
-!HTTPStreamedResponse methodsFor: 'private-state' stamp: ' 14/8/07 21:49'!
-setStreaming
-	"response in streaming state. All nextPut to stream is sent in chunked format to browser"
-	state := #streaming! !
-
-!HTTPStreamedResponse methodsFor: 'testing' stamp: 'mivsek 12/31/2007 15:37'!
-shouldBeChunked
-	^self isHttp11 and: [self length isNil]! !
-
-!HTTPStreamedResponse methodsFor: 'testing' stamp: 'mivsek 12/31/2007 15:37'!
-shouldSimulateStreaming
-	"stream to entity first then send all at once (because only now we 
-	know the length of response)"
-	^self isHttp10 and: [self length isNil]! !
-
-!HTTPStreamedResponse methodsFor: 'private' stamp: ' 14/8/07 21:49'!
-stream
-	^stream! !
-
-!HTTPStreamedResponse methodsFor: 'private' stamp: ' 14/8/07 21:49'!
-stream: aSwazooStream
-	stream := aSwazooStream! !
-
-!HTTPStreamedResponse methodsFor: 'private' stamp: 'mivsek 12/31/2007 15:40'!
-testForOverflow
-	"if streaming but not chunking, then count must never be larger than announced length"
-	(self length notNil and: [self count > self length]) 
-		ifTrue: [self error: 'streaming overflow']! !
-
-!HTTPStreamedResponse methodsFor: 'private' stamp: 'mivsek 12/31/2007 15:40'!
-testForUnderflow
-	"if streaming but not chunking, then count must be exactly the announced 
-	length at the end"
-	(self length notNil and: [self count ~= self length]) 
-		ifTrue: [self error: 'not enough data streamed ']! !
-
-!HTTPStreamedResponse methodsFor: 'waiting' stamp: 'mivsek 12/31/2007 15:38'!
-waitClose
-	"wait until all data is sent-streamed out and response is closed"
-	^self semaphore wait! !
-
-!HTTPStreamedResponse class methodsFor: 'instance creation' stamp: 'janko 3/16/2008 14:19'!
-on: aSwazooTask stream: aSwazooStream
-	^super ok
-		task: aSwazooTask;
-		stream: aSwazooStream;
-		initialize! !
-
 !HTTPString class methodsFor: 'decoding' stamp: ' 14/4/07 23:09'!
 decodedHTTPFrom: aCharacterArray 
 	"Code taken from the swazoo specific extention to the CharacterArray class"
@@ -5908,86 +4576,6 @@ I return a copy of aString with all leading and trailing blanks removed."
 				whileTrue: [first := first + 1].
 			aString copyFrom: first to: last]! !
 
-!HTTPTrace methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-isTrace
-	^true! !
-
-!HTTPTrace class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-methodName
-	^'TRACE'! !
-
-!HTTPUserAgentField methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-parseValueFrom: aString 
-	"^self
-I could try and parse out the product name and version numbers, but there is no need to worry about this at the moment, so I just record the string."
-
-	productTokens := HTTPString trimBlanksFrom: aString.
-	^self! !
-
-!HTTPUserAgentField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-productTokens
-	^productTokens! !
-
-!HTTPUserAgentField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
-valuesAsStringOn: aStream 
-	aStream nextPutAll: productTokens.
-	^self! !
-
-!HTTPUserAgentField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'User-Agent'! !
-
-!HTTPWWWAuthenticateBasicField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-isBasic
-	"^a Boolean
-I return true if I represent a header for basic authentication. c.f. RFC 2617 sec 2."
-
-	^true! !
-
-!HTTPWWWAuthenticateBasicField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-realm
-	"^a String
-I return the realm for which I represent an autentication challenge.  This string will be presented to the browser user in the login dialog."
-
-	^realm! !
-
-!HTTPWWWAuthenticateBasicField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-realm: anObject
-	realm := anObject! !
-
-!HTTPWWWAuthenticateBasicField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
-valuesAsStringOn: aStream 
-	aStream
-		nextPutAll: 'Basic realm="';
-		nextPutAll: self realm;
-		nextPut: $".
-	^self! !
-
-!HTTPWWWAuthenticateDigestField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-isDigest
-	"^a Boolean
-I return true if I represent a header for digest authentication. c.f. RFC 2617 sec 3."
-
-	^true! !
-
-!HTTPWWWAuthenticateField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-isBasic
-	"^a Boolean
-I return true if I represent a header for basic authentication. c.f. RFC 2617 sec 2."
-
-	^false! !
-
-!HTTPWWWAuthenticateField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-isDigest
-	"^a Boolean
-I return true if I represent a header for digest authentication. c.f. RFC 2617 sec 3."
-
-	^false! !
-
-!HTTPWWWAuthenticateField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-fieldName
-	^'WWW-Authenticate'! !
-
 !HeaderField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
 combineWith: aHeaderField 
 	SwazooHeaderFieldParseError raiseSignal: 'Not supported'! !
@@ -6096,624 +4684,46 @@ resetHttpFieldNameToClassDictionary
 	httpFieldNameToClassDictionary := nil .
 	^self! !
 
-!HeaderFieldTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testCombine
-	"Entity tags must be quoted strings - RFC 2616 3.11"
+!GenericHeaderField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
+combineWith: aHeaderField 
+	"^self
+I simply take my values and concatenate the values of aHeaderField."
 
-	| header1 header2 header3 |
-	header1 := HeaderField fromLine: 'If-Match: "a"'.
-	header2 := HeaderField fromLine: 'If-Match: "b","c"'.
-	header3 := HeaderField fromLine: 'If-Match: "d"'.
-	header1 combineWith: header2.
-	self assert: header1 valuesAsString = '"a","b","c"'.
-	header1 combineWith: header3.
-	self assert: header1 valuesAsString = '"a","b","c","d"'! !
+	value := self value , ', ' , aHeaderField value.
+	^self! !
 
-!HeaderFieldTest methodsFor: 'testing' stamp: 'mivsek 7/19/2007 19:28'!
-testContentTypeMultiple
-	"   HTTP/1.1 header field values can be folded onto multiple lines if the
-   continuation line begins with a space or horizontal tab. All linear
-   white space, including folding, has the same semantics as SP. A
-   recipient MAY replace any linear white space with a single SP before
-   interpreting the field value or forwarding the message downstream.
+!GenericHeaderField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+1 halt: 'use >>name instead'.
+	^self name! !
 
-       LWS            = [CRLF] 1*( SP | HT )"
+!GenericHeaderField methodsFor: 'initialize-release' stamp: ' 14/4/07 23:10'!
+forFieldName: fieldNameString andValue: fieldValueString 
+	name := fieldNameString.
+	value := fieldValueString.
+	^self! !
 
-	| requestStream request field |
-	requestStream := SwazooStream on: String new.
-	requestStream
-		nextPutLine: 'GET / HTTP/1.1';
-		nextPutLine: 'Host: 127.0.0.1';
-		nextPutLine: 'Content-Type: text/html; ';
-		nextPutLine: ' charset=iso-8859-1';
-		crlf.
-	request := HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents).
-	field := request headers fieldNamed: 'content-type'.
-	self assert: field name = 'Content-Type'.
-	self assert: field mediaType = 'text/html'.
-	self assert: (field transferCodings at: 'charset') = 'iso-8859-1'! !
+!GenericHeaderField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+name
+	^name! !
 
-!HeaderFieldTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testValues
-	"Entity tags are held internally as simple strings.  Any necessary leading and trailing double quotes are added by the header fields as needed.  Note that it is OK to have a comma in an entity tag - see the second of the group of 3 tags below."
-
-	| header |
-	header := HeaderField fromLine: 'If-Match: "xyzzy" '.
-	self assert: header name = 'If-Match'.
-	self assert: header entityTags first = 'xyzzy'.
-	header := HeaderField 
-				fromLine: 'If-Match: "xyzzy", "r2d2,xxxx", "c3piozzzz" '.
-	self assert: header name = 'If-Match'.
-	self assert: header entityTags first = 'xyzzy'.
-	self assert: (header entityTags at: 2) = 'r2d2,xxxx'.
-	self assert: header entityTags last = 'c3piozzzz'! !
-
-!HelloWorldResource methodsFor: 'serving' stamp: 'janko 11/1/2012 19:27'!
-answerTo: aRequest 
-	| response |
-	response := HTTPResponse ok.
-	response
-		contentType: 'text/html';
-		entity: '<html><head><title>Hello World</title></head><body>Hello World!!</body></html>'.
-	^response! !
-
-!HelloWorldResourceTest methodsFor: 'running' stamp: 'JM 4/18/2007 18:00'!
-setUp
-	hello := HelloWorldResource uriPattern: 'hello.html'! !
-
-!HelloWorldResourceTest methodsFor: 'testing'!
-testResponse
-	| request response |
-	request := HTTPGet request: 'hello.html'.
-	response := URIResolution resolveRequest: request startingAt: hello.
-	self assert: response statusCode = 200.
-	self assert: request resourcePath size = 1.
-	self assert: request resourcePath first = 'hello.html'! !
-
-!HomeResource methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-answerTo: aRequest 
-	aRequest tailPath isEmpty ifTrue: [^nil].
-	(self validateHomePath: aRequest tailPath first) ifFalse: [^nil].
-	^super answerTo: aRequest! !
-
-!HomeResource methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-rootFileFor: aRequest 
-	| homeKey file |
-	homeKey := aRequest tailPath first copyFrom: 2
-				to: aRequest tailPath first size.
-	file := (self fileDirectory construct: homeKey) construct: 'html'.
-	(aRequest tailPath copyFrom: 2 to: aRequest tailPath size) 
-		do: [:each | each = '..' ifFalse: [file := file construct: each]].
-	^file! !
-
-!HomeResource methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-validateHomePath: aString 
-	^aString first = $~! !
-
-!HomeResourceTest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
-setUp
-	resource := HomeResource uriPattern: '/' filePath: 'home'! !
-
-!HomeResourceTest methodsFor: 'running' stamp: 'mivsek 8/16/2007 22:21'!
-testRootFileFor
-	| request |
-	request := HTTPGet request: '/~someUser'.
-	URIResolution new initializeRequest: request.
-	self assert: (resource rootFileFor: request) asString 
-				= (((SpFilename named: 'home') construct: 'someUser') construct: 'html') asString! !
-
-!HomeResourceTest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
-testValidateHomePath
-	self assert: (resource validateHomePath: '~somebody').
-	self assert: (resource validateHomePath: '~somebodyElse').
-	self deny: (resource validateHomePath: 'someplace').
-	self deny: (resource validateHomePath: 'some~body')! !
-
-!MimeObject methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-contentType
-	^contentType isNil ifTrue: [self defaultContentType] ifFalse: [contentType]! !
-
-!MimeObject methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-contentType: anObject
-	contentType := anObject! !
-
-!MimeObject methodsFor: 'private-accessing' stamp: ' 14/4/07 23:10'!
-defaultContentType
-	^'application/octet-stream'! !
-
-!MimeObject methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+!GenericHeaderField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
 value
 	^value! !
 
-!MimeObject methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
-value: anObject
-	value := anObject! !
+!GenericHeaderField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+values
+	^(HTTPString subCollectionsFrom: self value delimitedBy: $,) 
+		collect: [:each | HTTPString trimBlanksFrom: each]! !
 
-!RedirectionResource methodsFor: 'serving' stamp: ' 14/4/07 23:10'!
-answerTo: aRequest 
-	| answer |
-	answer := HTTPResponse movedPermanently.
-	answer headers addField: (HTTPLocationField new uriString: self targetUri).
-	^answer! !
-
-!RedirectionResource methodsFor: 'private-initialize' stamp: ' 14/4/07 23:10'!
-targetUri
-	^targetUri! !
-
-!RedirectionResource methodsFor: 'private-initialize' stamp: ' 14/4/07 23:10'!
-targetUri: aString 
-	targetUri := aString! !
-
-!RedirectionResource class methodsFor: 'instance creation' stamp: ' 14/4/07 23:10'!
-uriPattern: aString targetUri: bString 
-	^(self uriPattern: aString) targetUri: bString! !
-
-!RedirectionResourceTest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
-setUp
-	resource := RedirectionResource uriPattern: 'foo'
-				targetUri: 'http://abc.def.com'! !
-
-!RedirectionResourceTest methodsFor: 'testing'!
-testGetResource
-	| request response |
-	request := HTTPGet request: 'foo'.
-	response := URIResolution resolveRequest: request startingAt: resource.
-	self assert: response statusCode = 301.
-	self assert: (response headers fieldNamed: 'Location') uri asString 
-				= 'http://abc.def.com'.
-	self assert: request resourcePath size = 1.
-	self assert: request resourcePath first = 'foo'! !
-
-!ResourceTest methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-basicGet: uri
-	| ws |
-	ws := WriteStream on: String new.
-	ws nextPutAll: 'GET ', uri, ' HTTP/1.1'.
-	self crlfOn: ws.
-	ws nextPutAll: 'Host: swazoo.org'.
-	self crlfOn: ws.
-	self crlfOn: ws.
-	^HTTPRequest readFrom: (ReadStream on: ws contents)! !
-
-!ResourceTest methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-basicGetUri: uriString
-	| ws |
-	ws := WriteStream on: String new.
-	ws nextPutAll: 'GET ' , uriString , ' HTTP/1.1'.
-	self crlfOn: ws.
-	ws nextPutAll: 'Host: swazoo.org'.
-	self crlfOn: ws.
-	self crlfOn: ws.
-	^HTTPRequest readFrom: (ReadStream on: ws contents)! !
-
-!ResourceTest methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-basicGetUri: uriString host: hostname port: port 
-	| ws |
-	ws := WriteStream on: String new.
-	ws nextPutAll: 'GET ' , uriString , ' HTTP/1.1'.
-	self crlfOn: ws.
-	ws nextPutAll: 'Host: ' , hostname.
-	port notNil 
-		ifTrue: 
-			[ws
-				nextPut: $:;
-				print: port].
-	self crlfOn: ws.
-	self crlfOn: ws.
-	^HTTPRequest readFrom: (ReadStream on: ws contents)! !
-
-!ResourceTest methodsFor: 'private' stamp: ' 14/4/07 23:10'!
-crlfOn: aStream 
-	aStream
-		nextPut: Character cr;
-		nextPut: Character lf! !
-
-!ResourceTest methodsFor: 'running' stamp: 'jm 2/8/2009 13:51'!
-setUp
-	resource := SwazooResource uriPattern: 'foo'! !
-
-!ResourceTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testEmptyURIPatternInvalid
-	resource uriPattern: ''.
-	self deny: resource isValidlyConfigured! !
-
-!ResourceTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testEnabledByDefault
-	self assert: resource isEnabled! !
-
-!ResourceTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testNilURIPatternDoesNothing
-	| pattern |
-	pattern := resource uriPattern.
-	resource uriPattern: nil.
-	self assert: resource uriPattern = pattern! !
-
-!ResourceTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testValidlyConfigured
-	self assert: resource isValidlyConfigured! !
-
-!ServerRootComposite methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
-helpResolve: aResolution 
-	^aResolution resolveServerRoot: self! !
-
-!SiteIdentifier methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
-currentUrl
-	| stream |
-	stream := WriteStream on: String new.
-	self printUrlOn: stream.
-	^stream contents! !
-
-!SiteIdentifier methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
-host
-	^host! !
-
-!SiteIdentifier methodsFor: 'private' stamp: ' 14/4/07 23:09'!
-host: aString
-	host := aString! !
-
-!SiteIdentifier methodsFor: 'initialize-release'!
-host:  hostName ip: anIP port: aPort
-	self host: hostName.
-	self ip: anIP.
-	self port: aPort.! !
-
-!SiteIdentifier methodsFor: 'private-comparing' stamp: 'janko 7/26/2008 13:23'!
-hostMatch: aSiteIdentifier
-	(self host asLowercase = aSiteIdentifier host asLowercase) ifTrue: [^true].
-	(self host = '*' or: [aSiteIdentifier host = '*']) ifTrue: [^true]. "is this always good?"
- 	^false! !
-
-!SiteIdentifier methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
-ip
-	^ip! !
-
-!SiteIdentifier methodsFor: 'private' stamp: ' 14/4/07 23:09'!
-ip: aString
-	ip := aString! !
-
-!SiteIdentifier methodsFor: 'private-comparing' stamp: 'mivsek 11/15/2007 13:53'!
-ipMatch: aSiteIdentifier
-	"ip can be in numbers or named!!"
-	| myIP otherIP |
-	self ip = aSiteIdentifier ip ifTrue: [^true].
-	(self ip = '*' or: [self ip = '0.0.0.0']) ifTrue: [^true].
-	(aSiteIdentifier ip = '*' or: [aSiteIdentifier ip = '0.0.0.0']) ifTrue: [^true]. 
-																"is this always good?"
-	myIP := SpIPAddress hostName: self ip port: self port.
-	otherIP := SpIPAddress hostName: aSiteIdentifier ip port: aSiteIdentifier port.
-	^myIP hostAddress = otherIP hostAddress! !
-
-!SiteIdentifier methodsFor: 'testing' stamp: 'jm 2/8/2009 14:50'!
-isEmpty
-	"host ip port empty or nil"
-	(host isNil or: [host isEmpty]) ifTrue: [^true].
-	(ip isNil or: [ip isEmpty]) ifTrue: [^true].
-	port isNil ifTrue: [^true].
-	^false! !
-
-!SiteIdentifier methodsFor: 'initialize-release' stamp: ' 14/4/07 23:09'!
-newServer
-	^ HTTPServer new ip: self ip;  port: self port! !
-
-!SiteIdentifier methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
-port
-	^port! !
-
-!SiteIdentifier methodsFor: 'private' stamp: ' 14/4/07 23:09'!
-port: aNumber
-	port := aNumber! !
-
-!SiteIdentifier methodsFor: 'private-comparing' stamp: 'mivsek 11/15/2007 13:53'!
-portMatch: aSiteIdentifier
-	"ih host can be anything then same goes for the port of request too"
-	self port = aSiteIdentifier port ifTrue: [^true].
-	(self host = '*' or: [aSiteIdentifier host = '*']) ifTrue: [^true].
- 	^false! !
-
-!SiteIdentifier methodsFor: 'private' stamp: 'janko 7/26/2008 13:23'!
-printHostPortStringOn: stream 
-	stream nextPutAll: (self host notNil ifTrue: [self host] ifFalse: ['']).
-	self port = 80 ifFalse: [stream nextPut: $:; nextPutAll: self port printString]! !
-
-!SiteIdentifier methodsFor: 'private' stamp: ' 14/4/07 23:09'!
-printString
-	^'a Swazoo.SiteIndentifier
-	host: ', (self host isNil ifTrue: [''] ifFalse: [self host]), '
-	ip: ', (self ip isNil ifTrue: [''] ifFalse: [self ip]), '
-	port: ', self port printString! !
-
-!SiteIdentifier methodsFor: 'private' stamp: ' 14/4/07 23:09'!
-printUrlOn: aWriteStream 
-	aWriteStream nextPutAll: 'http://'.
-	self printHostPortStringOn: aWriteStream! !
-
-!SiteIdentifier methodsFor: 'private-comparing' stamp: 'mivsek 11/15/2007 13:53'!
-valueMatch: aSiteIdentifier
-	^(self portMatch: aSiteIdentifier)
-		and: [(self ipMatch: aSiteIdentifier)
-			and: [self hostMatch: aSiteIdentifier] ]! !
-
-!SiteIdentifier class methodsFor: 'instance creation'!
-host: hostName ip: anIP port: aPort 
-	^self new 
-		host: hostName ip: anIP port: aPort! !
-
-!SiteIdentifierTest methodsFor: 'running' stamp: ' 10/7/07 17:21'!
-setUp
-	identifier := SiteIdentifier 
-				host: 'localhost'
-				ip: '127.0.0.1'
-				port: 80! !
-
-!SiteIdentifierTest methodsFor: 'testing' stamp: ' 10/7/07 17:21'!
-testCaseInsensitiveMatch
-	| another |
-	another := SiteIdentifier 
-				host: 'lOCaLhOST'
-				ip: '127.0.0.1'
-				port: 80.
-	self assert: (identifier match: another)! !
-
-!SiteIdentifierTest methodsFor: 'testing' stamp: ' 10/7/07 17:21'!
-testCurrentUrl
-	self assert: identifier currentUrl = 'http://localhost'.
-		identifier := SiteIdentifier 
-				host: 'localhost'
-				ip: '127.0.0.1'
-				port: 81.
-	self assert: identifier currentUrl = 'http://localhost:81'! !
-
-!SiteIdentifierTest methodsFor: 'testing' stamp: ' 10/7/07 17:21'!
-testHostMismatch
-	| another |
-	another := SiteIdentifier 
-				host: 'thisIsMyMachine'
-				ip: '127.0.0.1'
-				port: 80.
-	self deny: (identifier match: another)! !
-
-!SiteIdentifierTest methodsFor: 'testing' stamp: ' 10/7/07 17:21'!
-testIPMismatch
-	| another |
-	another := SiteIdentifier 
-				host: 'localhost'
-				ip: '127.0.0.2'
-				port: 80.
-	self deny: (identifier match: another)! !
-
-!SiteIdentifierTest methodsFor: 'testing' stamp: ' 10/7/07 17:21'!
-testMatch
-	| another |
-	another := SiteIdentifier 
-				host: 'localhost'
-				ip: '127.0.0.1'
-				port: 80.
-	self assert: (identifier match: another)! !
-
-!SiteIdentifierTest methodsFor: 'testing' stamp: ' 10/7/07 17:21'!
-testPortMismatch
-	| another |
-	another := SiteIdentifier 
-				host: 'localhost'
-				ip: '127.0.0.1'
-				port: 81.
-	self deny: (identifier match: another)! !
-
-!SiteTest methodsFor: 'running' stamp: ' 10/7/07 17:21'!
-addSecondAlias
-	site addAlias: (SiteIdentifier 
-				host: 'swazoo2.org'
-				ip: '127.0.0.2'
-				port: 8202).! !
-
-!SiteTest methodsFor: 'running' stamp: 'jm 2/8/2009 13:52'!
-setUp
-	super setUp.
-	site := SwazooSite new.
-	site addAlias: (SiteIdentifier 
-				host: 'swazoo.org'
-				ip: '127.0.0.1'
-				port: 8200)! !
-
-!SiteTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testCurrentUrl
-	site currentUrl = 'http://swazoo.org:8200'.
-	self addSecondAlias.
-	site currentUrl = 'http://swazoo.org:8200'.! !
-
-!SiteTest methodsFor: 'testing' stamp: 'jm 2/8/2009 13:52'!
-testCurrentUrl80
-	| aSite |
-	aSite := SwazooSite new.
-	aSite addAlias: (SiteIdentifier
-			host: 'swazoo.org'
-			ip: '127.0.0.1'
-			port: 80).
-	aSite currentUrl = 'http://swazoo.org'.
-	aSite currentUrl = 'http://swazoo.org'! !
-
-!SpEnvironment class methodsFor: '*Swazoo-Extensions-testing' stamp: 'janko 10/31/2012 19:25'!
-onUnix
-	"we are running on Unix, yes or no?"
-	^Smalltalk os platformName = 'unix'! !
-
-!SpEnvironment class methodsFor: '*Swazoo-Extensions-testing' stamp: 'gsa 1/10/2013 19:17'!
-onWindows
-	"we are running on Windows, yes or no?"
-	"^Smalltalk os platformName asLowercase = 'win32'"
-	"GSA 10/01/2013 Cuis adaptation"
-	^Smalltalk platformName asLowercase = 'win32'! !
-
-!SpFileStream methodsFor: '*Swazoo' stamp: 'janko 10/30/2012 10:57'!
-nextAvailable: aNumber
-
-    ^underlyingStream nextAvailable: aNumber! !
-
-!SpFilename methodsFor: '*Swazoo-accessing' stamp: 'pete 5/28/2008 15:11'!
-asAbsoluteFilename
-	"Answer a Filename pointing to the same file using absolute path.
-	The method may answer the receiver it it is already absolute."
-
-	^self isAbsolute
-		ifTrue: [self]
-		ifFalse: [self class named: 
-			(FileDirectory default pathName, (String with: self separator), 
-				(SpEnvironment onWindows
-					ifTrue: [self asString copyReplaceAll: '.\' with: ''] "windows only"
-					ifFalse: [self asString copyReplaceAll: './' with: ''] "unix only!!"))]! !
-
-!SpFilename methodsFor: '*Swazoo-accessing' stamp: 'JM 4/18/2007 12:34'!
-asFilename
+!GenericHeaderField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
+valuesAsStringOn: aStream 
+	aStream nextPutAll: value.
 	^self! !
 
-!SpFilename methodsFor: '*Swazoo-private' stamp: 'JM 4/18/2007 15:29'!
-construct: extraFn
-	"Make a new instance, treating the receiver as a directory, and
-	the string argument as a file within the pathname."
-
-	^self class named: (self filename, (String with: self separator), extraFn)! !
-
-!SpFilename methodsFor: '*Swazoo-services' stamp: 'mivsek 8/22/2007 22:16'!
-contentsOfEntireFile
-	| stream |
-	[stream := FileStream oldFileNamed: self filename.
-	^stream contentsOfEntireFile]
-		ensure: [stream close]
-! !
-
-!SpFilename methodsFor: '*Swazoo-accessing' stamp: 'mivsek 8/22/2007 16:51'!
-createdTimestamp
-	"a SpTimestamp
-	timestamp of file creation. "
-	| dir entry |
-	dir := FileDirectory forFileName: self asAbsoluteFilename asString.
-	entry := dir directoryEntryFor: self tail.
-	^SpTimestamp fromSeconds: entry creationTime "is this correct on all OSes?"
-! !
-
-!SpFilename methodsFor: '*Swazoo-services' stamp: 'JM 4/18/2007 15:24'!
-delete
-	| dir |
-	dir := FileDirectory forFileName: self asAbsoluteFilename asString.
-	self isDirectory
-		ifTrue: [dir deleteDirectory: self asString]
-		ifFalse: [dir deleteFileNamed: self tail ifAbsent: [] ]! !
-
-!SpFilename methodsFor: '*Swazoo-accessing' stamp: 'JM 4/18/2007 15:13'!
-directory
-	"a filename of the directory for this Filename."
-	^self class named: self head! !
-
-!SpFilename methodsFor: '*Swazoo-accessing' stamp: 'JM 4/18/2007 16:23'!
-etag
-	"^a String
-	The etag of a file entity is taken to be the date last modified as a String. 
-	We use the SpTimestamp in "
-
-	^self lastModified asRFC1123String! !
-
-!SpFilename methodsFor: '*Swazoo-accessing' stamp: 'JM 4/18/2007 15:16'!
-extension
-	"Answer the receiver's extension if any.  This is the characters from the
-	 last occurrence of a period to the end, inclusive. E.g. the extension of
-	 'squeak.image' is '.image'. Answer nil if none.  Note that e.g. .login has no
-	 extension."
-
-	| string periodIndex |
-	string := self tail.
-	periodIndex := string lastIndexOf: $..
-	^periodIndex > 1 ifTrue: [string copyFrom: periodIndex to: string size]! !
-
-!SpFilename methodsFor: '*Swazoo-accessing' stamp: 'mivsek 8/22/2007 22:05'!
-fileSize
-	| dir entry |
-	dir := FileDirectory forFileName: self asAbsoluteFilename asString.
-	entry := dir directoryEntryFor: self tail.
-	^entry fileSize 
-! !
-
-!SpFilename methodsFor: '*Swazoo-private' stamp: 'JM 4/18/2007 12:31'!
-filename
-	 "^a String"
-	^filename! !
-
-!SpFilename methodsFor: '*Swazoo-accessing' stamp: 'JM 4/18/2007 15:06'!
-head
-	"Answer the directory prefix as a String."
-
-	| index |
-	(index := self lastSeparatorIndex) notNil
-		ifTrue:	[index := index max: 2.
-				^self asString copyFrom: 1 to: index-1]
-		ifFalse:	[^FileDirectory default pathName]! !
-
-!SpFilename methodsFor: '*Swazoo-testing' stamp: 'pete 5/28/2008 15:06'!
-isAbsolute
-	"Answer true if this name is absolute (e.g. not relative to the
-	'current directory')."
-
-	self asString size = 0 ifTrue:	[^false].
-	SpEnvironment onWindows ifTrue: [
-		^(self asString at: 1) isLetter and: [(self asString at: 2) = $:]]. "absolute pathnames on windows looks like 'C:'"
-	^(self asString at: 1) == self separator! !
-
-!SpFilename methodsFor: '*Swazoo-testing' stamp: 'JM 4/18/2007 14:33'!
-isDirectory
-	^FileDirectory default directoryExists: self asString! !
-
-!SpFilename methodsFor: '*Swazoo-testing' stamp: 'JM 4/18/2007 13:00'!
-isRelative
-	"Answer true if this name must be interpreted relative to some directory."
-	^self isAbsolute not! !
-
-!SpFilename methodsFor: '*Swazoo-accessing' stamp: 'hmm 6/5/2012 16:30'!
-lastModified
-	^self modifiedTimestamp! !
-
-!SpFilename methodsFor: '*Swazoo-private' stamp: 'JM 4/18/2007 15:07'!
-lastSeparatorIndex
-	^self asString lastIndexOf: self separator ifAbsent: [nil]! !
-
-!SpFilename methodsFor: '*Swazoo-services' stamp: 'pete 5/28/2008 15:15'!
-makeDirectory
-	| dir |
-	dir := FileDirectory forFileName: self asAbsoluteFilename asString.
-	[dir createDirectory: self asString]
-		on: Error
-		do: [:ex | ].! !
-
-!SpFilename methodsFor: '*Swazoo-accessing' stamp: 'mivsek 8/22/2007 16:51'!
-modifiedTimestamp
-	"a SpTimestamp
-	timestamp of last file modification"
-	| dir entry |
-	dir := FileDirectory forFileName: self asAbsoluteFilename asString.
-	entry := dir directoryEntryFor: self tail.
-	^SpTimestamp fromSeconds: entry modificationTime "is this correct on all OSes?"
-! !
-
-!SpFilename methodsFor: '*Swazoo-private' stamp: 'JM 4/18/2007 13:49'!
-separator
-	"Answer the platform's filename component separator."
-
-	^FileDirectory primPathNameDelimiter! !
-
-!SpFilename methodsFor: '*Swazoo-accessing' stamp: 'JM 4/18/2007 15:06'!
-tail
-	"Answer the filename suffix as a String."
-
-	| index nm |
-	nm := self asString.
-	(index := self lastSeparatorIndex) notNil
-		ifTrue:	[^nm copyFrom: index+1 to: nm size]
-		ifFalse:	[^nm copy]! !
-
-!SpTimestamp methodsFor: '*Swazoo' stamp: 'janko 10/30/2012 10:54'!
-milliseconds
-	"Squeak specific"
-	^self underlyingTimestamp nanoSecond // 1000
-			
-"SpTimestamp now milliseconds"! !
+!GenericHeaderField class methodsFor: 'instance creation' stamp: ' 14/4/07 23:10'!
+newForFieldName: fieldNameString withValueFrom: fieldValueString 
+	^self new forFieldName: fieldNameString andValue: fieldValueString! !
 
 !SpecificHeaderField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
 name
@@ -6763,139 +4773,858 @@ newForFieldName: fieldNameString withValueFrom: fieldValueString
 newWithValueFrom: fieldValueString 
 	^self new valueFrom: fieldValueString! !
 
-!String methodsFor: '*Swazoo' stamp: 'janko 10/31/2012 17:25'!
-tokensBasedOn: aChar
-	"Answer an array of the substrings that compose the receiver."
-	| result end begin |
-	result := WriteStream on: (Array new: 10).
-	begin := 1.
-	"find one substring each time through this loop"
-	"find the beginning of the next substring"
-	[end := self indexOf: aChar startingAt: begin ifAbsent: [ nil ].
-	end ~~ nil ]
-		whileTrue: [
-			result nextPut: (self copyFrom: begin to: end - 1).
-			begin := end + 1].
-	result nextPut: (self copyFrom: begin to: self size).
-	^result contents 
+!ContentDispositionField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+isContentDisposition
+	^true! !
 
-" '12, 34, 56' tokensBasedOn: $, "! !
+!ContentDispositionField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
+parameterAt: aString 
+	^parameters at: aString ifAbsent: [nil]! !
 
-!SwazooAuthNonce class methodsFor: 'instance creation'!
-new
-	^super new initialize! !
+!ContentDispositionField methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+parseValueFrom: aString 
+	| sourceStream |
+	sourceStream := aString readStream.
+	type := HTTPString trimBlanksFrom: (sourceStream upTo: $;).
+	parameters := self readParametersFrom: sourceStream.
+	^self! !
 
-!SwazooBaseExtensionsTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testCharacterArrayTrimBlanks
-	self 
-		assert: (HTTPString trimBlanksFrom: '   a b c d e f g') = 'a b c d e f g'.
-	self assert: (HTTPString trimBlanksFrom: 'no blanks') = 'no blanks'.
-	self assert: (HTTPString trimBlanksFrom: ' leading') = 'leading'.
-	self assert: (HTTPString trimBlanksFrom: 'trailing ') = 'trailing'.
-	self assert: (HTTPString trimBlanksFrom: '') = ''.
-	self 
-		assert: (HTTPString 
-				trimBlanksFrom: (String with: Character cr with: Character lf)) isEmpty! !
+!ContentDispositionField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'Content-Disposition'! !
 
-!SwazooBaseExtensionsTest methodsFor: 'testing' stamp: 'mivsek 8/16/2007 22:13'!
-testFilenameEtag
-	"The filename etag is a simple string and does not contain double quotes.  Header fields apply double quotes as necessary when writing themselves."
+!ContentTypeField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+defaultMediaType
+	"^a String
+See RFC 2616 '7.2.1 Type'.  If no media type is specified, application/octet-stream is the default."
 
-	| fn etag1 etag2 |
-	fn := SpFilename named: 'etagTest'.
-	[fn writeStream nextPut: $-; close. "create file"
-	etag1 := fn etag.
-	(Delay forSeconds: 1) wait.
-	fn appendStream nextPut: $-; close. "modify file"
-	etag2 := fn etag.
+	^'application/octet-stream'! !
 
-	self assert: (etag1 isKindOf: String).
-	self assert: (etag2 isKindOf: String).
-	self deny: etag1 = etag2] 
-		ensure: [fn delete]! !
+!ContentTypeField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+isContentType
+	^true! !
 
-!SwazooBaseExtensionsTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testStringNewRandom
-	| sizes strings |
-	sizes := #(5 20 6127 2 100).
-	strings := sizes collect: [:each |  HTTPString newRandomString: each].
-	strings with: sizes do: [:string :size | self assert: string size = size]! !
+!ContentTypeField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+mediaType
+	^mediaType isNil ifTrue: [self defaultMediaType] ifFalse: [mediaType]! !
 
-!SwazooBenchmarks methodsFor: 'accessing' stamp: ' 7/5/08 11:08'!
-content
-	"test content to be writen to the socket"
-	content isNil ifTrue: [self initContent].
-	^content! !
+!ContentTypeField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+mediaType: aString 
+	mediaType := aString.
+	^self! !
 
-!SwazooBenchmarks methodsFor: 'accessing' stamp: ' 7/5/08 11:08'!
-content: aByteArray
-	content := aByteArray! !
+!ContentTypeField methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+parseValueFrom: aString 
+	| sourceStream |
+	sourceStream := aString readStream.
+	mediaType := (HTTPString trimBlanksFrom: (sourceStream upTo: $;)).
+	transferCodings := self readParametersFrom: sourceStream.
+	^self! !
 
-!SwazooBenchmarks methodsFor: 'initialize-release' stamp: 'janko 5/8/2008 01:09'!
-contentSize
-	^4! !
+!ContentTypeField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+transferCodings
+	transferCodings isNil ifTrue: [transferCodings := String new].
+	^transferCodings! !
 
-!SwazooBenchmarks methodsFor: 'initialize-release' stamp: ' 7/5/08 11:08'!
-initContent
-	| response ws |
-	response := HTTPResponse ok.
-	response entity: (ByteArray new: self contentSize withAll: 16r55).
-	ws := SwazooStream on: String new.
-	response writeTo: ws.
-	content := ws writeBuffer contents.! !
+!ContentTypeField methodsFor: 'printing' stamp: 'mivsek 9/28/2007 22:57'!
+valuesAsStringOn: aStream 
+	aStream nextPutAll: self mediaType.
+	self transferCodings isEmpty ifFalse: 
+		[self transferCodings keysAndValuesDo: 
+			[:name :value | 
+			aStream
+				nextPutAll: ' ';
+				nextPutAll: name;
+				nextPut: $=;
+				nextPutAll: value]].
+	^self! !
 
-!SwazooBenchmarks methodsFor: 'accessing' stamp: ' 7/5/08 11:08'!
-server
-	"TCP server loop"
-	^server! !
+!ContentTypeField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'Content-Type'! !
 
-!SwazooBenchmarks methodsFor: 'accessing' stamp: ' 7/5/08 11:08'!
-server: aProcess
-	"TCP server loop"
-	server := aProcess! !
+!HTTPAcceptField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
+combineWith: aHeaderField 
+	"^self
+I simply take my values and concatenate the values of aHeaderField."
 
-!SwazooBenchmarks methodsFor: 'socket performance' stamp: 'janko 5/8/2008 13:58'!
-serverLoop
-	| socket clientSocket |
-	socket := SpSocket newTCPSocket.
-	socket
-		setAddressReuse: true;
-		bindSocketAddress: (SpIPAddress hostName: 'localhost' port: 9999).
-	[	socket listenBackloggingUpTo: 50.
-		[true] whileTrue: 
-			[ 	clientSocket := socket accept.
-				[ [true] whileTrue: 
-					[clientSocket underlyingSocket waitForData.
-					clientSocket read: 60. "HTTP request"
-					clientSocket write: self content] ]
-				on: Error "probably connection close by peer"
-				do: [:ex | "nothing"]
-			]
-	] ensure: [clientSocket notNil ifTrue: [clientSocket close]. socket close]! !
+	self mediaTypes addAll: aHeaderField mediaTypes.
+	^self! !
 
-!SwazooBenchmarks methodsFor: 'socket performance' stamp: ' 7/5/08 11:08'!
-startSocketServer
-	"SwazooBenchmarks singleton startSocketServer"
-	"SwazooBenchmarks singleton stopSocketServer"
-	"testing raw socket performance.
-	it will start a server on localhost:9999 to receive a request 
-      and respond with 10K response as drirectly as possible."
+!HTTPAcceptField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+mediaTypes
+	mediaTypes isNil ifTrue: [mediaTypes := OrderedCollection new].
+	^mediaTypes! !
 
-	self stopSocketServer. 
-	self server: [self serverLoop] fork.! !
+!HTTPAcceptField methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+parseValueFrom: aString 
+	mediaTypes := HTTPString subCollectionsFrom: aString delimitedBy: $,.
+	^self! !
 
-!SwazooBenchmarks methodsFor: 'socket performance' stamp: 'janko 5/7/2008 14:14'!
-stopSocketServer
-	"SwazooBenchmarks singleton stopSocketServer"
-	self server notNil ifTrue: [self server terminate. self server: nil].
-	self content: nil.
-	(Delay forMilliseconds: 1000) wait.
-! !
+!HTTPAcceptField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
+valuesAsStringOn: targetStream 
+	self mediaTypes isEmpty 
+		ifFalse: 
+			[targetStream nextPutAll: self mediaTypes first.
+			2 to: self mediaTypes size
+				do: 
+					[:methodIndex | 
+					targetStream
+						nextPut: $,;
+						nextPutAll: (self mediaTypes at: methodIndex)]].
+	^self! !
 
-!SwazooBenchmarks class methodsFor: 'accessing' stamp: ' 7/5/08 11:08'!
-singleton
-	Singleton isNil ifTrue: [Singleton := self new].
-	^Singleton! !
+!HTTPAcceptField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'Accept'! !
+
+!HTTPAllowField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+methods
+	methods isNil ifTrue: [methods := OrderedCollection new].
+	^methods! !
+
+!HTTPAllowField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
+valuesAsStringOn: targetStream 
+	self methods isEmpty 
+		ifFalse: 
+			[targetStream nextPutAll: self methods first.
+			2 to: self methods size
+				do: 
+					[:methodIndex | 
+					targetStream
+						nextPut: $,;
+						nextPutAll: (self methods at: methodIndex)]].
+	^self! !
+
+!HTTPAllowField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'Allow'! !
+
+!HTTPAuthorizationField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+credentials
+	^credentials! !
+
+!HTTPAuthorizationField methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+parseValueFrom: aString 
+	credentials := HTTPString trimBlanksFrom: aString.
+	^self! !
+
+!HTTPAuthorizationField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
+valuesAsStringOn: aStream 
+	aStream nextPutAll: self credentials.
+	^self! !
+
+!HTTPAuthorizationField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'Authorization'! !
+
+!HTTPAuthorizationField class methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+newForFieldName: fieldNameString withValueFrom: fieldValueString 
+	"^an HTTPAuthorizationField
+I return an instance of one of my concrete subclasses.  To get to this point, the field name *must* be 'AUTHORIZATION'."
+
+	| sourceStream schemeName |
+	sourceStream := ReadStream on: fieldValueString.
+	schemeName := sourceStream upTo: Character space.
+	^schemeName = 'Basic' 
+		ifTrue: [HTTPAuthorizationBasicField newWithValueFrom: sourceStream upToEnd]
+		ifFalse: [HTTPAuthorizationDigestField newWithValueFrom: sourceStream upToEnd]! !
+
+!HTTPAuthorizationBasicField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
+password
+	"^a String
+I return the password string (as defined in RFC 2617 pp.2) part of the user-pass value in my credentials."
+
+	password isNil ifTrue: [self resolveUserPass].
+	^password! !
+
+!HTTPAuthorizationBasicField methodsFor: 'private' stamp: 'np 3/24/2008 02:36'!
+resolveUserPass
+	"^self
+I look at my credentials string and pull out the userid and password.  Note that having to check for atEnd before the upToEnd is for GemStone which crashes if upToEnd is used when already atEnd."
+
+	"(Base64EncodingReadStream on: 'YnJ1Y2U6c3F1aWRzdXBwbGllZHBhc3N3b3Jk' ) upToEnd asString "
+
+	| userPassString sourceStream |
+	userPassString := userPassString := Base64MimeConverter mimeDecode: self credentials as: String.
+	sourceStream := ReadStream on: userPassString.
+	userid := sourceStream upTo: $:.
+	password := sourceStream atEnd 
+				ifTrue: [String new]
+				ifFalse: [sourceStream upToEnd].
+	^self! !
+
+!HTTPAuthorizationBasicField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
+userid
+	"^a String
+I return the userid string (as defined in RFC 2617 pp.2) part of the user-pass value in my credentials."
+
+	userid isNil ifTrue: [self resolveUserPass].
+	^userid! !
+
+!HTTPAuthorizationBasicField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
+valuesAsStringOn: aStream 
+	aStream nextPutAll: 'Basic '.
+	super valuesAsStringOn: aStream.
+	^self! !
+
+!HTTPAuthorizationDigestField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
+valuesAsStringOn: aStream 
+	aStream nextPutAll: 'Digest '.
+	super valuesAsStringOn: aStream.
+	^self! !
+
+!HTTPCacheControlField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+directives
+	"for easy setting directives in one string"
+	^directives! !
+
+!HTTPCacheControlField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+directives: aString 
+	"for easy setting directives in one string"
+	"example: 'no-store, no-cache, must-revalidate'"
+	directives := aString! !
+
+!HTTPCacheControlField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+maxAge
+	"^an Integer or nil
+I return my max age which is either an integer number of seconds for which the entity can be considdered fresh, or nil, in which case other headers such as Expires can be used by a cache to determine the expiration time of the entity."
+
+	^maxAge! !
+
+!HTTPCacheControlField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
+maxAge: anIntegerOrNil 
+	"^self
+I record the number of seconds for which the resource is 'fresh' and after which will expire and become 'stale' for caching purposes.  Setting this to nil means the max age is unspecified, and this is the default.  This directive takes presidence over any Expires header when a cache or client is handling an HTTP message."
+
+	maxAge := anIntegerOrNil.
+	^self! !
+
+!HTTPCacheControlField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+private
+	"^a Boolean or nil
+There are three possible values for private.  Explicity true (the entity can only be cached in private caches), explicity false (this is a public entity and can be held in a shared/public cache perhaps even when stale) or nil (the default which means that the entity may be held in a public shared cache, but only until it goes stale)."
+
+	^private! !
+
+!HTTPCacheControlField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
+setNotPublicOrPrivate
+	"^self
+I am being told that the entity in my message is not explicity public or private.  This is the default and means that public caches may retain copies of the resource, but should not be as relaxed about the rules as with an explicitly public resource. c.f >>setPublic & >>setPrivate."
+
+	private := nil.
+	^self! !
+
+!HTTPCacheControlField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
+setPrivate
+	"^self
+I am being told that the entity in my message is a private one that can only be cached on private caches, i.e. caches that can be drawn upon a single clients.  An example of a private cache is the one *inside* your web browser.   This is probably what you want if the entity contains personal information."
+
+	private := true.
+	^self! !
+
+!HTTPCacheControlField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
+setPublic
+	"^self
+I am being told that the entity in my message is a public one that can be cached on public caches, i.e. caches that can be drawn upon by many clients.  This is probably not what you want if the entity contains personal information!!  c.f. >>setPrivate  Note that expicitly setting cache-control public actually loosens some other rules and means resources can be used by cached beyond their normal life."
+
+	private := false.
+	^self! !
+
+!HTTPCacheControlField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
+valuesAsStringOn: aStream 
+	aStream nextPut: Character space.
+	self directives notNil ifTrue: [aStream nextPutAll: self directives].
+	self private notNil 
+		ifTrue: 
+			[self writePublicOrPrivateTo: aStream.
+			self maxAge notNil ifTrue: [aStream nextPutAll: ', ']].
+	self maxAge notNil ifTrue: [self writeMaxAgeTo: aStream].
+	^self! !
+
+!HTTPCacheControlField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
+writeMaxAgeTo: aStream 
+	"^self
+I write the maxAge directive to aStream"
+
+	aStream nextPutAll: 'max-age='.
+	self maxAge printOn: aStream.
+	^self! !
+
+!HTTPCacheControlField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
+writePublicOrPrivateTo: aStream 
+	"^self
+I write the either the public or the private directive to aStream"
+
+	self private 
+		ifTrue: [aStream nextPutAll: 'private']
+		ifFalse: [aStream nextPutAll: 'public'].
+	^self! !
+
+!HTTPCacheControlField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'Cache-Control'! !
+
+!HTTPConnectionField methodsFor: 'services'!
+combineWith: aConnectionHeaderField
+	self connectionToken: 
+		self connectionToken, ', ' , aConnectionHeaderField connectionToken.! !
+
+!HTTPConnectionField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+connectionToken
+	"^a String
+Common values are 'close' and 'keep-alive'."
+
+	^connectionToken! !
+
+!HTTPConnectionField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+connectionToken: aString 
+	"^self"
+
+	connectionToken := aString.
+	^self! !
+
+!HTTPConnectionField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+connectionTokenIsClose
+	^self connectionToken = 'close'! !
+
+!HTTPConnectionField methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+parseValueFrom: aString 
+	connectionToken := HTTPString trimBlanksFrom: aString.
+	^self! !
+
+!HTTPConnectionField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
+setToClose
+	self connectionToken: 'close'.
+	^self! !
+
+!HTTPConnectionField methodsFor: 'services' stamp: 'mivsek 12/31/2007 14:00'!
+setToKeepAlive
+	self connectionToken: 'keep-alive'.
+	^self! !
+
+!HTTPConnectionField methodsFor: 'services'!
+setToUpgrade
+	self connectionToken: 'Upgrade'.
+	^self! !
+
+!HTTPConnectionField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
+valuesAsStringOn: aStream 
+	aStream nextPutAll: connectionToken.
+	^self! !
+
+!HTTPConnectionField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'Connection'! !
+
+!HTTPContentLengthField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+contentLength
+	^contentLength! !
+
+!HTTPContentLengthField methodsFor: 'accessing' stamp: 'mivsek 12/31/2007 14:01'!
+contentLength: anInteger
+	contentLength := anInteger! !
+
+!HTTPContentLengthField methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+parseValueFrom: aString
+	contentLength := aString asNumber.
+	^self! !
+
+!HTTPContentLengthField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
+valuesAsStringOn: aStream 
+	self contentLength printOn: aStream.
+	^self! !
+
+!HTTPContentLengthField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'Content-Length'! !
+
+!HTTPCookieField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'Cookie'! !
+
+!HTTPDateField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+date
+	^date! !
+
+!HTTPDateField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+date: aDate 
+	"^self
+Note that this is an HTTP Date, and so is really a timestamp :-/ "
+
+	date := aDate.
+	^self! !
+
+!HTTPDateField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
+valuesAsStringOn: aStream 
+	self date asRFC1123StringOn: aStream.
+	^self! !
+
+!HTTPDateField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'Date'! !
+
+!HTTPETagField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+entityTag
+	^entityTag! !
+
+!HTTPETagField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+entityTag: aString 
+	entityTag := aString.
+	^self! !
+
+!HTTPETagField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
+valuesAsStringOn: aStream 
+	aStream
+		nextPut: $";
+		nextPutAll: self entityTag;
+		nextPut: $".
+	^self! !
+
+!HTTPETagField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'ETag'! !
+
+!HTTPExpiresField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+timestamp
+	^timestamp! !
+
+!HTTPExpiresField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+timestamp: aTimestamp
+	timestamp := aTimestamp.! !
+
+!HTTPExpiresField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
+valuesAsStringOn: aStream 
+	self timestamp asRFC1123StringOn: aStream.
+	^self! !
+
+!HTTPExpiresField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'Expires'! !
+
+!HTTPHostField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+hostName
+	^hostName! !
+
+!HTTPHostField methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+parseValueFrom: aString 
+	| sourceStream portNumberString |
+	sourceStream := ReadStream on: aString.
+	hostName := sourceStream upTo: $:.
+	portNumberString := sourceStream atEnd 
+				ifTrue: [String new]
+				ifFalse: [sourceStream upToEnd].
+	portNumberString notEmpty 
+		ifTrue: [portNumber := portNumberString asNumber].
+	^self! !
+
+!HTTPHostField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+portNumber
+	^portNumber isNil ifTrue: [80] ifFalse: [portNumber]! !
+
+!HTTPHostField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
+valuesAsStringOn: aStream 
+	aStream nextPutAll: self hostName.
+	portNumber notNil 
+		ifTrue: 
+			[aStream nextPut: $:.
+			self portNumber printOn: aStream].
+	^self! !
+
+!HTTPHostField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'Host'! !
+
+!HTTPIfModifiedSinceField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+date
+	^date! !
+
+!HTTPIfModifiedSinceField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+isCacheHitFor: anEntity 
+	"^a Boolean
+I return true if an anEntity is a cache hit given the conditional I represent.  So in my case, I'm looking to see that the entity has not changed since my date.
+anEntity *must* respond to >>lastModified"
+
+	^anEntity lastModified <= self date! !
+
+!HTTPIfModifiedSinceField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+isConditional
+	^true! !
+
+!HTTPIfModifiedSinceField methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+parseValueFrom: aString 
+	date := SpTimestamp fromRFC1123String: aString.
+	^self! !
+
+!HTTPIfModifiedSinceField methodsFor: 'printing' stamp: 'janko 7/26/2008 13:51'!
+valuesAsStringOn: aStream 
+	self date notNil ifTrue: [self date asRFC1123StringOn: aStream].
+	^self! !
+
+!HTTPIfModifiedSinceField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'If-Modified-Since'! !
+
+!HTTPIfRangeField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'If-Range'! !
+
+!HTTPIfUnmodifiedSinceField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+isCacheHitFor: anEntity 
+	"^a Boolean
+I return true if an anEntity is a cache hit given the conditional I represent. 
+anEntity *must* respond to >>entutyTag"
+
+	1 halt.
+	^self! !
+
+!HTTPIfUnmodifiedSinceField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+isConditional
+	^true! !
+
+!HTTPIfUnmodifiedSinceField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'If-Unmodified-Since'! !
+
+!HTTPLastModifiedField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+timestamp
+	^timestamp! !
+
+!HTTPLastModifiedField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+timestamp: aTimestamp
+	timestamp := aTimestamp.! !
+
+!HTTPLastModifiedField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
+valuesAsStringOn: aStream 
+	self timestamp asRFC1123StringOn: aStream.
+	^self! !
+
+!HTTPLastModifiedField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'Last-Modified'! !
+
+!HTTPLocationField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+uri
+	^uri! !
+
+!HTTPLocationField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+uri: aSwazooURI 
+	uri := aSwazooURI.
+	^self! !
+
+!HTTPLocationField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+uriString: aString 
+	uri := SwazooURI fromString: aString.
+	^self! !
+
+!HTTPLocationField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
+valuesAsStringOn: aStream 
+	self uri printOn: aStream.
+	^self! !
+
+!HTTPLocationField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'Location'! !
+
+!HTTPMatchField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
+addEntityTag: aString 
+	self entityTags add: aString.
+	^self! !
+
+!HTTPMatchField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
+combineWith: aHeaderField 
+	"^self
+I add the entity tags of aHeaderField to my own collection of entity tags."
+
+	self entityTags addAll: aHeaderField entityTags.
+	^self! !
+
+!HTTPMatchField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+entityTags
+	^self matchesAnyCurrentEntity 
+		ifTrue: [nil]
+		ifFalse: 
+			[entityTags isNil ifTrue: [entityTags := OrderedCollection new].
+			entityTags]! !
+
+!HTTPMatchField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+isConditional
+	^true! !
+
+!HTTPMatchField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+matchesAnyCurrentEntity
+	^entityTags = '*'! !
+
+!HTTPMatchField methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+parseValueFrom: aString 
+	aString = '*' 
+		ifTrue: [entityTags := aString]
+		ifFalse: 
+			[| sourceStream |
+			entityTags := OrderedCollection new.
+			sourceStream := ReadStream on: aString.
+			[sourceStream atEnd] whileFalse: 
+					[| entityTag |
+					sourceStream upTo: $".
+					entityTag := sourceStream upTo: $".
+					entityTags add: entityTag.
+					sourceStream upTo: $,]].
+	^self! !
+
+!HTTPMatchField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
+valuesAsStringOn: targetStream 
+	self write: self entityTags first asQuotedStringTo: targetStream.
+	2 to: self entityTags size
+		do: 
+			[:tagIndex | 
+			targetStream nextPut: $,.
+			self write: (self entityTags at: tagIndex) asQuotedStringTo: targetStream].
+	^self! !
+
+!HTTPMatchField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
+write: aString asQuotedStringTo: targetStream 
+	"^self
+See RFC 2616 2.2"
+
+	targetStream nextPut: $".
+	aString do: 
+			[:character | 
+			character == $" 
+				ifTrue: [targetStream nextPutAll: '\"']
+				ifFalse: [targetStream nextPut: character]].
+	targetStream nextPut: $".
+	^self! !
+
+!HTTPIfMatchField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+isCacheHitFor: anEntity 
+	"^a Boolean
+I return true if an anEntity is a cache hit given the conditional I represent. 
+anEntity *must* respond to >>entutyTag"
+
+	1 halt.
+	^self! !
+
+!HTTPIfMatchField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'If-Match'! !
+
+!HTTPIfNoneMatchField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+isCacheHitFor: anEntity 
+	"^a Boolean
+I return true if an anEntity is a cache hit given the conditional I represent.  So in my case, I'm looking to see that the entity has a tag which is in my collection of entityTags.
+anEntity *must* respond to >>entityTag"
+
+	^self entityTags includes: anEntity entityTag! !
+
+!HTTPIfNoneMatchField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'If-None-Match'! !
+
+!HTTPRefererField methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+parseValueFrom: aString 
+	uri := SwazooURI fromString: aString.
+	^self! !
+
+!HTTPRefererField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+uri
+	^uri! !
+
+!HTTPRefererField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
+valuesAsStringOn: aStream 
+	self uri printOn: aStream.
+	^self! !
+
+!HTTPRefererField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'Referer'! !
+
+!HTTPServerField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+productTokens
+	^productTokens! !
+
+!HTTPServerField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+productTokens: aString 
+	productTokens := aString.
+	^self! !
+
+!HTTPServerField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
+valuesAsStringOn: aStream 
+	aStream nextPutAll: self productTokens.
+	^self! !
+
+!HTTPServerField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'Server'! !
+
+!HTTPSetCookieField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
+addCookie: aCookieString
+	^self cookies add: aCookieString! !
+
+!HTTPSetCookieField methodsFor: 'services' stamp: ' 14/4/07 23:10'!
+combineWith: aSetCookieField 
+	"^self
+I add the cookies of aSetCookieField to my own collection of cookies."
+
+	self cookies addAll: aSetCookieField cookies.
+	^self! !
+
+!HTTPSetCookieField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+cookies
+	cookies isNil ifTrue: [cookies := OrderedCollection new].
+	^cookies! !
+
+!HTTPSetCookieField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
+valuesAsStringOn: aStream 
+	aStream nextPutAll: (self cookies at: 1).
+	2 to: self cookies size
+		do: 
+			[:cookieIndex | 
+			aStream
+				nextPutAll: ', ';
+				nextPutAll: (self cookies at: cookieIndex)].
+	^self! !
+
+!HTTPSetCookieField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'Set-Cookie'! !
+
+!HTTPUserAgentField methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+parseValueFrom: aString 
+	"^self
+I could try and parse out the product name and version numbers, but there is no need to worry about this at the moment, so I just record the string."
+
+	productTokens := HTTPString trimBlanksFrom: aString.
+	^self! !
+
+!HTTPUserAgentField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+productTokens
+	^productTokens! !
+
+!HTTPUserAgentField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
+valuesAsStringOn: aStream 
+	aStream nextPutAll: productTokens.
+	^self! !
+
+!HTTPUserAgentField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'User-Agent'! !
+
+!HTTPWWWAuthenticateField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+isBasic
+	"^a Boolean
+I return true if I represent a header for basic authentication. c.f. RFC 2617 sec 2."
+
+	^false! !
+
+!HTTPWWWAuthenticateField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+isDigest
+	"^a Boolean
+I return true if I represent a header for digest authentication. c.f. RFC 2617 sec 3."
+
+	^false! !
+
+!HTTPWWWAuthenticateField class methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+fieldName
+	^'WWW-Authenticate'! !
+
+!HTTPWWWAuthenticateBasicField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+isBasic
+	"^a Boolean
+I return true if I represent a header for basic authentication. c.f. RFC 2617 sec 2."
+
+	^true! !
+
+!HTTPWWWAuthenticateBasicField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+realm
+	"^a String
+I return the realm for which I represent an autentication challenge.  This string will be presented to the browser user in the login dialog."
+
+	^realm! !
+
+!HTTPWWWAuthenticateBasicField methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+realm: anObject
+	realm := anObject! !
+
+!HTTPWWWAuthenticateBasicField methodsFor: 'printing' stamp: ' 14/4/07 23:10'!
+valuesAsStringOn: aStream 
+	aStream
+		nextPutAll: 'Basic realm="';
+		nextPutAll: self realm;
+		nextPut: $".
+	^self! !
+
+!HTTPWWWAuthenticateDigestField methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+isDigest
+	"^a Boolean
+I return true if I represent a header for digest authentication. c.f. RFC 2617 sec 3."
+
+	^true! !
+
+!MimeObject methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+contentType
+	^contentType isNil ifTrue: [self defaultContentType] ifFalse: [contentType]! !
+
+!MimeObject methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+contentType: anObject
+	contentType := anObject! !
+
+!MimeObject methodsFor: 'private-accessing' stamp: ' 14/4/07 23:10'!
+defaultContentType
+	^'application/octet-stream'! !
+
+!MimeObject methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+value
+	^value! !
+
+!MimeObject methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+value: anObject
+	value := anObject! !
+
+!HTTPPostDatum methodsFor: 'private-accessing' stamp: ' 14/4/07 23:10'!
+defaultContentType
+	^'text/plain'! !
+
+!HTTPPostDatum methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+filename
+	^filename! !
+
+!HTTPPostDatum methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+filename: aString
+	filename := aString! !
+
+!HTTPPostDatum methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+filenameWithoutPath
+	"M$ Internet Explorer includes full path in filename of uploaded file!! "
+	self filename isNil ifTrue: [^nil].
+	^(self filename includes: $\ ) 
+		ifTrue: [self filename copyFrom: (self filename lastIndexOf: $\ )+1 to: self filename size]
+		ifFalse: [self filename]! !
+
+!HTTPPostDatum methodsFor: 'testing' stamp: 'mivsek 7/24/2007 21:04'!
+isStreamed
+	"this postDatum is streamed - it has an output stream to receive data into or a block 
+	which will set it"
+	^self writeStream notNil or: [self writeBlock notNil]! !
+
+!HTTPPostDatum methodsFor: 'accessing' stamp: 'mivsek 7/24/2007 21:03'!
+writeBlock
+	^writeBlock! !
+
+!HTTPPostDatum methodsFor: 'accessing' stamp: 'mivsek 7/24/2007 21:03'!
+writeBlock: aBlockClosure
+	"this block will be called just before start of streaming to writeStream. It can be used to 
+	open the writeStream, because on that time we already know the filename of uploaded file. 
+	As a parameter this postDatum is sent"
+	writeBlock := aBlockClosure! !
+
+!HTTPPostDatum methodsFor: 'accessing' stamp: 'mivsek 7/20/2007 23:44'!
+writeStream
+	^writeStream! !
+
+!HTTPPostDatum methodsFor: 'accessing' stamp: 'mivsek 7/20/2007 23:44'!
+writeStream: aWriteStream
+	"a binary stream where to put directly a post data"
+	writeStream := aWriteStream! !
 
 !SwazooBuffer methodsFor: 'testing' stamp: 'janko 7/26/2008 18:22'!
 atEnd
@@ -7167,74 +5896,85 @@ preambleSize
 	"chunk size line (fixed to 4 hex characters) + crlf"
 	^6! !
 
-!SwazooBufferTest methodsFor: 'testing-mime boundary' stamp: 'janko 7/26/2008 15:31'!
-testBoundaryFull
-	| boundary buffer |
-	boundary := '--boundary--'.
-	buffer := SwazooBuffer on: 'just--boundary--something'.  "full boundary"
-	self assert: (buffer signsOfBoundary: boundary) = boundary size.! !
+!SwazooAuthNonce class methodsFor: 'instance creation'!
+new
+	^super new initialize! !
 
-!SwazooBufferTest methodsFor: 'testing-mime boundary' stamp: 'janko 7/26/2008 15:31'!
-testBoundaryMixed
-	| boundary buffer |
-	boundary := '--boundary--'.
-	buffer := SwazooBuffer on: 'yes,--just--boundary--something'.  "partial, later full boundary"
-	self assert: (buffer signsOfBoundary: boundary) = boundary size.! !
+!SwazooBenchmarks methodsFor: 'accessing' stamp: ' 7/5/08 11:08'!
+content
+	"test content to be writen to the socket"
+	content isNil ifTrue: [self initContent].
+	^content! !
 
-!SwazooBufferTest methodsFor: 'testing-mime boundary' stamp: 'janko 7/26/2008 15:31'!
-testBoundaryOnEdge
-	"part of boundary at the end of this buffer, remaining probably in the next"
-	| boundary buffer |
-	boundary := '--boundary--'.
-	buffer := SwazooBuffer on: 'just something-'.  "just first char of boundary"
-	self assert: (buffer signsOfBoundary: boundary) = 1.
-	buffer := SwazooBuffer on: 'just something--'.  "two chars"
-	self assert: (buffer signsOfBoundary: boundary) = 2.
-	buffer := SwazooBuffer on: 'just something--bound'.  "half"
-	self assert: (buffer signsOfBoundary: boundary) = 7.
-	buffer := SwazooBuffer on: 'just something--boundary--'.  "full boundary at the edge"
-	self assert: (buffer signsOfBoundary: boundary) = boundary size.! !
+!SwazooBenchmarks methodsFor: 'accessing' stamp: ' 7/5/08 11:08'!
+content: aByteArray
+	content := aByteArray! !
 
-!SwazooBufferTest methodsFor: 'testing-mime boundary' stamp: 'janko 7/26/2008 15:32'!
-testBoundaryOnEdgeMixed
-	"signs of boundary in the middle part at the end of this buffer, remaining probably in the next"
-	| boundary buffer |
-	boundary := '--boundary--'.
-	buffer := SwazooBuffer on: 'just-something-'.  "sign in the middle, one char at the end"
-	self assert: (buffer signsOfBoundary: boundary) = 1.
-	buffer := SwazooBuffer on: 'just-something--'.  "two chars"
-	self assert: (buffer signsOfBoundary: boundary) = 2.
-	buffer := SwazooBuffer on: 'just-so--mething--bound'.  "even more mixed case"
-	self assert: (buffer signsOfBoundary: boundary) = 7.! !
+!SwazooBenchmarks methodsFor: 'initialize-release' stamp: 'janko 5/8/2008 01:09'!
+contentSize
+	^4! !
 
-!SwazooBufferTest methodsFor: 'testing-mime boundary' stamp: 'janko 7/26/2008 15:32'!
-testBoundarySimple
-	| boundary buffer |
-	boundary := '--boundary--'.
-	buffer := SwazooBuffer on: 'just something'.  "no boundary"
-	self assert: (buffer signsOfBoundary: boundary) = 0.
-	buffer := SwazooBuffer on: 'just-something'.  "sign of boundary"
-	self assert: (buffer signsOfBoundary: boundary) = 0.
-	buffer := SwazooBuffer on: 'just--something'.  "more sign of boundary"
-	self assert: (buffer signsOfBoundary: boundary) = 0.
-	buffer := SwazooBuffer on: 'just--boundary--something'.  "full boundary"
-	self assert: (buffer signsOfBoundary: boundary) = boundary size.! !
+!SwazooBenchmarks methodsFor: 'initialize-release' stamp: ' 7/5/08 11:08'!
+initContent
+	| response ws |
+	response := HTTPResponse ok.
+	response entity: (ByteArray new: self contentSize withAll: 16r55).
+	ws := SwazooStream on: String new.
+	response writeTo: ws.
+	content := ws writeBuffer contents.! !
 
-!SwazooBufferTest methodsFor: 'testing-mime boundary' stamp: 'janko 7/26/2008 15:32'!
-testIndexOfBoundary
-	"index of start of boundary in buffer, both full or partial at the edge/end of buffer"
-	| boundary buffer |
-	boundary := '--boundary--'.
-	buffer := SwazooBuffer on: 'just something'.  "no boundary"
-	self assert: (buffer indexOfBoundary: boundary) = 0.
-	buffer := SwazooBuffer on: 'just--boundary--something-'.  "full boundary"
-	self assert: (buffer indexOfBoundary: boundary) = 5.
-	buffer := SwazooBuffer on: 'just something--boun'.  "partial boundary at the edge"
-	self assert: (buffer indexOfBoundary: boundary) = 15.
-	buffer := SwazooBuffer on: 'just something-'.  "partial boundary, one char only"
-	self assert: (buffer indexOfBoundary: boundary) = 15.
-	buffer := SwazooBuffer on: 'just-som--ething--boun'.  "mixed case with partial at the edge"
-	self assert: (buffer indexOfBoundary: boundary) = 17.! !
+!SwazooBenchmarks methodsFor: 'accessing' stamp: ' 7/5/08 11:08'!
+server
+	"TCP server loop"
+	^server! !
+
+!SwazooBenchmarks methodsFor: 'accessing' stamp: ' 7/5/08 11:08'!
+server: aProcess
+	"TCP server loop"
+	server := aProcess! !
+
+!SwazooBenchmarks methodsFor: 'socket performance' stamp: 'janko 5/8/2008 13:58'!
+serverLoop
+	| socket clientSocket |
+	socket := SpSocket newTCPSocket.
+	socket
+		setAddressReuse: true;
+		bindSocketAddress: (SpIPAddress hostName: 'localhost' port: 9999).
+	[	socket listenBackloggingUpTo: 50.
+		[true] whileTrue: 
+			[ 	clientSocket := socket accept.
+				[ [true] whileTrue: 
+					[clientSocket underlyingSocket waitForData.
+					clientSocket read: 60. "HTTP request"
+					clientSocket write: self content] ]
+				on: Error "probably connection close by peer"
+				do: [:ex | "nothing"]
+			]
+	] ensure: [clientSocket notNil ifTrue: [clientSocket close]. socket close]! !
+
+!SwazooBenchmarks methodsFor: 'socket performance' stamp: ' 7/5/08 11:08'!
+startSocketServer
+	"SwazooBenchmarks singleton startSocketServer"
+	"SwazooBenchmarks singleton stopSocketServer"
+	"testing raw socket performance.
+	it will start a server on localhost:9999 to receive a request 
+      and respond with 10K response as drirectly as possible."
+
+	self stopSocketServer. 
+	self server: [self serverLoop] fork.! !
+
+!SwazooBenchmarks methodsFor: 'socket performance' stamp: 'janko 5/7/2008 14:14'!
+stopSocketServer
+	"SwazooBenchmarks singleton stopSocketServer"
+	self server notNil ifTrue: [self server terminate. self server: nil].
+	self content: nil.
+	(Delay forMilliseconds: 1000) wait.
+! !
+
+!SwazooBenchmarks class methodsFor: 'accessing' stamp: ' 7/5/08 11:08'!
+singleton
+	Singleton isNil ifTrue: [Singleton := self new].
+	^Singleton! !
 
 !SwazooCacheControl methodsFor: 'operations' stamp: ' 14/4/07 23:10'!
 addNotModifedHeaders: aResponse 
@@ -7335,106 +6075,6 @@ request: aHTTPGet cacheTarget: anObject
 	request := aHTTPGet.
 	cacheTarget := anObject! !
 
-!SwazooCacheControlTest methodsFor: 'running' stamp: 'mivsek 8/16/2007 21:47'!
-setUp
-	| directory firstFile ws |
-	directory := SpFilename named: 'fResTest'.
-	directory exists ifFalse: [directory makeDirectory].
-	firstFile := directory construct: 'abc.html'.
-	ws := firstFile writeStream.
-	[ws nextPutAll: 'hello'] ensure: [ws close].
-	resource := FileResource uriPattern: 'foo' filePath: 'fResTest'.
-	request := HTTPGet request: 'foo/abc.html'.
-	URIResolution resolveRequest: request startingAt: resource.
-	cacheControl := SwazooCacheControl new request: request
-				cacheTarget: (cacheTarget := resource fileFor: request)! !
-
-!SwazooCacheControlTest methodsFor: 'running' stamp: 'mivsek 8/16/2007 22:07'!
-tearDown
-	((SpFilename named: 'fResTest') construct: 'abc.html') delete.
-	(SpFilename named: 'fResTest') delete! !
-
-!SwazooCacheControlTest methodsFor: 'testing' stamp: 'JM 4/18/2007 16:39'!
-testIfModifiedSinceModified
-	| response timestampInThePast |
-	request := HTTPGet request: 'foo/abc.html'.
-	timestampInThePast := SpTimestamp fromDate: (Date today subtractDays: 1)
-				andTime: Time now.
-	request headers addField: (HTTPIfModifiedSinceField new 
-				valueFrom: timestampInThePast asRFC1123String).
-	cacheControl := SwazooCacheControl new request: request
-				cacheTarget: cacheTarget.
-	self assert: cacheControl isNotModified not.
-	self assert: cacheControl isIfModifiedSince.
-	response := HTTPResponse ok.
-	cacheControl addResponseHeaders: response.
-	self 
-		assert: (response headers fieldNamed: 'ETag') entityTag = cacheTarget etag.
-	self assert: (response headers fieldNamed: 'Last-Modified') timestamp 
-				= cacheTarget lastModified! !
-
-!SwazooCacheControlTest methodsFor: 'testing' stamp: 'JM 4/18/2007 16:40'!
-testIfModifiedSinceNot
-	| response |
-	request headers addField: (HTTPIfModifiedSinceField new 
-				valueFrom: cacheTarget lastModified asRFC1123String).
-	self assert: cacheControl isNotModified.
-	self assert: cacheControl isIfModifiedSince not.
-	response := HTTPResponse notModified.
-	cacheControl addResponseHeaders: response.
-	self 
-		assert: (response headers fieldNamed: 'ETag') entityTag = cacheTarget etag.
-	self assert: (response headers fieldNamed: 'Last-Modified') timestamp 
-				= cacheTarget lastModified! !
-
-!SwazooCacheControlTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testIfNoneMatchHeaderMatch
-	"same etag"
-
-	| response |
-	request headers addField: (HTTPIfNoneMatchField new addEntityTag: cacheTarget etag).
-	self assert: cacheControl isNotModified.
-	self deny: cacheControl isIfNoneMatch.
-
-	"do NOT include last-modified"
-	response := HTTPResponse notModified.
-	cacheControl addResponseHeaders: response.
-	self assert: (response headers fieldNamed: 'ETag') entityTag = cacheTarget etag.
-	self assert: (response headers fieldNamed: 'Last-Modified' ifNone: [nil])  isNil! !
-
-!SwazooCacheControlTest methodsFor: 'testing' stamp: 'JM 4/18/2007 16:40'!
-testIfNoneMatchHeaderNone
-	"same etag"
-
-	| response |
-	request := HTTPGet request: 'foo/abc.html'.
-	request headers addField: (HTTPIfNoneMatchField new valueFrom: 'blah').
-	cacheControl := SwazooCacheControl new request: request
-				cacheTarget: cacheTarget.
-	self assert: cacheControl isNotModified not.
-	self assert: cacheControl isIfNoneMatch.
-	response := HTTPResponse ok.
-	cacheControl addResponseHeaders: response.
-	self 
-		assert: (response headers fieldNamed: 'ETag') entityTag = cacheTarget etag.
-	self assert: (response headers fieldNamed: 'Last-Modified') timestamp 
-				= cacheTarget lastModified! !
-
-!SwazooCacheControlTest methodsFor: 'testing' stamp: 'JM 4/18/2007 16:42'!
-testNoHeaders
-	| response |
-	self assert: cacheControl isNotModified not.
-	self assert: cacheControl isIfNoneMatch.
-	self assert: cacheControl isIfModifiedSince.
-
-	"add both"
-	response := HTTPResponse ok.
-	cacheControl addResponseHeaders: response.
-	self 
-		assert: (response headers fieldNamed: 'ETag') entityTag = cacheTarget etag.
-	self assert: (response headers fieldNamed: 'Last-Modified') timestamp 
-				= cacheTarget lastModified! !
-
 !SwazooCompiler class methodsFor: 'evaluation' stamp: 'janko 7/26/2008 13:54'!
 evaluate: aString 
         ^SpEnvironment
@@ -7448,181 +6088,6 @@ evaluate: aString receiver: anObject
 		evaluate: aString
 		receiver: anObject
 		in: self class environment! !
-
-!SwazooCompilerTest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
-testEvaluate
-	self assert: (SwazooCompiler evaluate: '1 + 2 * 3') = 9! !
-
-!SwazooCompilerTest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
-testEvaluateReceiver
-	self assert: (SwazooCompiler evaluate: 'self + 2 * 3' receiver: 1) = 9! !
-
-!SwazooConfigurationTest methodsFor: 'testing' stamp: 'jm 2/8/2009 13:56'!
-testCompositeResourceSite
-	| rs site composite howdy duh hithere |
-	rs := ReadStream 
-				on: '<Site>
- <CompositeResource uriPattern: ''/''>
-  <HelloWorldResource uriPattern: ''howdy''>
-  <CompositeResource uriPattern: ''duh''>
-   <HelloWorldResource uriPattern: ''hithere''>
-  </CompositeResource>
- </CompositeResource>
-</Site>'.
-	site := SwazooSite new readFrom: rs.
-	self assert: site children size = 1.
-	composite := site children first.
-	self assert: composite class == CompositeResource.
-	self assert: composite uriPattern = '/'.
-	self assert: composite children size = 2.
-	self assert: composite parent == site.
-	howdy := composite children first.
-	self assert: (howdy class == HelloWorldResource).
-	self assert: howdy uriPattern = 'howdy'.
-	self assert: howdy parent == composite.
-	duh := composite children last.
-	self assert: duh children size = 1.
-	self assert: duh class == CompositeResource.
-	self assert: duh uriPattern = 'duh'.
-	self assert: duh parent == composite.
-	hithere := duh children first.
-	self assert: hithere class == HelloWorldResource.
-	self assert: hithere uriPattern = 'hithere'.
-	self assert: hithere parent == duh.! !
-
-!SwazooConfigurationTest methodsFor: 'testing'!
-testEmptySite
-	| rs site alias |
-	rs := ReadStream 
-				on: '<Site>
- <SiteIdentifier host: ''swazoo.org'' ip: ''192.168.1.66'' port: 80>
-</Site>'.
-	site := SwazooSite new readFrom: rs.
-	self assert: site aliases size = 1.
-	self assert: site currentUrl = 'http://swazoo.org/'.
-	alias := site aliases first.
-	self assert: alias host = 'swazoo.org'.
-	self assert: alias ip = '192.168.1.66'.
-	self assert: alias port = 80! !
-
-!SwazooConfigurationTest methodsFor: 'testing'!
-testFileResourceSite
-	| rs site resource |
-	rs := ReadStream 
-				on: '<Site>
-<SiteIdentifier host: ''swazoo.org'' ip: ''192.168.1.66'' port: 80>
- <FileResource uriPattern: ''/'' filePath: ''files''>
-</Site>'.
-	site := SwazooSite new readFrom: rs.
-	self assert: site children size = 1.
-	resource := site children first.
-	self assert: resource class == FileResource.
-	self assert: resource uriPattern = '/'.
-	self assert: resource filePath = 'files'.
-	self assert: resource parent == site.
-	self assert: resource currentUrl = 'http://swazoo.org/'.! !
-
-!SwazooConfigurationTest methodsFor: 'testing' stamp: 'jm 2/8/2009 13:53'!
-testMultipleResourcesSite
-	| rs site resource1 resource2 |
-	rs := ReadStream 
-				on: '<Site>
- <HelloWorldResource uriPattern: ''/''>
- <HelloWorldResource uriPattern: ''/''>
-</Site>'.
-	site := SwazooSite new readFrom: rs.
-	self assert: site children size = 2.
-	resource1 := site children first.
-	self assert: (resource1 class == HelloWorldResource).
-	self assert: resource1 uriPattern = '/'.
-	resource2 := site children last.
-	self assert: resource2 class == HelloWorldResource.
-	self assert: resource2 uriPattern = '/'! !
-
-!SwazooConfigurationTest methodsFor: 'testing'!
-testMultipleSites
-	| rs sites site alias1 alias2 |
-	rs := ReadStream 
-				on: '<Site>
- <SiteIdentifier host: ''swazoo.org'' ip: ''192.168.1.66'' port: 80>
- <SiteIdentifier host: ''swazoo.org'' ip: ''192.168.1.66'' port: 81>
-</Site>
-<Site>
-</Site>'.
-	sites := SwazooServer readSitesFrom: rs.
-	self assert: sites size = 2.
-	site := sites first.
-	self assert: site aliases size = 2.
-	alias1 := site aliases first.
-	self assert: alias1 host = 'swazoo.org'.
-	self assert: alias1 ip = '192.168.1.66'.
-	self assert: alias1 port = 80.
-	alias2 := site aliases last.
-	self assert: alias2 host = 'swazoo.org'.
-	self assert: alias2 ip = '192.168.1.66'.
-	self assert: alias2 port = 81! !
-
-!SwazooConfigurationTest methodsFor: 'testing'!
-testSingleResourceSite
-	| rs site resource |
-	rs := ReadStream on: '<Site>
-<SiteIdentifier host: ''swazoo.org'' ip: ''192.168.1.66'' port: 80>
- <HelloWorldResource uriPattern: ''/''>
-</Site>'.
-	site := SwazooSite new readFrom: rs.
-	self assert: site children size = 1.
-	resource := site children first.
-	self assert: resource class == HelloWorldResource.
-	self assert: resource uriPattern = '/'.
-	self assert: resource parent == site.
-	self assert: resource currentUrl = 'http://swazoo.org/'.! !
-
-!SwazooConfigurationTest methodsFor: 'testing' stamp: 'jm 2/8/2009 13:54'!
-testSiteTag
-	| rs config tag |
-	rs := ReadStream on: '  <Site>  
-
-</Site>   '.
-	config := SwazooSite new.
-	tag := config nextTagFrom: rs.
-	self assert: tag = 'Site'.
-	tag := config nextTagFrom: rs.
-	self assert: tag = '/Site'.
-	self assert: (config nextTagFrom: rs) isNil! !
-
-!SwazooDemoSite methodsFor: 'serving'!
-answerTo: aRequest 
-	aRequest urlString = '/websocket' ifTrue: [^self answerWebSocketTo: aRequest].
-	^self answerToHelloWorld! !
-
-!SwazooDemoSite methodsFor: 'serving'!
-answerToHelloWorld
-	| response |
-	response := HTTPResponse ok.
-	response
-		contentType: 'text/html';
-		entity: '<html><head><title>Hello World</title></head><body>Hello World!!</body></html>'.
-	^response! !
-
-!SwazooDemoSite methodsFor: 'serving'!
-answerWebSocketTo: aRequest
-	"upgrade HTTP connection to WebSocket to establish bidirectional messaging to and from browser"
-	aRequest isWebSocketRequest ifFalse: [^HTTPResponse forbidden].
-	self webSocket: aRequest webSocket.
-	^webSocket answerTo: aRequest! !
-
-!SwazooDemoSite methodsFor: 'serving' stamp: 'jm 11/30/2010 12:49'!
-helpResolve: aResolution 
-	(self canAnswer and: [aResolution siteMatch: self]) ifFalse: [^nil].
-	^self answerTo: aResolution request! !
-
-!SwazooDemoSite methodsFor: 'accessing'!
-webSocket
-	^webSocket! !
-
-!SwazooDemoSite methodsFor: 'accessing'!
-webSocket: aWebSocketResource
-	webSocket := aWebSocketResource! !
 
 !SwazooMD5Digest class methodsFor: 'hashing for rfc2617'!
 a1FromUsername: aUsername realm: aRealm password: aPassword
@@ -7785,6 +6250,478 @@ new
 !SwazooResource class methodsFor: 'instance creation' stamp: ' 14/4/07 23:09'!
 uriPattern: aString 
 	^self new uriPattern: aString! !
+
+!CompositeResource methodsFor: 'adding/removing' stamp: ' 14/4/07 23:09'!
+addResource: aResource
+	self children add: aResource.
+	aResource parent: self.
+	aResource onResourceCreated.
+	^aResource! !
+
+!CompositeResource methodsFor: 'adding/removing' stamp: ' 14/4/07 23:09'!
+addResources: anOrderedCollection
+	anOrderedCollection do: [ :each |
+		self addResource: each].
+	^anOrderedCollection! !
+
+!CompositeResource methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
+children
+	children isNil ifTrue: [self initChildren].
+	^children! !
+
+!CompositeResource methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
+currentUrl
+	| string |
+	string := super currentUrl.
+	^string last = $/
+		ifTrue: [string]
+		ifFalse: [string , '/']! !
+
+!CompositeResource methodsFor: 'testing' stamp: ' 14/4/07 23:09'!
+hasNoResources
+	^self children isEmpty! !
+
+!CompositeResource methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
+helpResolve: aResolution 
+	^aResolution resolveCompositeResource: self! !
+
+!CompositeResource methodsFor: 'testing' stamp: ' 14/4/07 23:09'!
+includesResource: aResource
+	^self children includes: aResource.! !
+
+!CompositeResource methodsFor: 'initialize-release' stamp: ' 14/4/07 23:09'!
+initChildren
+	children := OrderedCollection new.! !
+
+!CompositeResource methodsFor: 'initialize-release' stamp: ' 14/4/07 23:09'!
+initialize
+	super initialize.
+	self initChildren! !
+
+!CompositeResource methodsFor: 'testing' stamp: ' 14/4/07 23:09'!
+isRootPath
+	^self uriPattern = '/'! !
+
+!CompositeResource methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
+printUrlOn: aWriteStream 
+	super printUrlOn: aWriteStream.
+	self isRootPath ifFalse: [aWriteStream nextPut: $/]! !
+
+!CompositeResource methodsFor: 'adding/removing' stamp: ' 14/4/07 23:09'!
+removeResource: aResource
+	self children remove: aResource ifAbsent: [nil]! !
+
+!ServerRootComposite methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
+helpResolve: aResolution 
+	^aResolution resolveServerRoot: self! !
+
+!SwazooSite methodsFor: 'accessing' stamp: ' 10/7/07 17:21'!
+addAlias: anAlias 
+	self ip isNil "initial uriPattern not yet setup"
+		ifTrue: [self host: anAlias host ip: anAlias ip port: anAlias port]
+		ifFalse: [self uriPattern add: anAlias]! !
+
+!SwazooSite methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
+aliases
+	^self uriPattern! !
+
+!SwazooSite methodsFor: 'config-from-file' stamp: ' 14/4/07 23:09'!
+compile: tag 
+	^SwazooCompiler evaluate: tag! !
+
+!SwazooSite methodsFor: 'private' stamp: ' 14/4/07 23:09'!
+helpResolve: aResolution 
+	^aResolution resolveSite: self! !
+
+!SwazooSite methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
+host
+	"hostname of this site. Example: www.ibm.com. 
+	hostname must be unique on that server.
+	Don't mix with ip, which also can be something like www.ibm.com. 
+	There can be many sites with different hostnames on the same ip !! "
+	self uriPattern isEmpty ifTrue: [^''].
+	^self uriPattern first host! !
+
+!SwazooSite methodsFor: 'private' stamp: ' 14/4/07 23:09'!
+host: aString
+	self uriPattern first host: aString! !
+
+!SwazooSite methodsFor: 'accessing'!
+host: aHostString ip: anIPString port: aNumber 
+	"see comments in methods host and ip !! "
+	"hostname must be unique!! "
+	| site |
+	site := SwazooServer singleton siteHostnamed: aHostString.
+	(site notNil and: [site ~= self])
+		ifTrue: [^SwazooSiteError error: 'Site with that hostname already exist!!'].
+	self uriPattern isEmpty ifTrue: [self uriPattern add: SiteIdentifier new].
+	self uriPattern first 
+		host: aHostString ip: anIPString port: aNumber! !
+
+!SwazooSite methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
+host: aHostString port: aNumber 
+	"run on all ip interfaces on specified port"
+	"hostname must be unique!! "
+	self host: aHostString ip: '*' port: aNumber! !
+
+!SwazooSite methodsFor: 'initialize-release' stamp: 'JM 6/6/2007 11:56'!
+initUriPattern
+	self uriPattern: OrderedCollection new.
+	self uriPattern add: SiteIdentifier new.! !
+
+!SwazooSite methodsFor: 'initialize-release' stamp: ' 14/4/07 23:09'!
+initialize
+	super initialize.
+	self stop. "in case you initialize working site"
+	self initUriPattern! !
+
+!SwazooSite methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
+ip
+	"IP address of this site. Swazoo can have virtual sites, that is, more than one 
+	site can share the same ip and port!!
+	IP can be a number or full DNS name. For example: server.ibm.com or 234.12.45.66"
+	^self uriPattern first ip! !
+
+!SwazooSite methodsFor: 'private' stamp: ' 14/4/07 23:09'!
+ip: aString
+	self uriPattern first  ip: aString! !
+
+!SwazooSite methodsFor: 'testing' stamp: ' 14/4/07 23:09'!
+isRootPath
+	^false! !
+
+!SwazooSite methodsFor: 'testing' stamp: ' 14/4/07 23:09'!
+isServing
+	"is this site on-line?"
+	^serving notNil and: [serving]! !
+
+!SwazooSite methodsFor: 'private' stamp: ' 14/4/07 23:09'!
+match: aSiteIdentifier 
+	self uriPattern detect: [:each | each match: aSiteIdentifier]
+		ifNone: [^false].
+	^true! !
+
+!SwazooSite methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
+name
+	"a short name of that site. Example: for host www.ibm.com, name it ibm"
+	name isNil ifTrue: [^''].
+	^name! !
+
+!SwazooSite methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
+name: aString
+	"a short name of that site. Example: for host www.ibm.com, name it ibm"
+	"name must be unique"
+	(SwazooServer singleton siteNamed: aString) notNil 
+		ifTrue: [^SwazooSiteError error: 'Site with that name already exist!!'].
+	name := aString! !
+
+!SwazooSite methodsFor: 'config-from-file' stamp: ' 14/4/07 23:09'!
+nextTagFrom: aStream 
+	aStream upTo: $<.
+	^aStream atEnd ifTrue: [nil] ifFalse: [aStream upTo: $>]! !
+
+!SwazooSite methodsFor: 'testing' stamp: 'mivsek 12/31/2007 16:08'!
+onAllInterfaces
+	"site is running on all machine's IP interfaces"
+	^self ip = '*' or: [self ip = '0.0.0.0']! !
+
+!SwazooSite methodsFor: 'testing' stamp: 'mivsek 12/31/2007 16:08'!
+onAnyHost
+	"site don't care about host name during url resolution"
+	^self host = '*'! !
+
+!SwazooSite methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
+port
+	^self uriPattern first port! !
+
+!SwazooSite methodsFor: 'private' stamp: ' 14/4/07 23:09'!
+port: aNumber
+	self uriPattern first port: aNumber! !
+
+!SwazooSite methodsFor: 'private' stamp: ' 14/4/07 23:09'!
+printUrlOn: aWriteStream 
+	self uriPattern first printUrlOn: aWriteStream! !
+
+!SwazooSite methodsFor: 'config-from-file' stamp: ' 14/4/07 23:09'!
+readCompositeFrom: aStream storingInto: aComposite 
+	| tag |
+	
+	[tag := self nextTagFrom: aStream.
+	tag = '/CompositeResource']
+		whileFalse: 
+			[| thingy |
+			thingy := self compile: tag.
+			aComposite addResource: thingy.
+			(thingy isKindOf: CompositeResource)
+				ifTrue: [self readCompositeFrom: aStream storingInto: thingy]]! !
+
+!SwazooSite methodsFor: 'config-from-file' stamp: ' 14/4/07 23:09'!
+readFrom: aStream 
+	"read configuration from an XML file, see sites.cnf"
+	| tag |
+	tag := self nextTagFrom: aStream.
+	tag isNil ifTrue: [^nil].
+	tag = 'Site' ifFalse: [^SwazooSiteError error: 'invalid site specification!!'].
+	[tag := self nextTagFrom: aStream.
+	tag = '/Site'] 	whileFalse: 
+			[| thingy |
+			thingy := self compile: tag.
+			(thingy isKindOf: SiteIdentifier)
+				ifTrue: [self addAlias: thingy]
+				ifFalse: 
+					[self addResource: thingy.
+					(thingy isKindOf: CompositeResource) 
+						ifTrue: [self readCompositeFrom: aStream storingInto: thingy]]]! !
+
+!SwazooSite methodsFor: 'private' stamp: ' 14/4/07 23:09'!
+serving: aBoolean
+	serving := aBoolean! !
+
+!SwazooSite methodsFor: 'start/stop' stamp: 'jm 2/8/2009 21:44'!
+start
+	| swazoo |
+	swazoo := SwazooServer singleton.
+	[self aliases do: [:each | | httpServer |
+		httpServer := swazoo serverFor: each. "it will also create and start it if needed"
+		httpServer addSite: self]
+	] ifCurtailed: [self stop].
+	self serving: true.! !
+
+!SwazooSite methodsFor: 'start/stop' stamp: 'janko 7/26/2008 13:18'!
+stop
+	| swazoo |
+	swazoo := SwazooServer singleton.
+	self aliases do: [:each | | httpServer |
+		httpServer := swazoo serverFor: each.
+		(swazoo servers includes: httpServer) 
+			ifTrue: 
+				[httpServer removeSite: self.
+				httpServer hasNoSites ifTrue: 
+					[swazoo removeServer: httpServer.
+					httpServer stop]]].
+		self serving: false.! !
+
+!SwazooSite methodsFor: 'private' stamp: ' 14/4/07 23:09'!
+uriPattern
+	uriPattern isNil ifTrue: [self initUriPattern].
+	^uriPattern! !
+
+!SwazooSite methodsFor: 'private' stamp: 'janko 8/2/2008 15:01'!
+watchdogAction
+	"override in your subclass"! !
+
+!SwazooSite class methodsFor: 'accessing' stamp: 'JM 4/17/2007 16:38'!
+named: aString
+	"return a website with that name"
+	^SwazooServer singleton siteNamed: aString! !
+
+!SwazooSite class methodsFor: 'instance creation' stamp: 'JM 4/17/2007 16:38'!
+newNamed: aString
+	| site |
+	site := self new name: aString.
+	SwazooServer singleton addSite: site.
+	site initialize.
+	^site! !
+
+!SwazooDemoSite methodsFor: 'serving'!
+answerTo: aRequest 
+	aRequest urlString = '/websocket' ifTrue: [^self answerWebSocketTo: aRequest].
+	^self answerToHelloWorld! !
+
+!SwazooDemoSite methodsFor: 'serving'!
+answerToHelloWorld
+	| response |
+	response := HTTPResponse ok.
+	response
+		contentType: 'text/html';
+		entity: '<html><head><title>Hello World</title></head><body>Hello World!!</body></html>'.
+	^response! !
+
+!SwazooDemoSite methodsFor: 'serving'!
+answerWebSocketTo: aRequest
+	"upgrade HTTP connection to WebSocket to establish bidirectional messaging to and from browser"
+	aRequest isWebSocketRequest ifFalse: [^HTTPResponse forbidden].
+	self webSocket: aRequest webSocket.
+	^webSocket answerTo: aRequest! !
+
+!SwazooDemoSite methodsFor: 'serving' stamp: 'jm 11/30/2010 12:49'!
+helpResolve: aResolution 
+	(self canAnswer and: [aResolution siteMatch: self]) ifFalse: [^nil].
+	^self answerTo: aResolution request! !
+
+!SwazooDemoSite methodsFor: 'accessing'!
+webSocket
+	^webSocket! !
+
+!SwazooDemoSite methodsFor: 'accessing'!
+webSocket: aWebSocketResource
+	webSocket := aWebSocketResource! !
+
+!FileMappingResource methodsFor: 'serving' stamp: ' 14/4/07 23:10'!
+answerTo: aRequest 
+	(self checkExistence: aRequest) ifFalse: [^nil].
+	(self checkURI: aRequest) 
+		ifFalse: 
+			[| response |
+			response := HTTPResponse movedPermanently.
+			response headers 
+				addField: (HTTPLocationField new uriString: aRequest uri identifier , '/').
+			^response].
+	^self file: (self fileFor: aRequest) answerTo: aRequest! !
+
+!FileMappingResource methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+checkExistence: aRequest 
+	(self rootFileFor: aRequest) exists ifFalse: [^false].
+	^(self fileFor: aRequest) exists! !
+
+!FileMappingResource methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+checkURI: aRequest 
+	| needsFinalSlash |
+	needsFinalSlash := (self rootFileFor: aRequest) isDirectory 
+				and: [aRequest uri isDirectory not].
+	^needsFinalSlash not! !
+
+!FileMappingResource methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+directoryIndex
+	^directoryIndex! !
+
+!FileMappingResource methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+directoryIndex: aString 
+	directoryIndex := aString! !
+
+!FileMappingResource methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+file: aFilename answerTo: aRequest 
+	^self subclassResponsibility! !
+
+!FileMappingResource methodsFor: 'private' stamp: 'mivsek 8/16/2007 22:05'!
+fileDirectory
+	^SpFilename named: self filePath! !
+
+!FileMappingResource methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+fileFor: aRequest 
+	| fn |
+	fn := self rootFileFor: aRequest.
+	fn isDirectory ifTrue: [fn := fn construct: self directoryIndex].
+	^fn! !
+
+!FileMappingResource methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+filePath
+	^filePath! !
+
+!FileMappingResource methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+filePath: aString 
+	filePath := aString! !
+
+!FileMappingResource methodsFor: 'private-initialize' stamp: ' 14/4/07 23:10'!
+initialize
+	super initialize.
+	self directoryIndex: 'index.html'! !
+
+!FileMappingResource methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+rootFileFor: aRequest 
+	^aRequest tailPath inject: self fileDirectory
+		into: 
+			[:subPath :each | 
+			(#('.' '..') includes: (HTTPString trimBlanksFrom: each)) 
+				ifTrue: [subPath]
+				ifFalse: [subPath construct: each]]! !
+
+!FileMappingResource class methodsFor: 'instance creation' stamp: ' 14/4/07 23:10'!
+uriPattern: aString filePath: aFilePath 
+	^(self uriPattern: aString) filePath: aFilePath! !
+
+!FileMappingResource class methodsFor: 'instance creation' stamp: ' 14/4/07 23:10'!
+uriPattern: aString filePath: aFilePath directoryIndex: anotherString 
+	^(self uriPattern: aString)
+		filePath: aFilePath;
+		directoryIndex: anotherString! !
+
+!FileResource methodsFor: 'private'!
+contentTypeFor: aString 
+	^ContentTypes 
+		at: aString asLowercase 
+		ifAbsent: ['application/octet-stream']! !
+
+!FileResource methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+file: aFilename answerTo: aRequest 
+	| cacheControl response |
+	cacheControl := SwazooCacheControl new request: aRequest
+				cacheTarget: aFilename.
+	response := cacheControl isNotModified 
+				ifTrue: [HTTPResponse notModified]
+				ifFalse: 
+					[FileResponse ok entity: ((MimeObject new)
+								value: aFilename;
+								contentType: (self contentTypeFor: aFilename extension))].
+	cacheControl addResponseHeaders: response.
+	^response! !
+
+!FileResource class methodsFor: 'class initialization' stamp: 'hmm 6/9/2012 21:46'!
+initialize
+	"self initialize"
+
+	ContentTypes := (Dictionary new)
+				add: '.txt' -> 'text/plain';
+				add: '.html' -> 'text/html';
+				add: '.htm' -> 'text/html';
+				add: '.css' -> 'text/css';
+				add: '.xml' -> 'text/xml';
+				add: '.js' -> 'text/javascript';
+				add: '.png' -> 'image/png';
+				add: '.gif' -> 'image/gif';
+				add: '.jpg' -> 'image/jpeg';
+				add: '.m3u' -> 'audio/mpegurl';
+				add: '.ico' -> 'image/x-icon';
+				add: '.pdf' -> 'application/pdf';
+				yourself! !
+
+!HomeResource methodsFor: 'accessing' stamp: ' 14/4/07 23:10'!
+answerTo: aRequest 
+	aRequest tailPath isEmpty ifTrue: [^nil].
+	(self validateHomePath: aRequest tailPath first) ifFalse: [^nil].
+	^super answerTo: aRequest! !
+
+!HomeResource methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+rootFileFor: aRequest 
+	| homeKey file |
+	homeKey := aRequest tailPath first copyFrom: 2
+				to: aRequest tailPath first size.
+	file := (self fileDirectory construct: homeKey) construct: 'html'.
+	(aRequest tailPath copyFrom: 2 to: aRequest tailPath size) 
+		do: [:each | each = '..' ifFalse: [file := file construct: each]].
+	^file! !
+
+!HomeResource methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+validateHomePath: aString 
+	^aString first = $~! !
+
+!HelloWorldResource methodsFor: 'serving' stamp: 'janko 11/1/2012 19:27'!
+answerTo: aRequest 
+	| response |
+	response := HTTPResponse ok.
+	response
+		contentType: 'text/html';
+		entity: '<html><head><title>Hello World</title></head><body>Hello World!!</body></html>'.
+	^response! !
+
+!RedirectionResource methodsFor: 'serving' stamp: ' 14/4/07 23:10'!
+answerTo: aRequest 
+	| answer |
+	answer := HTTPResponse movedPermanently.
+	answer headers addField: (HTTPLocationField new uriString: self targetUri).
+	^answer! !
+
+!RedirectionResource methodsFor: 'private-initialize' stamp: ' 14/4/07 23:10'!
+targetUri
+	^targetUri! !
+
+!RedirectionResource methodsFor: 'private-initialize' stamp: ' 14/4/07 23:10'!
+targetUri: aString 
+	targetUri := aString! !
+
+!RedirectionResource class methodsFor: 'instance creation' stamp: ' 14/4/07 23:10'!
+uriPattern: aString targetUri: bString 
+	^(self uriPattern: aString) targetUri: bString! !
 
 !SwazooServer methodsFor: 'private-servers' stamp: 'jm 2/8/2009 21:36'!
 addServer: aHTTPServer
@@ -8193,419 +7130,6 @@ stopSite: aString
 swazooVersion
 	^'Swazoo 2.3 Smalltalk Web Server'! !
 
-!SwazooServerTest methodsFor: 'support' stamp: 'lr 12/4/2009 15:29'!
-removeTestSiteIfAny
-	
-	| site |
-	site := SwazooServer siteNamed: self testSiteName.
-	site notNil ifTrue: [SwazooServer singleton removeSite: site]! !
-
-!SwazooServerTest methodsFor: 'testing' stamp: 'lr 12/4/2009 15:29'!
-testAccessingSite
-	
-	| site |
-	self removeTestSiteIfAny.
-	site := (SwazooSite new)
-		name: self testSiteName;
-		host: 'test.org' ip: 'localhost' port: 8543.
-	[SwazooServer singleton addSite: site.
-	self assert: (SwazooServer siteNamed: self testSiteName) notNil.
-	site := SwazooServer siteNamed: self testSiteName.
-	self assert: site name = self testSiteName.
-	self assert: (SwazooServer siteHostnamed: 'test.org') notNil.
-	site := SwazooServer siteHostnamed: 'test.org'.
-	self assert: site host = 'test.org']
-		ensure: [SwazooServer singleton removeSite: site]! !
-
-!SwazooServerTest methodsFor: 'testing-adding sites' stamp: 'lr 12/4/2009 15:29'!
-testAddingAllInterfacesSite
-	"site to listen on all IP interfaces but on specified port"
-	
-	| site server |
-	self removeTestSiteIfAny.
-	server := SwazooServer singleton.
-	self assert: (server siteNamed: self testSiteName) isNil.
-	site := (SwazooSite new)
-		name: self testSiteName;
-		host: '*' ip: '*' port: 7261.
-	[server addSite: site.
-	self assert: (server siteNamed: self testSiteName) notNil]
-		ensure: [server removeSite: site]! !
-
-!SwazooServerTest methodsFor: 'testing-adding sites' stamp: 'lr 12/4/2009 15:29'!
-testAddingSite
-	
-	| site server nrSites |
-	self removeTestSiteIfAny.
-	server := SwazooServer singleton.
-	nrSites := server sites size.
-	self assert: (server siteNamed: self testSiteName) isNil.
-	self assert: (server siteHostnamed: self testSiteName) isNil.
-	site := (SwazooSite new)
-		name: self testSiteName;
-		host: 'test.org' ip: 'localhost' port: 5798.
-	server addSite: site.
-	self assert: (server siteNamed: self testSiteName) notNil.
-	self assert: (server siteHostnamed: 'test.org') notNil.
-	server removeSite: site.
-	self assert: server sites size = nrSites! !
-
-!SwazooServerTest methodsFor: 'testing-adding sites' stamp: 'lr 12/4/2009 15:29'!
-testAllInterfacesTwoPortSites
-	"two sites can run on all IP interfaces and different port"
-	
-	| server site1 site2 |
-	server := SwazooServer singleton.
-	site1 := (SwazooSite new)
-		name: 'allInterfaces1';
-		host: '*' ip: '*' port: 7261.
-	site2 := (SwazooSite new)
-		name: 'allInterfaces2';
-		host: '*' ip: '*' port: 7262.
-	[server addSite: site1.
-	self
-		shouldnt: [server addSite: site2]
-		raise: Error]
-		ensure:
-			[server
-				removeSite: site1;
-				removeSite: site2]! !
-
-!SwazooServerTest methodsFor: 'testing-adding sites' stamp: 'lr 12/4/2009 15:29'!
-testAllStarsThenExactOnOtherPort
-	
-	| server site1 site2 |
-	server := SwazooServer singleton.
-	site1 := (SwazooSite new)
-		name: 'allstar232';
-		host: '*' ip: '*' port: 7261.
-	site2 := (SwazooSite new)
-		name: 'exactdfdf';
-		host: 'localhost' ip: 'localhost' port: 7262.
-	[server addSite: site1.
-	self
-		shouldnt:
-			[server
-				addSite: site2;
-				removeSite: site2]
-		raise: Error] ensure: [server removeSite: site1]! !
-
-!SwazooServerTest methodsFor: 'testing-adding sites' stamp: 'lr 12/4/2009 15:29'!
-testDuplicateAllInterfacesSite
-	"two sites cannot run on all IP interfaces and same port"
-	
-	| server site1 site2 |
-	server := SwazooServer singleton.
-	site1 := (SwazooSite new)
-		name: 'allInterfaces1';
-		host: '*' ip: '*' port: 7261.
-	site2 := (SwazooSite new)
-		name: 'allInterfaces2';
-		host: '*' ip: '*' port: 7261.
-	[server addSite: site1.
-	self
-		should: [server addSite: site2]
-		raise: Error] ensure: [server removeSite: site1]! !
-
-!SwazooServerTest methodsFor: 'testing-adding sites' stamp: 'lr 12/4/2009 15:29'!
-testDuplicateNames
-	
-	| site server |
-	self removeTestSiteIfAny.
-	server := SwazooServer singleton.
-	site := (SwazooSite new)
-		name: self testSiteName;
-		host: 'test.org' ip: 'localhost' port: 6376.
-	[server addSite: site.
-	self
-		should: [site name: self testSiteName]
-		raise: Error.
-	self
-		shouldnt: [site host: 'test.org']
-		raise: Error.
-	self
-		should:
-			[(SwazooSite new)
-				name: self testSiteName;
-				host: 'test.org' ip: 'localhost' port: 6376]
-		raise: Error] ensure: [server removeSite: site]! !
-
-!SwazooServerTest methodsFor: 'support' stamp: ' 8/2/09 22:22'!
-testSiteName
-	
-	^'aaabbcc987'! !
-
-!SwazooServerTest methodsFor: 'testing' stamp: 'lr 12/4/2009 15:29'!
-testStartingOnAPort
-	"and all ip interfaces, any host"
-	
-	| site server nrServers |
-	server := SwazooServer singleton.
-	nrServers := server servers size.
-	[site := server startOn: 4924.
-	self assert: site isServing.
-	self assert: server servers size = (nrServers + 1).
-	server stopOn: 4924.
-	self assert: site isServing not.
-	self assert: server servers size = nrServers]
-		ensure:
-			[site stop.
-			server removeSite: site]! !
-
-!SwazooServerTest methodsFor: 'testing' stamp: 'lr 12/4/2009 15:29'!
-testStartingOnTwoPorts
-	"and all ip interfaces, any host"
-	
-	| server nrServers site1 site2 |
-	server := SwazooServer singleton.
-	nrServers := server servers size.
-	[site1 := server startOn: 4924.
-	site2 := server startOn: 4925.
-	self assert: site1 isServing.
-	self assert: site2 isServing.
-	self assert: server servers size = (nrServers + 2).
-	server stopOn: 4924.
-	server stopOn: 4925.
-	self assert: site1 isServing not.
-	self assert: site2 isServing not.
-	self assert: server servers size = nrServers]
-		ensure:
-			[site1 stop.
-			site2 stop.
-			server
-				removeSite: site1;
-				removeSite: site2]! !
-
-!SwazooServerTest methodsFor: 'testing' stamp: 'lr 12/4/2009 15:29'!
-testStartingSite
-	
-	| site server nrServers |
-	self removeTestSiteIfAny.
-	server := SwazooServer singleton.
-	nrServers := server servers size.
-	site := (SwazooSite new)
-		name: self testSiteName;
-		host: 'test.org' ip: 'localhost' port: 8765.
-	[server addSite: site.
-	self assert: site isServing not.
-	SwazooServer startSite: self testSiteName.
-	self assert: server servers size = (nrServers + 1).
-	self assert: site isServing.
-	SwazooServer stopSite: self testSiteName.
-	self assert: site isServing not.
-	self assert: server servers size = nrServers]
-		ensure:
-			[site stop.
-			server removeSite: site]! !
-
-!SwazooSite methodsFor: 'accessing' stamp: ' 10/7/07 17:21'!
-addAlias: anAlias 
-	self ip isNil "initial uriPattern not yet setup"
-		ifTrue: [self host: anAlias host ip: anAlias ip port: anAlias port]
-		ifFalse: [self uriPattern add: anAlias]! !
-
-!SwazooSite methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
-aliases
-	^self uriPattern! !
-
-!SwazooSite methodsFor: 'config-from-file' stamp: ' 14/4/07 23:09'!
-compile: tag 
-	^SwazooCompiler evaluate: tag! !
-
-!SwazooSite methodsFor: 'private' stamp: ' 14/4/07 23:09'!
-helpResolve: aResolution 
-	^aResolution resolveSite: self! !
-
-!SwazooSite methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
-host
-	"hostname of this site. Example: www.ibm.com. 
-	hostname must be unique on that server.
-	Don't mix with ip, which also can be something like www.ibm.com. 
-	There can be many sites with different hostnames on the same ip !! "
-	self uriPattern isEmpty ifTrue: [^''].
-	^self uriPattern first host! !
-
-!SwazooSite methodsFor: 'private' stamp: ' 14/4/07 23:09'!
-host: aString
-	self uriPattern first host: aString! !
-
-!SwazooSite methodsFor: 'accessing'!
-host: aHostString ip: anIPString port: aNumber 
-	"see comments in methods host and ip !! "
-	"hostname must be unique!! "
-	| site |
-	site := SwazooServer singleton siteHostnamed: aHostString.
-	(site notNil and: [site ~= self])
-		ifTrue: [^SwazooSiteError error: 'Site with that hostname already exist!!'].
-	self uriPattern isEmpty ifTrue: [self uriPattern add: SiteIdentifier new].
-	self uriPattern first 
-		host: aHostString ip: anIPString port: aNumber! !
-
-!SwazooSite methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
-host: aHostString port: aNumber 
-	"run on all ip interfaces on specified port"
-	"hostname must be unique!! "
-	self host: aHostString ip: '*' port: aNumber! !
-
-!SwazooSite methodsFor: 'initialize-release' stamp: 'JM 6/6/2007 11:56'!
-initUriPattern
-	self uriPattern: OrderedCollection new.
-	self uriPattern add: SiteIdentifier new.! !
-
-!SwazooSite methodsFor: 'initialize-release' stamp: ' 14/4/07 23:09'!
-initialize
-	super initialize.
-	self stop. "in case you initialize working site"
-	self initUriPattern! !
-
-!SwazooSite methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
-ip
-	"IP address of this site. Swazoo can have virtual sites, that is, more than one 
-	site can share the same ip and port!!
-	IP can be a number or full DNS name. For example: server.ibm.com or 234.12.45.66"
-	^self uriPattern first ip! !
-
-!SwazooSite methodsFor: 'private' stamp: ' 14/4/07 23:09'!
-ip: aString
-	self uriPattern first  ip: aString! !
-
-!SwazooSite methodsFor: 'testing' stamp: ' 14/4/07 23:09'!
-isRootPath
-	^false! !
-
-!SwazooSite methodsFor: 'testing' stamp: ' 14/4/07 23:09'!
-isServing
-	"is this site on-line?"
-	^serving notNil and: [serving]! !
-
-!SwazooSite methodsFor: 'private' stamp: ' 14/4/07 23:09'!
-match: aSiteIdentifier 
-	self uriPattern detect: [:each | each match: aSiteIdentifier]
-		ifNone: [^false].
-	^true! !
-
-!SwazooSite methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
-name
-	"a short name of that site. Example: for host www.ibm.com, name it ibm"
-	name isNil ifTrue: [^''].
-	^name! !
-
-!SwazooSite methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
-name: aString
-	"a short name of that site. Example: for host www.ibm.com, name it ibm"
-	"name must be unique"
-	(SwazooServer singleton siteNamed: aString) notNil 
-		ifTrue: [^SwazooSiteError error: 'Site with that name already exist!!'].
-	name := aString! !
-
-!SwazooSite methodsFor: 'config-from-file' stamp: ' 14/4/07 23:09'!
-nextTagFrom: aStream 
-	aStream upTo: $<.
-	^aStream atEnd ifTrue: [nil] ifFalse: [aStream upTo: $>]! !
-
-!SwazooSite methodsFor: 'testing' stamp: 'mivsek 12/31/2007 16:08'!
-onAllInterfaces
-	"site is running on all machine's IP interfaces"
-	^self ip = '*' or: [self ip = '0.0.0.0']! !
-
-!SwazooSite methodsFor: 'testing' stamp: 'mivsek 12/31/2007 16:08'!
-onAnyHost
-	"site don't care about host name during url resolution"
-	^self host = '*'! !
-
-!SwazooSite methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
-port
-	^self uriPattern first port! !
-
-!SwazooSite methodsFor: 'private' stamp: ' 14/4/07 23:09'!
-port: aNumber
-	self uriPattern first port: aNumber! !
-
-!SwazooSite methodsFor: 'private' stamp: ' 14/4/07 23:09'!
-printUrlOn: aWriteStream 
-	self uriPattern first printUrlOn: aWriteStream! !
-
-!SwazooSite methodsFor: 'config-from-file' stamp: ' 14/4/07 23:09'!
-readCompositeFrom: aStream storingInto: aComposite 
-	| tag |
-	
-	[tag := self nextTagFrom: aStream.
-	tag = '/CompositeResource']
-		whileFalse: 
-			[| thingy |
-			thingy := self compile: tag.
-			aComposite addResource: thingy.
-			(thingy isKindOf: CompositeResource)
-				ifTrue: [self readCompositeFrom: aStream storingInto: thingy]]! !
-
-!SwazooSite methodsFor: 'config-from-file' stamp: ' 14/4/07 23:09'!
-readFrom: aStream 
-	"read configuration from an XML file, see sites.cnf"
-	| tag |
-	tag := self nextTagFrom: aStream.
-	tag isNil ifTrue: [^nil].
-	tag = 'Site' ifFalse: [^SwazooSiteError error: 'invalid site specification!!'].
-	[tag := self nextTagFrom: aStream.
-	tag = '/Site'] 	whileFalse: 
-			[| thingy |
-			thingy := self compile: tag.
-			(thingy isKindOf: SiteIdentifier)
-				ifTrue: [self addAlias: thingy]
-				ifFalse: 
-					[self addResource: thingy.
-					(thingy isKindOf: CompositeResource) 
-						ifTrue: [self readCompositeFrom: aStream storingInto: thingy]]]! !
-
-!SwazooSite methodsFor: 'private' stamp: ' 14/4/07 23:09'!
-serving: aBoolean
-	serving := aBoolean! !
-
-!SwazooSite methodsFor: 'start/stop' stamp: 'jm 2/8/2009 21:44'!
-start
-	| swazoo |
-	swazoo := SwazooServer singleton.
-	[self aliases do: [:each | | httpServer |
-		httpServer := swazoo serverFor: each. "it will also create and start it if needed"
-		httpServer addSite: self]
-	] ifCurtailed: [self stop].
-	self serving: true.! !
-
-!SwazooSite methodsFor: 'start/stop' stamp: 'janko 7/26/2008 13:18'!
-stop
-	| swazoo |
-	swazoo := SwazooServer singleton.
-	self aliases do: [:each | | httpServer |
-		httpServer := swazoo serverFor: each.
-		(swazoo servers includes: httpServer) 
-			ifTrue: 
-				[httpServer removeSite: self.
-				httpServer hasNoSites ifTrue: 
-					[swazoo removeServer: httpServer.
-					httpServer stop]]].
-		self serving: false.! !
-
-!SwazooSite methodsFor: 'private' stamp: ' 14/4/07 23:09'!
-uriPattern
-	uriPattern isNil ifTrue: [self initUriPattern].
-	^uriPattern! !
-
-!SwazooSite methodsFor: 'private' stamp: 'janko 8/2/2008 15:01'!
-watchdogAction
-	"override in your subclass"! !
-
-!SwazooSite class methodsFor: 'accessing' stamp: 'JM 4/17/2007 16:38'!
-named: aString
-	"return a website with that name"
-	^SwazooServer singleton siteNamed: aString! !
-
-!SwazooSite class methodsFor: 'instance creation' stamp: 'JM 4/17/2007 16:38'!
-newNamed: aString
-	| site |
-	site := self new name: aString.
-	SwazooServer singleton addSite: site.
-	site initialize.
-	^site! !
-
 !SwazooSocket methodsFor: 'server accessing' stamp: ' 14/4/07 23:09'!
 accept
 	^self class accessor: self accessor acceptRetryingIfTransientErrors! !
@@ -8688,65 +7212,6 @@ serverOnIP: anIPString port: anInteger
 		setAddressReuse: true;
 		bindSocketAddress: (SpIPAddress hostName: anIPString port: anInteger).
 	^self accessor: newSocket! !
-
-!SwazooSocketTest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
-setUp
-	| pair |
-	pair := SwazooSocket connectedPair.
-	input := pair first.
-	output := pair last! !
-
-!SwazooSocketTest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
-tearDown
-	input close.
-	output close! !
-
-!SwazooSocketTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testConnectedPair
-	(Array with: input with: output) 
-		do: [:each | self assert: (each isKindOf: SwazooSocket)]! !
-
-!SwazooSocketTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testNetworkConnection
-	| server sem |
-	input close.
-	output close.
-	sem := Semaphore new.
-	
-	[server := SwazooSocket serverOnIP: '127.0.0.1' port: 65423.
-	server listenFor: 50.
-	
-	[input := server accept.
-	sem signal] fork.
-	output := SwazooSocket connectTo: 'localhost' port: 65423.
-	sem wait.
-	self testReadWrite] 
-			ensure: [server close]! !
-
-!SwazooSocketTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testPartialRead
-	| bytes |
-	bytes := ByteArray withAll: #(5 4 3).
-	self assert: (input write: bytes) = 3.
-	self assert: (output read: 5) = bytes! !
-
-!SwazooSocketTest methodsFor: 'testing' stamp: 'janko 7/26/2008 14:59'!
-testReadTimeout
-	"on Squeak doesn't come back, and also we don't need it for now !!"
-"	input write: (ByteArray withAll: #(1 2 3)).
-	self assert: (output read: 3 timeout: 40) = (ByteArray withAll: #(1 2 3)).
-	self assert: (output read: 3 timeout: 40) = ByteArray new
-"! !
-
-!SwazooSocketTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testReadWrite
-	| bytes |
-	bytes := ByteArray withAll: #(1 2 3 4 5).
-	self assert: (input write: bytes) = 5.
-	self assert: (output read: 5) = bytes.
-	bytes := ByteArray with: 4.
-	self assert: (input write: bytes) = 1.
-	self assert: (output read: 1) = bytes! !
 
 !SwazooStream methodsFor: 'accessing-reading' stamp: 'janko 10/30/2012 10:43'!
 anyDataReady
@@ -8998,138 +7463,6 @@ on: aString
 !SwazooStream class methodsFor: 'instance creation' stamp: ' 14/4/07 23:09'!
 socket: aSwazooSocket 
 	^self new setSocket: aSwazooSocket! !
-
-!SwazooStreamTest methodsFor: 'running' stamp: 'mivsek 7/19/2007 19:26'!
-crlfOn: aSwazooStream
-	aSwazooStream
-		nextPut: Character cr;
-		nextPut: Character lf! !
-
-!SwazooStreamTest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
-setUp
-	| pair |
-	pair := SwazooStream connectedPair.
-	input := pair first.
-	output := pair last! !
-
-!SwazooStreamTest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
-tearDown
-	input close.
-	output close! !
-
-!SwazooStreamTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testConnectedPair
-	(Array with: input with: output) 
-		do: [:each | self assert: (each isKindOf: SwazooStream)]! !
-
-!SwazooStreamTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testErrorOnInputClose
-	self should: 
-			[input close.
-			output next]
-		raise: Error! !
-
-!SwazooStreamTest methodsFor: 'testing-lines' stamp: 'mivsek 7/19/2007 19:27'!
-testLinesWithDoubleCRLF
-	| ws rs comparisonString |
-	comparisonString := 'abcd'.
-	ws := SwazooStream on: String new.
-	ws nextPutAll: comparisonString.
-	self crlfOn: ws.
-	self crlfOn: ws.
-	rs := SwazooStream on: ws writeBuffer contents.
-	self assert: rs nextLine = comparisonString.
-	self assert: rs nextLine = ''! !
-
-!SwazooStreamTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testNextPut
-	#($A $M $Y $b $r $z) do: 
-			[:each | 
-			self assert: (input nextPut: each) = each. 
-			input flush.
-			self assert: output next = each]! !
-
-!SwazooStreamTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testNextPutAll
-	#('123' 'abc' 'swazoo') do: 
-			[:each | 
-			self assert: (input nextPutAll: each) = each. 
-			input flush.
-			self assert: (output next: each size) = each]! !
-
-!SwazooStreamTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testNextPutByte
-	| bytes |
-	bytes := ByteArray 
-				with: 6
-				with: 5
-				with: 0
-				with: 2.
-	bytes do: 
-			[:each | 
-			self assert: (input nextPutByte: each) = each. 
-			input flush.
-			self assert: output nextByte = each]! !
-
-!SwazooStreamTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testNextPutBytes
-	| bytes1 bytes2 bytes3 |
-	bytes1 := ByteArray withAll: #(1 2 3 4).
-	bytes2 := ByteArray withAll: #(5 4 3 2 1).
-	bytes3 := ByteArray withAll: #(1 1 2 3 5).
-	(Array 
-		with: bytes1
-		with: bytes2
-		with: bytes3) do: 
-				[:each | 
-				self assert: (input nextPutBytes: each) = each.
-				input flush.
-				self assert: (output nextBytes: each size) = each]! !
-
-!SwazooStreamTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testPeek
-	#($K $J $D $j $m $z) do: 
-			[:each | 
-			input nextPut: each.
-			input flush.
-			self assert: output peek = each.
-			output next]! !
-
-!SwazooStreamTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testPeekByte
-	| bytes |
-	bytes := ByteArray withAll: #(5 2 8 4 11 231).
-	bytes do: 
-			[:each | 
-			input nextPutByte: each.
-			input flush.
-			self assert: output peekByte = each.
-			output nextByte]! !
-
-!SwazooStreamTest methodsFor: 'testing-lines' stamp: 'mivsek 7/19/2007 19:27'!
-testSingleLineWithCR
-	| ws rs comparisonString errored |
-	comparisonString := 'abcd' , (String with: Character cr) , 'efg'.
-	ws := SwazooStream on: String new.
-	ws nextPutAll: comparisonString.
-	ws nextPut: Character cr.
-	rs := SwazooStream on: ws writeBuffer contents.
-	errored := false.
-	SpExceptionContext 
-		for: [rs nextLine]
-		on: SpError
-		do: [:ex | errored := true].
-	self assert: errored! !
-
-!SwazooStreamTest methodsFor: 'testing-lines' stamp: 'mivsek 7/19/2007 19:27'!
-testSingleLineWithCRLF
-	| ws rs comparisonString |
-	comparisonString := 'abcd'.
-	ws := SwazooStream on: String new.
-	ws nextPutAll: comparisonString.
-	self crlfOn: ws.
-	rs := SwazooStream on: ws writeBuffer contents.
-	self assert: rs nextLine = comparisonString! !
 
 !SwazooTask methodsFor: 'accessing' stamp: 'mivsek 12/31/2007 15:31'!
 connection
@@ -9436,59 +7769,6 @@ fromString: aString
 value: aString
 	^self new value: aString! !
 
-!SwazooURITest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
-setUp
-	fooURI := SwazooURI fromString: 'www.foo.com/index.html'.
-	queryURI := SwazooURI fromString: 'www.foo.com/index.html?foo=1&bar=hi'.
-	barURI := SwazooURI fromString: 'www.bar.com:8080/files/'! !
-
-!SwazooURITest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
-testHostname
-	self assert: fooURI hostname = 'www.foo.com'.
-	self assert: queryURI hostname = 'www.foo.com'.
-	self assert: barURI hostname = 'www.bar.com'! !
-
-!SwazooURITest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
-testIdentifier
-	self assert: fooURI identifier = '/index.html'.
-	self assert: queryURI identifier = '/index.html'.
-	self assert: barURI identifier = '/files/'! !
-
-!SwazooURITest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
-testIdentifierPath
-	self assert: fooURI identifierPath 
-				= (OrderedCollection with: '/' with: 'index.html').
-	self assert: queryURI identifierPath 
-				= (OrderedCollection with: '/' with: 'index.html').
-	self 
-		assert: barURI identifierPath = (OrderedCollection with: '/' with: 'files')! !
-
-!SwazooURITest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
-testIsDirectory
-	self deny: fooURI isDirectory.
-	self deny: queryURI isDirectory.
-	self assert: barURI isDirectory! !
-
-!SwazooURITest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
-testPort
-	self assert: fooURI port = 80.
-	self assert: queryURI port = 80.
-	self assert: barURI port = 8080! !
-
-!SwazooURITest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
-testQueries
-	self deny: (queryURI includesQuery: 'hi').
-	self assert: (queryURI includesQuery: 'foo').
-	self assert: (queryURI includesQuery: 'bar').
-	self assert: (queryURI queryAt: 'foo') = '1'.
-	self assert: (queryURI queryAt: 'bar') = 'hi'! !
-
-!SwazooURITest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
-testValue
-	self assert: fooURI value = 'http://www.foo.com/index.html'.
-	self assert: queryURI value = 'http://www.foo.com/index.html?foo=1&bar=hi'.
-	self assert: barURI value = 'http://www.bar.com:8080/files/'! !
-
 !SwazooWebSocket methodsFor: 'private'!
 answerTo: aHTTPRequest
 	aHTTPRequest isConnectionUpgrade ifFalse: [^HTTPResponse forbidden].
@@ -9614,6 +7894,2031 @@ version
 version: aNumber
 	"WebSocket protocol version"
 	version := aNumber! !
+
+!CompositeResourceTest methodsFor: 'testing' stamp: 'jm 2/8/2009 13:52'!
+sampleInSite
+	| site |
+	site := SwazooSite new.
+	site host: 'swazoo.org' ip: '127.0.0.1' port: 8200.
+	site addResource: composite! !
+
+!CompositeResourceTest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
+setUp
+	composite := CompositeResource uriPattern: '/'! !
+
+!CompositeResourceTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testAddResource
+	| child |
+	composite addResource: (child := HelloWorldResource uriPattern: 'hello.html').
+	self assert: composite children size = 1.
+	self assert: composite children first == child.
+	self assert: child parent == composite! !
+
+!CompositeResourceTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testAddResources
+	| child1 child2 |
+	child1 := HelloWorldResource uriPattern: 'hello1.html'.
+	child2 := HelloWorldResource uriPattern: 'hello2.html'.
+	composite addResources: (Array with: child1 with: child2).
+	self assert: composite children size = 2.
+	composite children
+		do: 
+			[:each | 
+			self assert: (composite children includes: each).
+			self assert: each parent == composite]! !
+
+!CompositeResourceTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testCurrentUrl
+	| child leaf |	
+	self sampleInSite.
+	self assert: composite currentUrl = 'http://swazoo.org:8200/'.
+	composite addResource: (child := CompositeResource uriPattern: 'foo').
+	self assert: child currentUrl = 'http://swazoo.org:8200/foo/'.
+	child addResource: (leaf := HelloWorldResource uriPattern: 'hi.html').
+	self assert: leaf currentUrl = 'http://swazoo.org:8200/foo/hi.html'.! !
+
+!CompositeResourceTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testEmptyURIPatternInvalid
+	composite uriPattern: ''.
+	self deny: composite isValidlyConfigured! !
+
+!CompositeResourceTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testNilURIPatternDoesNothing
+	| pattern |
+	pattern := composite uriPattern.
+	composite uriPattern: nil.
+	self assert: composite uriPattern = pattern! !
+
+!CompositeResourceTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testValidlyConfigured
+	self assert: composite isValidlyConfigured! !
+
+!FileResourceTest methodsFor: 'running' stamp: 'mivsek 8/16/2007 22:09'!
+setUp
+	| directory firstFile ws |
+	directory := SpFilename named: 'fResTest'.
+	directory exists ifFalse: [directory makeDirectory].
+	firstFile :=  (SpFilename named: 'fResTest') construct: 'abc.html'.
+	ws := firstFile writeStream.
+	[ws nextPutAll: 'hello'] ensure: [ws close].
+	resource := FileResource uriPattern: 'foo' filePath: 'fResTest'! !
+
+!FileResourceTest methodsFor: 'running' stamp: 'mivsek 8/16/2007 22:09'!
+tearDown
+	((SpFilename named: 'fResTest') construct: 'abc.html') delete.
+	(SpFilename named: 'fResTest') delete! !
+
+!FileResourceTest methodsFor: 'testing' stamp: 'JM 4/18/2007 16:34'!
+testContentType
+	self assert: (resource contentTypeFor: '.txt') = 'text/plain'.
+	self assert: (resource contentTypeFor: '.html') = 'text/html'
+! !
+
+!FileResourceTest methodsFor: 'testing'!
+testDirectoryIndex
+	| request response |
+	request := HTTPGet request: 'foo/'.
+	resource directoryIndex: 'abc.html'.
+	response := URIResolution resolveRequest: request startingAt: resource.
+	self assert: response statusCode = 200.
+	self assert: request resourcePath size = 1.
+	self assert: request resourcePath first = 'foo'! !
+
+!FileResourceTest methodsFor: 'testing'!
+testETag
+	"Filename etags do not have the leading and trailing double quotes.  Header fields add the quotes as necessary"
+
+	| request response etag |
+	request := HTTPGet request: 'foo/abc.html'.
+	response := URIResolution resolveRequest: request startingAt: resource.
+	self assert: response statusCode = 200.
+	self 
+		assert: (etag := (response headers fieldOfClass: HTTPETagField) entityTag) 
+				notNil.
+	request := HTTPGet request: 'foo/abc.html'.
+	request headers addField: (HTTPIfNoneMatchField new addEntityTag: etag).
+	response := URIResolution resolveRequest: request startingAt: resource.
+	self assert: response statusCode = 304.
+	self assert: (response headers fieldOfClass: HTTPETagField) entityTag = etag.
+	request := HTTPGet request: 'foo/abc.html'.
+	request headers addField: (HTTPIfNoneMatchField new valueFrom: '"wrong"').
+	response := URIResolution resolveRequest: request startingAt: resource.
+	self assert: response statusCode = 200.
+	self assert: (response headers fieldOfClass: HTTPETagField) entityTag = etag! !
+
+!FileResourceTest methodsFor: 'testing'!
+testExistantFile
+	| request response |
+	request := HTTPGet request: 'foo/abc.html'.
+	response := URIResolution resolveRequest: request startingAt: resource.
+	self assert: response statusCode = 200.
+	self assert: request resourcePath size = 1.
+	self assert: request resourcePath first = 'foo'! !
+
+!FileResourceTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testNonexistantFile
+	| request response |
+	request := HTTPGet request: 'foo/notThere.html'.
+	response := URIResolution resolveRequest: request startingAt: resource.
+	self assert: response isNil! !
+
+!FileResourceTest methodsFor: 'testing'!
+testRedirection
+	| request response |
+	request := HTTPGet request: 'foo'.
+	resource directoryIndex: 'abc.html'.
+	response := URIResolution resolveRequest: request startingAt: resource.
+	self assert: response statusCode = 301.
+	self assert: (response headers fieldNamed: 'Location') uri asString 
+				= 'http://foo/'.
+	self assert: (response headers fieldNamed: 'Location') uri host = 'foo'! !
+
+!FileResourceTest methodsFor: 'testing' stamp: 'JM 4/18/2007 16:33'!
+testRelativeFile
+"it doesn't work anyway!!
+	| request response |
+	request := HTTPGet request: 'foo/../', resource fileDirectory tail, '/abc.html'.
+	response := URIResolution resolveRequest: request startingAt: resource.
+	self assert: response isNil
+"! !
+
+!FileResourceTest methodsFor: 'testing'!
+testSafeConstruct
+	| request response |
+	request := HTTPGet request: 'foo/../abc.html'.
+	response := URIResolution resolveRequest: request startingAt: resource.
+	self assert: response statusCode = 200.
+	request := HTTPGet request: 'foo/.. /./abc.html'.
+	response := URIResolution resolveRequest: request startingAt: resource.
+	self assert: response statusCode = 200! !
+
+!HTTPPostTest methodsFor: 'requests' stamp: 'janko 7/26/2008 15:36'!
+crlf
+	^String with: Character cr with: Character lf.! !
+
+!HTTPPostTest methodsFor: 'requests' stamp: 'janko 7/26/2008 15:33'!
+fileContents
+	"HTTPRequestTest new fileContents"
+	| stream |
+	stream := SwazooStream on: String new.
+	stream
+		nextPutLine: 'BEGIN:VCALENDAR';
+		nextPutLine: 'PRODID:-//Squeak-iCalendar//-';
+		nextPutLine: 'VERSION:2.0';
+		nextPutLine: 'X-WR-CALNAME:test';
+		nextPutLine: 'METHOD:PUBLISH';
+		nextPutLine: 'BEGIN:VEVENT';
+		nextPutLine: 'UID:an event with a start date and not date and time';
+		nextPutLine: 'CATEGORIES:category1,category2';
+		nextPutLine: 'CREATED:20050501T110231Z';
+		nextPutLine: 'SEQUENCE:0';
+		nextPutLine: 'SUMMARY:aTitle';
+		nextPutLine: 'PRIORITY:5';
+		nextPutLine: 'DTSTART;VALUE=DATE:20050425';
+		nextPutLine: 'END:VEVENT';
+		nextPutLine: 'END:VCALENDAR'.
+
+	^stream writeBuffer contents asString! !
+
+!HTTPPostTest methodsFor: 'requests' stamp: 'janko 7/26/2008 15:33'!
+postDashes
+	| requestStream |
+	requestStream := SwazooStream on: String new.
+	requestStream
+		nextPutLine: 'POST  /document/aab.html HTTP/1.1';
+		nextPutLine: 'Host: biart.eranova.si';
+		nextPutLine: 'Content-Type: multipart/form-data; boundary= boundary';
+		nextPutLine: 'Content-Length: 149';
+            crlf;
+		nextPutLine: '--boundary';
+		nextPutLine: 'Content-Disposition: form-data; name="id5273"';
+		crlf; 
+		nextPutLine: '----';
+		nextPutLine: '--boundary';
+		nextPutLine: 'Content-Disposition: form-data; name="field2"';
+		crlf; 
+		nextPutLine: '- --';
+		nextPutLine: '--boundary--'.
+
+	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
+
+!HTTPPostTest methodsFor: 'requests' stamp: 'janko 7/26/2008 15:33'!
+postEmpty
+	"post entity with empty value"
+	| requestStream |
+	requestStream := SwazooStream on: String new.
+	requestStream
+		nextPutLine: 'POST  /document/aab.html HTTP/1.1';
+		nextPutLine: 'Host: biart.eranova.si';
+		nextPutLine: 'Content-Type: multipart/form-data; boundary= boundary';
+		nextPutLine: 'Content-Length: 75';
+            crlf;
+		nextPutLine: '--boundary';
+		nextPutLine: 'Content-Disposition: form-data; name="id5273"';
+		crlf; 
+		nextPutLine: '';
+		nextPutLine: '--boundary--'.
+
+	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
+
+!HTTPPostTest methodsFor: 'requests' stamp: 'janko 7/26/2008 15:33'!
+postFile
+	| requestStream |
+	requestStream := SwazooStream on: String new.
+	requestStream
+		nextPutLine: 'POST  /document/aab.html HTTP/1.1';
+		nextPutLine: 'Connection: Keep-Alive';
+		nextPutLine: 'User-Agent: Mozilla/4.72 [en] (X11; I; Linux 2.3.51 i686)';
+		nextPutLine: 'Host: biart.eranova.si';
+		nextPutLine: 'Referer: http://www.bar.com/takeMeThere.html';
+		nextPutLine: 'Content-Type: multipart/form-data; boundary= -----------------20752836116568320241700153999';
+		nextPutLine: 'Content-Length: ', (527+self fileContents size) printString;
+            crlf;
+		nextPutLine: '-------------------20752836116568320241700153999';
+		nextPutLine: 'Content-Disposition: form-data; name="id5273"';
+		crlf; 
+		nextPutLine: 'main';
+		nextPutLine: '-------------------20752836116568320241700153999';
+		nextPutLine: 'Content-Disposition: form-data; name="field2"';
+		crlf; crlf;
+		nextPutLine: '-------------------20752836116568320241700153999';
+		nextPutLine: 'Content-Disposition: form-data; name="field7"; filename="event.ical"';
+		nextPutLine: 'Content-Type: application/octet-stream';
+		crlf;
+
+		nextPutAll: self fileContents;
+
+		crlf;
+		nextPutLine: '-------------------20752836116568320241700153999';
+		nextPutLine: 'Content-Disposition: form-data; name="attach"';
+		crlf;
+		nextPutLine: 'Attach';
+		nextPutLine: '-------------------20752836116568320241700153999--'.
+
+	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
+
+!HTTPPostTest methodsFor: 'requests' stamp: 'janko 7/26/2008 15:33'!
+postPreambleEpilogue
+	| requestStream |
+	requestStream := SwazooStream on: String new.
+	requestStream
+		nextPutLine: 'POST  /document/aab.html HTTP/1.1';
+		nextPutLine: 'Host: biart.eranova.si';
+		nextPutLine: 'Content-Type: multipart/form-data; boundary= boundary';
+		nextPutLine: 'Content-Length: 146';
+            crlf;
+		nextPutLine: 'This is a multi-part message in MIME format';
+		nextPutLine: '--boundary';
+		nextPutLine: 'Content-Disposition: form-data; name="id5273"';
+		crlf; 
+		nextPutLine: 'main';
+		nextPutLine: '--boundary--';
+		nextPutLine: 'This is the epilogue'.
+
+	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
+
+!HTTPPostTest methodsFor: 'requests' stamp: 'janko 7/26/2008 15:33'!
+postSimple
+	| requestStream |
+	requestStream := SwazooStream on: String new.
+	requestStream
+		nextPutLine: 'POST  /document/aab.html HTTP/1.1';
+		nextPutLine: 'Host: biart.eranova.si';
+		nextPutLine: 'Content-Type: multipart/form-data; boundary= boundary';
+		nextPutLine: 'Content-Length: 79';
+            crlf;
+		nextPutLine: '--boundary';
+		nextPutLine: 'Content-Disposition: form-data; name="id5273"';
+		crlf; 
+		nextPutLine: 'main';
+		nextPutLine: '--boundary--'.
+
+	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
+
+!HTTPPostTest methodsFor: 'requests' stamp: 'janko 7/26/2008 15:33'!
+postUrlEncoded
+	| requestStream |
+	requestStream := SwazooStream on: String new.
+	requestStream
+		nextPutLine: 'POST  /document/aab.html HTTP/1.1';
+		nextPutLine: 'Host: biart.eranova.si';
+		nextPutLine: 'Content-Type: application/x-www-form-urlencoded';
+		nextPutLine: 'Content-Length: 36';
+            crlf;
+		nextPutAll: 'home=Cosby+one&favorite+flavor=flies'.
+
+	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
+
+!HTTPPostTest methodsFor: 'testing-mime parsing' stamp: 'janko 7/26/2008 15:35'!
+testBlockCopy
+	"streaming with 8k blocks for performance"
+	"this is just a basic test with content shorter that one block"
+	| boundary message in out |
+	boundary := '--boundary--'.
+	message := 'just something'. 
+	in := SwazooStream on: message, self crlf, boundary.
+	out := WriteStream on: String new.
+	HTTPPost new blockStreamingFrom: in to: out until: boundary.
+	self assert: out contents = message.! !
+
+!HTTPPostTest methodsFor: 'testing-posts' stamp: 'janko 7/26/2008 15:33'!
+testPost10Simple
+	"just one entity"
+	| post |
+	post := self postSimple.
+	self assert: post isPostDataEmpty not.
+	self assert: (post postDataStringAt: 'id5273') = 'main'.! !
+
+!HTTPPostTest methodsFor: 'testing-posts' stamp: 'janko 7/26/2008 15:33'!
+testPost2Empty
+	"post entity with empty value"
+	| post |
+	post := self postEmpty.
+	self assert: post isPostDataEmpty not.
+	self assert: (post postDataStringAt: 'id5273') = ''.! !
+
+!HTTPPostTest methodsFor: 'testing-posts' stamp: 'janko 7/26/2008 15:33'!
+testPost3Dashes
+	"some ---- inside post data"
+	| post |
+	post := self postDashes.
+	self assert: post isPostDataEmpty not.
+	self assert: (post postDataStringAt: 'id5273') = '----'.
+	self assert: (post postDataStringAt: 'field2') = '- --'.! !
+
+!HTTPPostTest methodsFor: 'testing-file posts' stamp: 'janko 7/26/2008 15:33'!
+testPost40File
+	| post |
+	post := self postFile.
+	self assert: post isPostDataEmpty not.
+	self assert: (post postDataStringAt: 'id5273') = 'main'.
+	self assert: (post postDataStringAt: 'field2') = ''.
+	self assert: (post postDataAt: 'field7') filename = 'event.ical'.
+	self assert: ((post postDataStringAt: 'field7') readStream upTo: Character cr) = 'BEGIN:VCALENDAR'.
+	self assert: (post postDataStringAt: 'field7') = self fileContents.
+	self assert: (post postDataStringAt: 'attach') = 'Attach'.! !
+
+!HTTPPostTest methodsFor: 'testing-file posts' stamp: 'janko 7/26/2008 15:33'!
+testPost41FileStreamed
+	| post stream |
+	post := self postFile.
+	stream := WriteStream on: ByteArray new.
+	post postDataAt: 'field7' streamTo: stream.
+	self assert: (post isPostDataStreamedAt: 'field7').
+	self deny: post postData isParsed. "post data read from socket defered"
+	self assert: (post postDataStringAt: 'id5273') = 'main'. 
+	self assert: post postData isParsed.  "first access to post data trigger full read and parse"
+	self assert: (post postDataAt: 'field7') filename = 'event.ical'.
+	self assert: (stream contents asString readStream upTo: Character cr) = 'BEGIN:VCALENDAR'.
+	self assert: stream contents asString = self fileContents.
+	self assert: (post postDataStringAt: 'attach') = 'Attach'.! !
+
+!HTTPPostTest methodsFor: 'testing-file posts' stamp: 'janko 7/26/2008 15:33'!
+testPost42FileContentType
+	| post |
+	post := self postFile. "set the data to the post"
+	self assert: post isPostDataEmpty not. "read the content of the stream"
+	self assert: (post postDataAt: 'field7') contentType = 'application/octet-stream'.! !
+
+!HTTPPostTest methodsFor: 'testing-posts' stamp: 'janko 7/26/2008 15:33'!
+testPost5UrlEncoded
+	"just one entity"
+	| post |
+	post := self postUrlEncoded.
+	self assert: post isPostDataEmpty not.
+	self assert: (post postDataStringAt: 'home') = 'Cosby one'.
+	self assert: (post postDataStringAt: 'favorite flavor') = 'flies'.! !
+
+!HTTPPostTest methodsFor: 'testing-posts' stamp: 'janko 7/26/2008 15:33'!
+testPostPreambleEpilogue
+	"mime preamble before first part and epilogue at the end. See #postPreambleEpilogue"
+	| post |
+	post := self postPreambleEpilogue.
+	self assert: post isPostDataEmpty not.
+	self assert: (post postDataStringAt: 'id5273') = 'main'.! !
+
+!HTTPPostTest methodsFor: 'testing-posts' stamp: 'janko 7/26/2008 15:33'!
+testPostRawEntity
+	| requestStream post |
+	requestStream := SwazooStream on: String new.
+	requestStream
+		nextPutLine: 'POST /foobar HTTP/1.0';
+		nextPutLine: 'Host: foo.com';
+		nextPutLine: 'Content-Type: text/plain';
+		nextPutLine: 'Content-Length: 12';
+		crlf;
+		nextPutLine: 'Hello, World'.
+	post := HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents).
+	self assert: post isPostDataEmpty.
+	self assert: post entityBody = 'Hello, World'! !
+
+!HTTPPostTest methodsFor: 'testing-posts' stamp: 'janko 7/26/2008 15:33'!
+testPostUrlEncodedData
+	| requestStream post |
+	requestStream := SwazooStream on: String new.
+	requestStream
+		nextPutLine: 'POST / HTTP/1.1';
+		nextPutLine: 'Host: foo.com';
+		nextPutLine: 'Content-Type: application/x-www-form-urlencoded';
+		nextPutLine: 'Content-Length: 31';
+		crlf;
+		nextPutLine: 'address=+fs&product=&quantity=1'.
+	post := HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents).
+	self assert: (post postDataAt: 'address') value = ' fs'.
+	self assert: (post postDataAt: 'product') value = ''.
+	self assert: (post postDataAt: 'quantity') value = '1'! !
+
+!HTTPRequestTest methodsFor: 'requests-gets' stamp: ' 10/7/07 18:48'!
+basicGet
+	| requestStream |
+	requestStream := SwazooStream on: String new.
+	requestStream
+		nextPutLine: 'GET / HTTP/1.1';
+		nextPutLine: 'Host: foo.com';
+		crlf.
+	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
+
+!HTTPRequestTest methodsFor: 'requests-gets' stamp: ' 10/7/07 18:48'!
+basicGetHTTP10
+	| requestStream |
+	requestStream := SwazooStream on: String new.
+	requestStream
+		nextPutLine: 'GET / HTTP/1.0';
+		crlf.
+	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
+
+!HTTPRequestTest methodsFor: 'requests-gets' stamp: ' 10/7/07 18:48'!
+basicGetHTTP10Keepalive
+	| requestStream |
+	requestStream := SwazooStream on: String new.
+	requestStream
+		nextPutLine: 'GET / HTTP/1.0';
+		nextPutLine: 'Connection: Keep-Alive';
+		crlf.
+	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
+
+!HTTPRequestTest methodsFor: 'requests-gets' stamp: ' 10/7/07 18:48'!
+basicHead
+	| requestStream |
+	requestStream := SwazooStream on: String new.
+	requestStream
+		nextPutLine: 'HEAD / HTTP/1.1';
+		nextPutLine: 'Host: foo.com';
+		crlf.
+	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
+
+!HTTPRequestTest methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+crlfOn: aStream 
+	aStream
+		nextPut: Character cr;
+		nextPut: Character lf! !
+
+!HTTPRequestTest methodsFor: 'requests-gets' stamp: ' 10/7/07 18:48'!
+fullGet
+	| requestStream |
+	requestStream := SwazooStream on: String new.
+	requestStream
+		nextPutLine: 'GET /aaa/bbb/ccc.html?foo=bar&baz=quux HTTP/1.1';
+		nextPutLine: 'Connection: Keep-Alive';
+		nextPutLine: 'User-Agent: Mozilla/4.72 [en] (X11; I; Linux 2.3.51 i686)';
+		nextPutLine: 'Host: foo.com:8888';
+		nextPutLine: 'Referer: http://www.bar.com/takeMeThere.html';
+		crlf.
+	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
+
+!HTTPRequestTest methodsFor: 'requests-gets' stamp: 'mivsek 9/28/2007 22:56'!
+getMultiValueHeader
+	| requestStream |
+	requestStream := SwazooStream on: String new.
+	requestStream
+		nextPutLine: 'GET /aaa/bbb/ccc.html?foo=bar&baz=quux HTTP/1.1';
+		nextPutLine: 'Content-Type: multipart/form-data; boundary= --boundary';
+		crlf.
+	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
+
+!HTTPRequestTest methodsFor: 'requests-gets' stamp: ' 10/7/07 18:48'!
+portedGet
+	| requestStream |
+	requestStream := SwazooStream on: String new.
+	requestStream
+		nextPutLine: 'GET / HTTP/1.1';
+		nextPutLine: 'Host: foo.com:8888';
+		crlf.
+	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
+
+!HTTPRequestTest methodsFor: 'testing-other' stamp: ' 14/4/07 23:10'!
+test10ConnectionClose
+	request := self basicGetHTTP10.
+	self assert: request wantsConnectionClose! !
+
+!HTTPRequestTest methodsFor: 'testing-other' stamp: ' 14/4/07 23:10'!
+test10KeepAliveConnectionClose
+	request := self basicGetHTTP10Keepalive.
+	self deny: request wantsConnectionClose! !
+
+!HTTPRequestTest methodsFor: 'testing-gets' stamp: 'mivsek 12/31/2007 13:50'!
+testBasicGet
+	request := self basicGet.
+	self assert: request isGet.
+	self assert: request isHttp11.
+	self deny: request isHead.
+	self deny: request isPost.
+	self deny: request isPut! !
+
+!HTTPRequestTest methodsFor: 'testing-gets' stamp: 'mivsek 12/31/2007 13:51'!
+testBasicGetHTTP10
+	request := self basicGetHTTP10.
+	self assert: request isGet.
+	self assert: request isHttp10.
+	self deny: request isHead.
+	self deny: request isPost.
+	self deny: request isPut! !
+
+!HTTPRequestTest methodsFor: 'testing-gets' stamp: ' 10/7/07 17:21'!
+testBasicGetHost
+	request := self basicGet.
+	self assert: request host = 'foo.com'! !
+
+!HTTPRequestTest methodsFor: 'testing-gets' stamp: ' 10/7/07 17:21'!
+testBasicGetPort
+	request := self basicGet.
+	self assert: request port = 80! !
+
+!HTTPRequestTest methodsFor: 'testing-gets' stamp: ' 10/7/07 17:21'!
+testBasicHead
+	request := self basicHead.
+	self assert: request isHead.
+	self deny: request isGet.
+	self deny: request isPost.
+	self deny: request isPut! !
+
+!HTTPRequestTest methodsFor: 'testing-other' stamp: ' 14/4/07 23:10'!
+testConnection
+	request := self fullGet.
+	self assert: request connection = 'Keep-Alive'! !
+
+!HTTPRequestTest methodsFor: 'testing-gets' stamp: 'mivsek 9/28/2007 22:57'!
+testGetMultiValueHeader
+	| header |
+	request := self getMultiValueHeader.
+	header := request headerAt: 'Content-Type' ifAbsent: [nil].
+	self assert: header mediaType = 'multipart/form-data'.
+	self assert: (header transferCodings at: 'boundary') = '--boundary'.
+	self assert: header valuesAsString = 'multipart/form-data boundary=--boundary'.
+
+" 'Content-Type: multipart/form-data; boundary= --boundary'; "! !
+
+!HTTPRequestTest methodsFor: 'testing-other' stamp: ' 14/4/07 23:10'!
+testHeaderAtIfPresent
+	request := self basicGet.
+	self assert: (request headers 
+				fieldOfClass: HTTPIfRangeField
+				ifPresent: [:header | header == (request headers fieldOfClass: HTTPIfRangeField)]
+				ifAbsent: [true]).
+	self assert: (request headers 
+				fieldOfClass: HTTPHostField
+				ifPresent: [:header | header == (request headers fieldOfClass: HTTPHostField)]
+				ifAbsent: [false])! !
+
+!HTTPRequestTest methodsFor: 'testing-other' stamp: ' 14/4/07 23:10'!
+testNo11ConnectionClose
+	request := self basicGet.
+	self deny: request wantsConnectionClose! !
+
+!HTTPRequestTest methodsFor: 'testing-other' stamp: ' 10/7/07 18:48'!
+testNoEqualsQueries
+	"The last assert here used to check that 'request queryAt: 'WSDL'' is nil, but a test for an empty string is more consistent with query argument formats."
+
+	| requestStream |
+	requestStream := SwazooStream on: String new.
+	requestStream
+		nextPutLine: 'GET /test/typed.asmx?WSDL HTTP/1.1';
+		nextPutLine: 'Host: foo.com:8888';
+		crlf.
+	request := HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents).
+	self assert: (request includesQuery: 'WSDL').
+	self assert: (request queryAt: 'WSDL') isEmpty! !
+
+!HTTPRequestTest methodsFor: 'testing-gets' stamp: ' 10/7/07 17:21'!
+testPortedGetPort
+	request := self portedGet.
+	self assert: request port = 8888! !
+
+!HTTPRequestTest methodsFor: 'testing-other' stamp: ' 14/4/07 23:10'!
+testReferer
+	request := self fullGet.
+	self 
+		assert: request referer asString = 'http://www.bar.com/takeMeThere.html'! !
+
+!HTTPRequestTest methodsFor: 'testing-other' stamp: 'mivsek 7/21/2007 22:46'!
+testRequestWithCRButNoLF
+
+"	| requestStream result |
+	requestStream := SwazooStream on: String new.
+	requestStream
+		nextPutAll: 'GET / HTTP/1.1';
+		cr.
+	result := SpExceptionContext 
+				for: [HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)]
+				on: SpError
+				do: [:ex | ex].
+	self assert: result class == SwazooHTTPParseError.
+	^self"! !
+
+!HTTPRequestTest methodsFor: 'testing-other' stamp: ' 14/4/07 23:10'!
+testUserAgent
+	request := self fullGet.
+	self 
+		assert: request userAgent = 'Mozilla/4.72 [en] (X11; I; Linux 2.3.51 i686)'! !
+
+!HTTPResponseTest methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+crlf
+	^String with: Character cr with: Character lf! !
+
+!HTTPResponseTest methodsFor: 'testing' stamp: 'mivsek 7/19/2007 19:28'!
+testInternalServerError
+	| ws rs |
+	response := HTTPResponse internalServerError.
+	ws := SwazooStream on: String new.
+	response printStatusOn: ws.
+	rs := SwazooStream on: ws writeBuffer contents.
+	self assert: rs nextLine = 'HTTP/1.1 500 Internal Server Error'! !
+
+!HTTPResponseTest methodsFor: 'testing' stamp: 'mivsek 7/19/2007 19:28'!
+testOK
+	| ws rs |
+	response := HTTPResponse ok.
+	ws := SwazooStream on: String new.
+	response printStatusOn: ws.
+	rs := SwazooStream on: ws writeBuffer contents.
+	self assert: rs nextLine = 'HTTP/1.1 200 OK'! !
+
+!HTTPResponseTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testResponseTypes
+	self assert: (HTTPResponse badRequest) isBadRequest.
+	self assert: (HTTPResponse found) isFound.
+	self assert: (HTTPResponse internalServerError) isInternalServerError.
+	self assert: (HTTPResponse movedPermanently) isMovedPermanently.
+	self assert: (HTTPResponse notFound) isNotFound.
+	self assert: (HTTPResponse notImplemented) isNotImplemented.
+	self assert: (HTTPResponse notModified) isNotModified.
+	self assert: (HTTPResponse ok) isOk.
+	self assert: (HTTPResponse redirectLink) isRedirectLink.
+	self assert: (HTTPResponse seeOther) isSeeOther.! !
+
+!HTTPServerTest methodsFor: 'running' stamp: 'gsa 1/22/2013 08:02'!
+setUp
+	| socket |
+	(Delay forMilliseconds: 100) wait.
+	server := HTTPServer new.
+	[server ip: 'localhost'; port: 8123.
+	server start]
+		fork.
+	(Delay forMilliseconds: 100) wait.
+" 	stream := (SocketAccessor newTCPclientToHost: 'localhost' port: 8123) 
+				readAppendStream"
+	socket := SpSocket connectToServerOnHost:  'localhost' port: 8123.
+	stream := SwazooStream socket: socket ! !
+
+!HTTPServerTest methodsFor: 'running' stamp: 'JM 4/16/2007 22:57'!
+tearDown
+	server stop.
+	stream close.
+	stream := nil.
+	Delay forMilliseconds: 500.
+! !
+
+!HTTPServerTest methodsFor: 'tests' stamp: ' 14/4/07 23:10'!
+testServing
+	self assert: server isServing! !
+
+!HTTPServerTest methodsFor: 'tests' stamp: ' 14/4/07 23:10'!
+testStopServing
+	server stop.
+	self deny: server isServing! !
+
+!HeaderFieldTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testCombine
+	"Entity tags must be quoted strings - RFC 2616 3.11"
+
+	| header1 header2 header3 |
+	header1 := HeaderField fromLine: 'If-Match: "a"'.
+	header2 := HeaderField fromLine: 'If-Match: "b","c"'.
+	header3 := HeaderField fromLine: 'If-Match: "d"'.
+	header1 combineWith: header2.
+	self assert: header1 valuesAsString = '"a","b","c"'.
+	header1 combineWith: header3.
+	self assert: header1 valuesAsString = '"a","b","c","d"'! !
+
+!HeaderFieldTest methodsFor: 'testing' stamp: 'mivsek 7/19/2007 19:28'!
+testContentTypeMultiple
+	"   HTTP/1.1 header field values can be folded onto multiple lines if the
+   continuation line begins with a space or horizontal tab. All linear
+   white space, including folding, has the same semantics as SP. A
+   recipient MAY replace any linear white space with a single SP before
+   interpreting the field value or forwarding the message downstream.
+
+       LWS            = [CRLF] 1*( SP | HT )"
+
+	| requestStream request field |
+	requestStream := SwazooStream on: String new.
+	requestStream
+		nextPutLine: 'GET / HTTP/1.1';
+		nextPutLine: 'Host: 127.0.0.1';
+		nextPutLine: 'Content-Type: text/html; ';
+		nextPutLine: ' charset=iso-8859-1';
+		crlf.
+	request := HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents).
+	field := request headers fieldNamed: 'content-type'.
+	self assert: field name = 'Content-Type'.
+	self assert: field mediaType = 'text/html'.
+	self assert: (field transferCodings at: 'charset') = 'iso-8859-1'! !
+
+!HeaderFieldTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testValues
+	"Entity tags are held internally as simple strings.  Any necessary leading and trailing double quotes are added by the header fields as needed.  Note that it is OK to have a comma in an entity tag - see the second of the group of 3 tags below."
+
+	| header |
+	header := HeaderField fromLine: 'If-Match: "xyzzy" '.
+	self assert: header name = 'If-Match'.
+	self assert: header entityTags first = 'xyzzy'.
+	header := HeaderField 
+				fromLine: 'If-Match: "xyzzy", "r2d2,xxxx", "c3piozzzz" '.
+	self assert: header name = 'If-Match'.
+	self assert: header entityTags first = 'xyzzy'.
+	self assert: (header entityTags at: 2) = 'r2d2,xxxx'.
+	self assert: header entityTags last = 'c3piozzzz'! !
+
+!HelloWorldResourceTest methodsFor: 'running' stamp: 'JM 4/18/2007 18:00'!
+setUp
+	hello := HelloWorldResource uriPattern: 'hello.html'! !
+
+!HelloWorldResourceTest methodsFor: 'testing'!
+testResponse
+	| request response |
+	request := HTTPGet request: 'hello.html'.
+	response := URIResolution resolveRequest: request startingAt: hello.
+	self assert: response statusCode = 200.
+	self assert: request resourcePath size = 1.
+	self assert: request resourcePath first = 'hello.html'! !
+
+!HomeResourceTest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
+setUp
+	resource := HomeResource uriPattern: '/' filePath: 'home'! !
+
+!HomeResourceTest methodsFor: 'running' stamp: 'mivsek 8/16/2007 22:21'!
+testRootFileFor
+	| request |
+	request := HTTPGet request: '/~someUser'.
+	URIResolution new initializeRequest: request.
+	self assert: (resource rootFileFor: request) asString 
+				= (((SpFilename named: 'home') construct: 'someUser') construct: 'html') asString! !
+
+!HomeResourceTest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
+testValidateHomePath
+	self assert: (resource validateHomePath: '~somebody').
+	self assert: (resource validateHomePath: '~somebodyElse').
+	self deny: (resource validateHomePath: 'someplace').
+	self deny: (resource validateHomePath: 'some~body')! !
+
+!RedirectionResourceTest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
+setUp
+	resource := RedirectionResource uriPattern: 'foo'
+				targetUri: 'http://abc.def.com'! !
+
+!RedirectionResourceTest methodsFor: 'testing'!
+testGetResource
+	| request response |
+	request := HTTPGet request: 'foo'.
+	response := URIResolution resolveRequest: request startingAt: resource.
+	self assert: response statusCode = 301.
+	self assert: (response headers fieldNamed: 'Location') uri asString 
+				= 'http://abc.def.com'.
+	self assert: request resourcePath size = 1.
+	self assert: request resourcePath first = 'foo'! !
+
+!ResourceTest methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+basicGet: uri
+	| ws |
+	ws := WriteStream on: String new.
+	ws nextPutAll: 'GET ', uri, ' HTTP/1.1'.
+	self crlfOn: ws.
+	ws nextPutAll: 'Host: swazoo.org'.
+	self crlfOn: ws.
+	self crlfOn: ws.
+	^HTTPRequest readFrom: (ReadStream on: ws contents)! !
+
+!ResourceTest methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+basicGetUri: uriString
+	| ws |
+	ws := WriteStream on: String new.
+	ws nextPutAll: 'GET ' , uriString , ' HTTP/1.1'.
+	self crlfOn: ws.
+	ws nextPutAll: 'Host: swazoo.org'.
+	self crlfOn: ws.
+	self crlfOn: ws.
+	^HTTPRequest readFrom: (ReadStream on: ws contents)! !
+
+!ResourceTest methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+basicGetUri: uriString host: hostname port: port 
+	| ws |
+	ws := WriteStream on: String new.
+	ws nextPutAll: 'GET ' , uriString , ' HTTP/1.1'.
+	self crlfOn: ws.
+	ws nextPutAll: 'Host: ' , hostname.
+	port notNil 
+		ifTrue: 
+			[ws
+				nextPut: $:;
+				print: port].
+	self crlfOn: ws.
+	self crlfOn: ws.
+	^HTTPRequest readFrom: (ReadStream on: ws contents)! !
+
+!ResourceTest methodsFor: 'private' stamp: ' 14/4/07 23:10'!
+crlfOn: aStream 
+	aStream
+		nextPut: Character cr;
+		nextPut: Character lf! !
+
+!ResourceTest methodsFor: 'running' stamp: 'jm 2/8/2009 13:51'!
+setUp
+	resource := SwazooResource uriPattern: 'foo'! !
+
+!ResourceTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testEmptyURIPatternInvalid
+	resource uriPattern: ''.
+	self deny: resource isValidlyConfigured! !
+
+!ResourceTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testEnabledByDefault
+	self assert: resource isEnabled! !
+
+!ResourceTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testNilURIPatternDoesNothing
+	| pattern |
+	pattern := resource uriPattern.
+	resource uriPattern: nil.
+	self assert: resource uriPattern = pattern! !
+
+!ResourceTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testValidlyConfigured
+	self assert: resource isValidlyConfigured! !
+
+!SiteIdentifierTest methodsFor: 'running' stamp: ' 10/7/07 17:21'!
+setUp
+	identifier := SiteIdentifier 
+				host: 'localhost'
+				ip: '127.0.0.1'
+				port: 80! !
+
+!SiteIdentifierTest methodsFor: 'testing' stamp: ' 10/7/07 17:21'!
+testCaseInsensitiveMatch
+	| another |
+	another := SiteIdentifier 
+				host: 'lOCaLhOST'
+				ip: '127.0.0.1'
+				port: 80.
+	self assert: (identifier match: another)! !
+
+!SiteIdentifierTest methodsFor: 'testing' stamp: ' 10/7/07 17:21'!
+testCurrentUrl
+	self assert: identifier currentUrl = 'http://localhost'.
+		identifier := SiteIdentifier 
+				host: 'localhost'
+				ip: '127.0.0.1'
+				port: 81.
+	self assert: identifier currentUrl = 'http://localhost:81'! !
+
+!SiteIdentifierTest methodsFor: 'testing' stamp: ' 10/7/07 17:21'!
+testHostMismatch
+	| another |
+	another := SiteIdentifier 
+				host: 'thisIsMyMachine'
+				ip: '127.0.0.1'
+				port: 80.
+	self deny: (identifier match: another)! !
+
+!SiteIdentifierTest methodsFor: 'testing' stamp: ' 10/7/07 17:21'!
+testIPMismatch
+	| another |
+	another := SiteIdentifier 
+				host: 'localhost'
+				ip: '127.0.0.2'
+				port: 80.
+	self deny: (identifier match: another)! !
+
+!SiteIdentifierTest methodsFor: 'testing' stamp: ' 10/7/07 17:21'!
+testMatch
+	| another |
+	another := SiteIdentifier 
+				host: 'localhost'
+				ip: '127.0.0.1'
+				port: 80.
+	self assert: (identifier match: another)! !
+
+!SiteIdentifierTest methodsFor: 'testing' stamp: ' 10/7/07 17:21'!
+testPortMismatch
+	| another |
+	another := SiteIdentifier 
+				host: 'localhost'
+				ip: '127.0.0.1'
+				port: 81.
+	self deny: (identifier match: another)! !
+
+!SiteTest methodsFor: 'running' stamp: ' 10/7/07 17:21'!
+addSecondAlias
+	site addAlias: (SiteIdentifier 
+				host: 'swazoo2.org'
+				ip: '127.0.0.2'
+				port: 8202).! !
+
+!SiteTest methodsFor: 'running' stamp: 'jm 2/8/2009 13:52'!
+setUp
+	super setUp.
+	site := SwazooSite new.
+	site addAlias: (SiteIdentifier 
+				host: 'swazoo.org'
+				ip: '127.0.0.1'
+				port: 8200)! !
+
+!SiteTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testCurrentUrl
+	site currentUrl = 'http://swazoo.org:8200'.
+	self addSecondAlias.
+	site currentUrl = 'http://swazoo.org:8200'.! !
+
+!SiteTest methodsFor: 'testing' stamp: 'jm 2/8/2009 13:52'!
+testCurrentUrl80
+	| aSite |
+	aSite := SwazooSite new.
+	aSite addAlias: (SiteIdentifier
+			host: 'swazoo.org'
+			ip: '127.0.0.1'
+			port: 80).
+	aSite currentUrl = 'http://swazoo.org'.
+	aSite currentUrl = 'http://swazoo.org'! !
+
+!SwazooBaseExtensionsTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testCharacterArrayTrimBlanks
+	self 
+		assert: (HTTPString trimBlanksFrom: '   a b c d e f g') = 'a b c d e f g'.
+	self assert: (HTTPString trimBlanksFrom: 'no blanks') = 'no blanks'.
+	self assert: (HTTPString trimBlanksFrom: ' leading') = 'leading'.
+	self assert: (HTTPString trimBlanksFrom: 'trailing ') = 'trailing'.
+	self assert: (HTTPString trimBlanksFrom: '') = ''.
+	self 
+		assert: (HTTPString 
+				trimBlanksFrom: (String with: Character cr with: Character lf)) isEmpty! !
+
+!SwazooBaseExtensionsTest methodsFor: 'testing' stamp: 'mivsek 8/16/2007 22:13'!
+testFilenameEtag
+	"The filename etag is a simple string and does not contain double quotes.  Header fields apply double quotes as necessary when writing themselves."
+
+	| fn etag1 etag2 |
+	fn := SpFilename named: 'etagTest'.
+	[fn writeStream nextPut: $-; close. "create file"
+	etag1 := fn etag.
+	(Delay forSeconds: 1) wait.
+	fn appendStream nextPut: $-; close. "modify file"
+	etag2 := fn etag.
+
+	self assert: (etag1 isKindOf: String).
+	self assert: (etag2 isKindOf: String).
+	self deny: etag1 = etag2] 
+		ensure: [fn delete]! !
+
+!SwazooBaseExtensionsTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testStringNewRandom
+	| sizes strings |
+	sizes := #(5 20 6127 2 100).
+	strings := sizes collect: [:each |  HTTPString newRandomString: each].
+	strings with: sizes do: [:string :size | self assert: string size = size]! !
+
+!SwazooBufferTest methodsFor: 'testing-mime boundary' stamp: 'janko 7/26/2008 15:31'!
+testBoundaryFull
+	| boundary buffer |
+	boundary := '--boundary--'.
+	buffer := SwazooBuffer on: 'just--boundary--something'.  "full boundary"
+	self assert: (buffer signsOfBoundary: boundary) = boundary size.! !
+
+!SwazooBufferTest methodsFor: 'testing-mime boundary' stamp: 'janko 7/26/2008 15:31'!
+testBoundaryMixed
+	| boundary buffer |
+	boundary := '--boundary--'.
+	buffer := SwazooBuffer on: 'yes,--just--boundary--something'.  "partial, later full boundary"
+	self assert: (buffer signsOfBoundary: boundary) = boundary size.! !
+
+!SwazooBufferTest methodsFor: 'testing-mime boundary' stamp: 'janko 7/26/2008 15:31'!
+testBoundaryOnEdge
+	"part of boundary at the end of this buffer, remaining probably in the next"
+	| boundary buffer |
+	boundary := '--boundary--'.
+	buffer := SwazooBuffer on: 'just something-'.  "just first char of boundary"
+	self assert: (buffer signsOfBoundary: boundary) = 1.
+	buffer := SwazooBuffer on: 'just something--'.  "two chars"
+	self assert: (buffer signsOfBoundary: boundary) = 2.
+	buffer := SwazooBuffer on: 'just something--bound'.  "half"
+	self assert: (buffer signsOfBoundary: boundary) = 7.
+	buffer := SwazooBuffer on: 'just something--boundary--'.  "full boundary at the edge"
+	self assert: (buffer signsOfBoundary: boundary) = boundary size.! !
+
+!SwazooBufferTest methodsFor: 'testing-mime boundary' stamp: 'janko 7/26/2008 15:32'!
+testBoundaryOnEdgeMixed
+	"signs of boundary in the middle part at the end of this buffer, remaining probably in the next"
+	| boundary buffer |
+	boundary := '--boundary--'.
+	buffer := SwazooBuffer on: 'just-something-'.  "sign in the middle, one char at the end"
+	self assert: (buffer signsOfBoundary: boundary) = 1.
+	buffer := SwazooBuffer on: 'just-something--'.  "two chars"
+	self assert: (buffer signsOfBoundary: boundary) = 2.
+	buffer := SwazooBuffer on: 'just-so--mething--bound'.  "even more mixed case"
+	self assert: (buffer signsOfBoundary: boundary) = 7.! !
+
+!SwazooBufferTest methodsFor: 'testing-mime boundary' stamp: 'janko 7/26/2008 15:32'!
+testBoundarySimple
+	| boundary buffer |
+	boundary := '--boundary--'.
+	buffer := SwazooBuffer on: 'just something'.  "no boundary"
+	self assert: (buffer signsOfBoundary: boundary) = 0.
+	buffer := SwazooBuffer on: 'just-something'.  "sign of boundary"
+	self assert: (buffer signsOfBoundary: boundary) = 0.
+	buffer := SwazooBuffer on: 'just--something'.  "more sign of boundary"
+	self assert: (buffer signsOfBoundary: boundary) = 0.
+	buffer := SwazooBuffer on: 'just--boundary--something'.  "full boundary"
+	self assert: (buffer signsOfBoundary: boundary) = boundary size.! !
+
+!SwazooBufferTest methodsFor: 'testing-mime boundary' stamp: 'janko 7/26/2008 15:32'!
+testIndexOfBoundary
+	"index of start of boundary in buffer, both full or partial at the edge/end of buffer"
+	| boundary buffer |
+	boundary := '--boundary--'.
+	buffer := SwazooBuffer on: 'just something'.  "no boundary"
+	self assert: (buffer indexOfBoundary: boundary) = 0.
+	buffer := SwazooBuffer on: 'just--boundary--something-'.  "full boundary"
+	self assert: (buffer indexOfBoundary: boundary) = 5.
+	buffer := SwazooBuffer on: 'just something--boun'.  "partial boundary at the edge"
+	self assert: (buffer indexOfBoundary: boundary) = 15.
+	buffer := SwazooBuffer on: 'just something-'.  "partial boundary, one char only"
+	self assert: (buffer indexOfBoundary: boundary) = 15.
+	buffer := SwazooBuffer on: 'just-som--ething--boun'.  "mixed case with partial at the edge"
+	self assert: (buffer indexOfBoundary: boundary) = 17.! !
+
+!SwazooCacheControlTest methodsFor: 'running' stamp: 'mivsek 8/16/2007 21:47'!
+setUp
+	| directory firstFile ws |
+	directory := SpFilename named: 'fResTest'.
+	directory exists ifFalse: [directory makeDirectory].
+	firstFile := directory construct: 'abc.html'.
+	ws := firstFile writeStream.
+	[ws nextPutAll: 'hello'] ensure: [ws close].
+	resource := FileResource uriPattern: 'foo' filePath: 'fResTest'.
+	request := HTTPGet request: 'foo/abc.html'.
+	URIResolution resolveRequest: request startingAt: resource.
+	cacheControl := SwazooCacheControl new request: request
+				cacheTarget: (cacheTarget := resource fileFor: request)! !
+
+!SwazooCacheControlTest methodsFor: 'running' stamp: 'mivsek 8/16/2007 22:07'!
+tearDown
+	((SpFilename named: 'fResTest') construct: 'abc.html') delete.
+	(SpFilename named: 'fResTest') delete! !
+
+!SwazooCacheControlTest methodsFor: 'testing' stamp: 'JM 4/18/2007 16:39'!
+testIfModifiedSinceModified
+	| response timestampInThePast |
+	request := HTTPGet request: 'foo/abc.html'.
+	timestampInThePast := SpTimestamp fromDate: (Date today subtractDays: 1)
+				andTime: Time now.
+	request headers addField: (HTTPIfModifiedSinceField new 
+				valueFrom: timestampInThePast asRFC1123String).
+	cacheControl := SwazooCacheControl new request: request
+				cacheTarget: cacheTarget.
+	self assert: cacheControl isNotModified not.
+	self assert: cacheControl isIfModifiedSince.
+	response := HTTPResponse ok.
+	cacheControl addResponseHeaders: response.
+	self 
+		assert: (response headers fieldNamed: 'ETag') entityTag = cacheTarget etag.
+	self assert: (response headers fieldNamed: 'Last-Modified') timestamp 
+				= cacheTarget lastModified! !
+
+!SwazooCacheControlTest methodsFor: 'testing' stamp: 'JM 4/18/2007 16:40'!
+testIfModifiedSinceNot
+	| response |
+	request headers addField: (HTTPIfModifiedSinceField new 
+				valueFrom: cacheTarget lastModified asRFC1123String).
+	self assert: cacheControl isNotModified.
+	self assert: cacheControl isIfModifiedSince not.
+	response := HTTPResponse notModified.
+	cacheControl addResponseHeaders: response.
+	self 
+		assert: (response headers fieldNamed: 'ETag') entityTag = cacheTarget etag.
+	self assert: (response headers fieldNamed: 'Last-Modified') timestamp 
+				= cacheTarget lastModified! !
+
+!SwazooCacheControlTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testIfNoneMatchHeaderMatch
+	"same etag"
+
+	| response |
+	request headers addField: (HTTPIfNoneMatchField new addEntityTag: cacheTarget etag).
+	self assert: cacheControl isNotModified.
+	self deny: cacheControl isIfNoneMatch.
+
+	"do NOT include last-modified"
+	response := HTTPResponse notModified.
+	cacheControl addResponseHeaders: response.
+	self assert: (response headers fieldNamed: 'ETag') entityTag = cacheTarget etag.
+	self assert: (response headers fieldNamed: 'Last-Modified' ifNone: [nil])  isNil! !
+
+!SwazooCacheControlTest methodsFor: 'testing' stamp: 'JM 4/18/2007 16:40'!
+testIfNoneMatchHeaderNone
+	"same etag"
+
+	| response |
+	request := HTTPGet request: 'foo/abc.html'.
+	request headers addField: (HTTPIfNoneMatchField new valueFrom: 'blah').
+	cacheControl := SwazooCacheControl new request: request
+				cacheTarget: cacheTarget.
+	self assert: cacheControl isNotModified not.
+	self assert: cacheControl isIfNoneMatch.
+	response := HTTPResponse ok.
+	cacheControl addResponseHeaders: response.
+	self 
+		assert: (response headers fieldNamed: 'ETag') entityTag = cacheTarget etag.
+	self assert: (response headers fieldNamed: 'Last-Modified') timestamp 
+				= cacheTarget lastModified! !
+
+!SwazooCacheControlTest methodsFor: 'testing' stamp: 'JM 4/18/2007 16:42'!
+testNoHeaders
+	| response |
+	self assert: cacheControl isNotModified not.
+	self assert: cacheControl isIfNoneMatch.
+	self assert: cacheControl isIfModifiedSince.
+
+	"add both"
+	response := HTTPResponse ok.
+	cacheControl addResponseHeaders: response.
+	self 
+		assert: (response headers fieldNamed: 'ETag') entityTag = cacheTarget etag.
+	self assert: (response headers fieldNamed: 'Last-Modified') timestamp 
+				= cacheTarget lastModified! !
+
+!SwazooCompilerTest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
+testEvaluate
+	self assert: (SwazooCompiler evaluate: '1 + 2 * 3') = 9! !
+
+!SwazooCompilerTest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
+testEvaluateReceiver
+	self assert: (SwazooCompiler evaluate: 'self + 2 * 3' receiver: 1) = 9! !
+
+!SwazooConfigurationTest methodsFor: 'testing' stamp: 'jm 2/8/2009 13:56'!
+testCompositeResourceSite
+	| rs site composite howdy duh hithere |
+	rs := ReadStream 
+				on: '<Site>
+ <CompositeResource uriPattern: ''/''>
+  <HelloWorldResource uriPattern: ''howdy''>
+  <CompositeResource uriPattern: ''duh''>
+   <HelloWorldResource uriPattern: ''hithere''>
+  </CompositeResource>
+ </CompositeResource>
+</Site>'.
+	site := SwazooSite new readFrom: rs.
+	self assert: site children size = 1.
+	composite := site children first.
+	self assert: composite class == CompositeResource.
+	self assert: composite uriPattern = '/'.
+	self assert: composite children size = 2.
+	self assert: composite parent == site.
+	howdy := composite children first.
+	self assert: (howdy class == HelloWorldResource).
+	self assert: howdy uriPattern = 'howdy'.
+	self assert: howdy parent == composite.
+	duh := composite children last.
+	self assert: duh children size = 1.
+	self assert: duh class == CompositeResource.
+	self assert: duh uriPattern = 'duh'.
+	self assert: duh parent == composite.
+	hithere := duh children first.
+	self assert: hithere class == HelloWorldResource.
+	self assert: hithere uriPattern = 'hithere'.
+	self assert: hithere parent == duh.! !
+
+!SwazooConfigurationTest methodsFor: 'testing'!
+testEmptySite
+	| rs site alias |
+	rs := ReadStream 
+				on: '<Site>
+ <SiteIdentifier host: ''swazoo.org'' ip: ''192.168.1.66'' port: 80>
+</Site>'.
+	site := SwazooSite new readFrom: rs.
+	self assert: site aliases size = 1.
+	self assert: site currentUrl = 'http://swazoo.org/'.
+	alias := site aliases first.
+	self assert: alias host = 'swazoo.org'.
+	self assert: alias ip = '192.168.1.66'.
+	self assert: alias port = 80! !
+
+!SwazooConfigurationTest methodsFor: 'testing'!
+testFileResourceSite
+	| rs site resource |
+	rs := ReadStream 
+				on: '<Site>
+<SiteIdentifier host: ''swazoo.org'' ip: ''192.168.1.66'' port: 80>
+ <FileResource uriPattern: ''/'' filePath: ''files''>
+</Site>'.
+	site := SwazooSite new readFrom: rs.
+	self assert: site children size = 1.
+	resource := site children first.
+	self assert: resource class == FileResource.
+	self assert: resource uriPattern = '/'.
+	self assert: resource filePath = 'files'.
+	self assert: resource parent == site.
+	self assert: resource currentUrl = 'http://swazoo.org/'.! !
+
+!SwazooConfigurationTest methodsFor: 'testing' stamp: 'jm 2/8/2009 13:53'!
+testMultipleResourcesSite
+	| rs site resource1 resource2 |
+	rs := ReadStream 
+				on: '<Site>
+ <HelloWorldResource uriPattern: ''/''>
+ <HelloWorldResource uriPattern: ''/''>
+</Site>'.
+	site := SwazooSite new readFrom: rs.
+	self assert: site children size = 2.
+	resource1 := site children first.
+	self assert: (resource1 class == HelloWorldResource).
+	self assert: resource1 uriPattern = '/'.
+	resource2 := site children last.
+	self assert: resource2 class == HelloWorldResource.
+	self assert: resource2 uriPattern = '/'! !
+
+!SwazooConfigurationTest methodsFor: 'testing'!
+testMultipleSites
+	| rs sites site alias1 alias2 |
+	rs := ReadStream 
+				on: '<Site>
+ <SiteIdentifier host: ''swazoo.org'' ip: ''192.168.1.66'' port: 80>
+ <SiteIdentifier host: ''swazoo.org'' ip: ''192.168.1.66'' port: 81>
+</Site>
+<Site>
+</Site>'.
+	sites := SwazooServer readSitesFrom: rs.
+	self assert: sites size = 2.
+	site := sites first.
+	self assert: site aliases size = 2.
+	alias1 := site aliases first.
+	self assert: alias1 host = 'swazoo.org'.
+	self assert: alias1 ip = '192.168.1.66'.
+	self assert: alias1 port = 80.
+	alias2 := site aliases last.
+	self assert: alias2 host = 'swazoo.org'.
+	self assert: alias2 ip = '192.168.1.66'.
+	self assert: alias2 port = 81! !
+
+!SwazooConfigurationTest methodsFor: 'testing'!
+testSingleResourceSite
+	| rs site resource |
+	rs := ReadStream on: '<Site>
+<SiteIdentifier host: ''swazoo.org'' ip: ''192.168.1.66'' port: 80>
+ <HelloWorldResource uriPattern: ''/''>
+</Site>'.
+	site := SwazooSite new readFrom: rs.
+	self assert: site children size = 1.
+	resource := site children first.
+	self assert: resource class == HelloWorldResource.
+	self assert: resource uriPattern = '/'.
+	self assert: resource parent == site.
+	self assert: resource currentUrl = 'http://swazoo.org/'.! !
+
+!SwazooConfigurationTest methodsFor: 'testing' stamp: 'jm 2/8/2009 13:54'!
+testSiteTag
+	| rs config tag |
+	rs := ReadStream on: '  <Site>  
+
+</Site>   '.
+	config := SwazooSite new.
+	tag := config nextTagFrom: rs.
+	self assert: tag = 'Site'.
+	tag := config nextTagFrom: rs.
+	self assert: tag = '/Site'.
+	self assert: (config nextTagFrom: rs) isNil! !
+
+!SwazooServerTest methodsFor: 'support' stamp: 'lr 12/4/2009 15:29'!
+removeTestSiteIfAny
+	
+	| site |
+	site := SwazooServer siteNamed: self testSiteName.
+	site notNil ifTrue: [SwazooServer singleton removeSite: site]! !
+
+!SwazooServerTest methodsFor: 'testing' stamp: 'lr 12/4/2009 15:29'!
+testAccessingSite
+	
+	| site |
+	self removeTestSiteIfAny.
+	site := (SwazooSite new)
+		name: self testSiteName;
+		host: 'test.org' ip: 'localhost' port: 8543.
+	[SwazooServer singleton addSite: site.
+	self assert: (SwazooServer siteNamed: self testSiteName) notNil.
+	site := SwazooServer siteNamed: self testSiteName.
+	self assert: site name = self testSiteName.
+	self assert: (SwazooServer siteHostnamed: 'test.org') notNil.
+	site := SwazooServer siteHostnamed: 'test.org'.
+	self assert: site host = 'test.org']
+		ensure: [SwazooServer singleton removeSite: site]! !
+
+!SwazooServerTest methodsFor: 'testing-adding sites' stamp: 'lr 12/4/2009 15:29'!
+testAddingAllInterfacesSite
+	"site to listen on all IP interfaces but on specified port"
+	
+	| site server |
+	self removeTestSiteIfAny.
+	server := SwazooServer singleton.
+	self assert: (server siteNamed: self testSiteName) isNil.
+	site := (SwazooSite new)
+		name: self testSiteName;
+		host: '*' ip: '*' port: 7261.
+	[server addSite: site.
+	self assert: (server siteNamed: self testSiteName) notNil]
+		ensure: [server removeSite: site]! !
+
+!SwazooServerTest methodsFor: 'testing-adding sites' stamp: 'lr 12/4/2009 15:29'!
+testAddingSite
+	
+	| site server nrSites |
+	self removeTestSiteIfAny.
+	server := SwazooServer singleton.
+	nrSites := server sites size.
+	self assert: (server siteNamed: self testSiteName) isNil.
+	self assert: (server siteHostnamed: self testSiteName) isNil.
+	site := (SwazooSite new)
+		name: self testSiteName;
+		host: 'test.org' ip: 'localhost' port: 5798.
+	server addSite: site.
+	self assert: (server siteNamed: self testSiteName) notNil.
+	self assert: (server siteHostnamed: 'test.org') notNil.
+	server removeSite: site.
+	self assert: server sites size = nrSites! !
+
+!SwazooServerTest methodsFor: 'testing-adding sites' stamp: 'lr 12/4/2009 15:29'!
+testAllInterfacesTwoPortSites
+	"two sites can run on all IP interfaces and different port"
+	
+	| server site1 site2 |
+	server := SwazooServer singleton.
+	site1 := (SwazooSite new)
+		name: 'allInterfaces1';
+		host: '*' ip: '*' port: 7261.
+	site2 := (SwazooSite new)
+		name: 'allInterfaces2';
+		host: '*' ip: '*' port: 7262.
+	[server addSite: site1.
+	self
+		shouldnt: [server addSite: site2]
+		raise: Error]
+		ensure:
+			[server
+				removeSite: site1;
+				removeSite: site2]! !
+
+!SwazooServerTest methodsFor: 'testing-adding sites' stamp: 'lr 12/4/2009 15:29'!
+testAllStarsThenExactOnOtherPort
+	
+	| server site1 site2 |
+	server := SwazooServer singleton.
+	site1 := (SwazooSite new)
+		name: 'allstar232';
+		host: '*' ip: '*' port: 7261.
+	site2 := (SwazooSite new)
+		name: 'exactdfdf';
+		host: 'localhost' ip: 'localhost' port: 7262.
+	[server addSite: site1.
+	self
+		shouldnt:
+			[server
+				addSite: site2;
+				removeSite: site2]
+		raise: Error] ensure: [server removeSite: site1]! !
+
+!SwazooServerTest methodsFor: 'testing-adding sites' stamp: 'lr 12/4/2009 15:29'!
+testDuplicateAllInterfacesSite
+	"two sites cannot run on all IP interfaces and same port"
+	
+	| server site1 site2 |
+	server := SwazooServer singleton.
+	site1 := (SwazooSite new)
+		name: 'allInterfaces1';
+		host: '*' ip: '*' port: 7261.
+	site2 := (SwazooSite new)
+		name: 'allInterfaces2';
+		host: '*' ip: '*' port: 7261.
+	[server addSite: site1.
+	self
+		should: [server addSite: site2]
+		raise: Error] ensure: [server removeSite: site1]! !
+
+!SwazooServerTest methodsFor: 'testing-adding sites' stamp: 'lr 12/4/2009 15:29'!
+testDuplicateNames
+	
+	| site server |
+	self removeTestSiteIfAny.
+	server := SwazooServer singleton.
+	site := (SwazooSite new)
+		name: self testSiteName;
+		host: 'test.org' ip: 'localhost' port: 6376.
+	[server addSite: site.
+	self
+		should: [site name: self testSiteName]
+		raise: Error.
+	self
+		shouldnt: [site host: 'test.org']
+		raise: Error.
+	self
+		should:
+			[(SwazooSite new)
+				name: self testSiteName;
+				host: 'test.org' ip: 'localhost' port: 6376]
+		raise: Error] ensure: [server removeSite: site]! !
+
+!SwazooServerTest methodsFor: 'support' stamp: ' 8/2/09 22:22'!
+testSiteName
+	
+	^'aaabbcc987'! !
+
+!SwazooServerTest methodsFor: 'testing' stamp: 'lr 12/4/2009 15:29'!
+testStartingOnAPort
+	"and all ip interfaces, any host"
+	
+	| site server nrServers |
+	server := SwazooServer singleton.
+	nrServers := server servers size.
+	[site := server startOn: 4924.
+	self assert: site isServing.
+	self assert: server servers size = (nrServers + 1).
+	server stopOn: 4924.
+	self assert: site isServing not.
+	self assert: server servers size = nrServers]
+		ensure:
+			[site stop.
+			server removeSite: site]! !
+
+!SwazooServerTest methodsFor: 'testing' stamp: 'lr 12/4/2009 15:29'!
+testStartingOnTwoPorts
+	"and all ip interfaces, any host"
+	
+	| server nrServers site1 site2 |
+	server := SwazooServer singleton.
+	nrServers := server servers size.
+	[site1 := server startOn: 4924.
+	site2 := server startOn: 4925.
+	self assert: site1 isServing.
+	self assert: site2 isServing.
+	self assert: server servers size = (nrServers + 2).
+	server stopOn: 4924.
+	server stopOn: 4925.
+	self assert: site1 isServing not.
+	self assert: site2 isServing not.
+	self assert: server servers size = nrServers]
+		ensure:
+			[site1 stop.
+			site2 stop.
+			server
+				removeSite: site1;
+				removeSite: site2]! !
+
+!SwazooServerTest methodsFor: 'testing' stamp: 'lr 12/4/2009 15:29'!
+testStartingSite
+	
+	| site server nrServers |
+	self removeTestSiteIfAny.
+	server := SwazooServer singleton.
+	nrServers := server servers size.
+	site := (SwazooSite new)
+		name: self testSiteName;
+		host: 'test.org' ip: 'localhost' port: 8765.
+	[server addSite: site.
+	self assert: site isServing not.
+	SwazooServer startSite: self testSiteName.
+	self assert: server servers size = (nrServers + 1).
+	self assert: site isServing.
+	SwazooServer stopSite: self testSiteName.
+	self assert: site isServing not.
+	self assert: server servers size = nrServers]
+		ensure:
+			[site stop.
+			server removeSite: site]! !
+
+!SwazooSocketTest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
+setUp
+	| pair |
+	pair := SwazooSocket connectedPair.
+	input := pair first.
+	output := pair last! !
+
+!SwazooSocketTest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
+tearDown
+	input close.
+	output close! !
+
+!SwazooSocketTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testConnectedPair
+	(Array with: input with: output) 
+		do: [:each | self assert: (each isKindOf: SwazooSocket)]! !
+
+!SwazooSocketTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testNetworkConnection
+	| server sem |
+	input close.
+	output close.
+	sem := Semaphore new.
+	
+	[server := SwazooSocket serverOnIP: '127.0.0.1' port: 65423.
+	server listenFor: 50.
+	
+	[input := server accept.
+	sem signal] fork.
+	output := SwazooSocket connectTo: 'localhost' port: 65423.
+	sem wait.
+	self testReadWrite] 
+			ensure: [server close]! !
+
+!SwazooSocketTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testPartialRead
+	| bytes |
+	bytes := ByteArray withAll: #(5 4 3).
+	self assert: (input write: bytes) = 3.
+	self assert: (output read: 5) = bytes! !
+
+!SwazooSocketTest methodsFor: 'testing' stamp: 'janko 7/26/2008 14:59'!
+testReadTimeout
+	"on Squeak doesn't come back, and also we don't need it for now !!"
+"	input write: (ByteArray withAll: #(1 2 3)).
+	self assert: (output read: 3 timeout: 40) = (ByteArray withAll: #(1 2 3)).
+	self assert: (output read: 3 timeout: 40) = ByteArray new
+"! !
+
+!SwazooSocketTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testReadWrite
+	| bytes |
+	bytes := ByteArray withAll: #(1 2 3 4 5).
+	self assert: (input write: bytes) = 5.
+	self assert: (output read: 5) = bytes.
+	bytes := ByteArray with: 4.
+	self assert: (input write: bytes) = 1.
+	self assert: (output read: 1) = bytes! !
+
+!SwazooStreamTest methodsFor: 'running' stamp: 'mivsek 7/19/2007 19:26'!
+crlfOn: aSwazooStream
+	aSwazooStream
+		nextPut: Character cr;
+		nextPut: Character lf! !
+
+!SwazooStreamTest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
+setUp
+	| pair |
+	pair := SwazooStream connectedPair.
+	input := pair first.
+	output := pair last! !
+
+!SwazooStreamTest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
+tearDown
+	input close.
+	output close! !
+
+!SwazooStreamTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testConnectedPair
+	(Array with: input with: output) 
+		do: [:each | self assert: (each isKindOf: SwazooStream)]! !
+
+!SwazooStreamTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testErrorOnInputClose
+	self should: 
+			[input close.
+			output next]
+		raise: Error! !
+
+!SwazooStreamTest methodsFor: 'testing-lines' stamp: 'mivsek 7/19/2007 19:27'!
+testLinesWithDoubleCRLF
+	| ws rs comparisonString |
+	comparisonString := 'abcd'.
+	ws := SwazooStream on: String new.
+	ws nextPutAll: comparisonString.
+	self crlfOn: ws.
+	self crlfOn: ws.
+	rs := SwazooStream on: ws writeBuffer contents.
+	self assert: rs nextLine = comparisonString.
+	self assert: rs nextLine = ''! !
+
+!SwazooStreamTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testNextPut
+	#($A $M $Y $b $r $z) do: 
+			[:each | 
+			self assert: (input nextPut: each) = each. 
+			input flush.
+			self assert: output next = each]! !
+
+!SwazooStreamTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testNextPutAll
+	#('123' 'abc' 'swazoo') do: 
+			[:each | 
+			self assert: (input nextPutAll: each) = each. 
+			input flush.
+			self assert: (output next: each size) = each]! !
+
+!SwazooStreamTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testNextPutByte
+	| bytes |
+	bytes := ByteArray 
+				with: 6
+				with: 5
+				with: 0
+				with: 2.
+	bytes do: 
+			[:each | 
+			self assert: (input nextPutByte: each) = each. 
+			input flush.
+			self assert: output nextByte = each]! !
+
+!SwazooStreamTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testNextPutBytes
+	| bytes1 bytes2 bytes3 |
+	bytes1 := ByteArray withAll: #(1 2 3 4).
+	bytes2 := ByteArray withAll: #(5 4 3 2 1).
+	bytes3 := ByteArray withAll: #(1 1 2 3 5).
+	(Array 
+		with: bytes1
+		with: bytes2
+		with: bytes3) do: 
+				[:each | 
+				self assert: (input nextPutBytes: each) = each.
+				input flush.
+				self assert: (output nextBytes: each size) = each]! !
+
+!SwazooStreamTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testPeek
+	#($K $J $D $j $m $z) do: 
+			[:each | 
+			input nextPut: each.
+			input flush.
+			self assert: output peek = each.
+			output next]! !
+
+!SwazooStreamTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testPeekByte
+	| bytes |
+	bytes := ByteArray withAll: #(5 2 8 4 11 231).
+	bytes do: 
+			[:each | 
+			input nextPutByte: each.
+			input flush.
+			self assert: output peekByte = each.
+			output nextByte]! !
+
+!SwazooStreamTest methodsFor: 'testing-lines' stamp: 'mivsek 7/19/2007 19:27'!
+testSingleLineWithCR
+	| ws rs comparisonString errored |
+	comparisonString := 'abcd' , (String with: Character cr) , 'efg'.
+	ws := SwazooStream on: String new.
+	ws nextPutAll: comparisonString.
+	ws nextPut: Character cr.
+	rs := SwazooStream on: ws writeBuffer contents.
+	errored := false.
+	SpExceptionContext 
+		for: [rs nextLine]
+		on: SpError
+		do: [:ex | errored := true].
+	self assert: errored! !
+
+!SwazooStreamTest methodsFor: 'testing-lines' stamp: 'mivsek 7/19/2007 19:27'!
+testSingleLineWithCRLF
+	| ws rs comparisonString |
+	comparisonString := 'abcd'.
+	ws := SwazooStream on: String new.
+	ws nextPutAll: comparisonString.
+	self crlfOn: ws.
+	rs := SwazooStream on: ws writeBuffer contents.
+	self assert: rs nextLine = comparisonString! !
+
+!SwazooURITest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
+setUp
+	fooURI := SwazooURI fromString: 'www.foo.com/index.html'.
+	queryURI := SwazooURI fromString: 'www.foo.com/index.html?foo=1&bar=hi'.
+	barURI := SwazooURI fromString: 'www.bar.com:8080/files/'! !
+
+!SwazooURITest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
+testHostname
+	self assert: fooURI hostname = 'www.foo.com'.
+	self assert: queryURI hostname = 'www.foo.com'.
+	self assert: barURI hostname = 'www.bar.com'! !
+
+!SwazooURITest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
+testIdentifier
+	self assert: fooURI identifier = '/index.html'.
+	self assert: queryURI identifier = '/index.html'.
+	self assert: barURI identifier = '/files/'! !
+
+!SwazooURITest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
+testIdentifierPath
+	self assert: fooURI identifierPath 
+				= (OrderedCollection with: '/' with: 'index.html').
+	self assert: queryURI identifierPath 
+				= (OrderedCollection with: '/' with: 'index.html').
+	self 
+		assert: barURI identifierPath = (OrderedCollection with: '/' with: 'files')! !
+
+!SwazooURITest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
+testIsDirectory
+	self deny: fooURI isDirectory.
+	self deny: queryURI isDirectory.
+	self assert: barURI isDirectory! !
+
+!SwazooURITest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
+testPort
+	self assert: fooURI port = 80.
+	self assert: queryURI port = 80.
+	self assert: barURI port = 8080! !
+
+!SwazooURITest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
+testQueries
+	self deny: (queryURI includesQuery: 'hi').
+	self assert: (queryURI includesQuery: 'foo').
+	self assert: (queryURI includesQuery: 'bar').
+	self assert: (queryURI queryAt: 'foo') = '1'.
+	self assert: (queryURI queryAt: 'bar') = 'hi'! !
+
+!SwazooURITest methodsFor: 'running' stamp: ' 14/4/07 23:10'!
+testValue
+	self assert: fooURI value = 'http://www.foo.com/index.html'.
+	self assert: queryURI value = 'http://www.foo.com/index.html?foo=1&bar=hi'.
+	self assert: barURI value = 'http://www.bar.com:8080/files/'! !
+
+!URIParsingTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+test05SimpleFullURI
+
+|uri|
+uri := SwazooURI fromString: 'http://abc.com:8080/smith/home.html'.
+self assert: (uri protocol = 'http').
+self assert: (uri hostname = 'abc.com'). 
+self assert: (uri port = 8080).
+self assert: (uri identifier = '/smith/home.html').
+self assert: (uri asString = 'http://abc.com:8080/smith/home.html').! !
+
+!URIParsingTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+test10SimpleFullURIWithQuery
+
+|uri|
+uri := SwazooURI fromString: 'http://abc.com:8080/smith/home.html?a=1&b=2'.
+self assert: (uri protocol = 'http').
+self assert: (uri hostname = 'abc.com'). 
+self assert: (uri port = 8080).
+self assert: (uri identifier = '/smith/home.html').
+self assert: (uri asString = 'http://abc.com:8080/smith/home.html?a=1&b=2').! !
+
+!URIParsingTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+test15SimpleFullURIWithPort80
+
+|uri|
+uri := SwazooURI fromString: 'http://abc.com:80/smith/home.html?a=1&b=2'.
+self assert: (uri protocol = 'http').
+self assert: (uri hostname = 'abc.com'). 
+self assert: (uri port = 80).
+self assert: (uri identifier = '/smith/home.html').
+self assert: (uri asString = 'http://abc.com/smith/home.html?a=1&b=2').! !
+
+!URIParsingTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+test20SimpleFullURIWithNoPort
+
+|uri|
+uri := SwazooURI fromString: 'http://abc.com/smith/home.html?a=1&b=2'.
+self assert: (uri protocol = 'http').
+self assert: (uri hostname = 'abc.com'). 
+self assert: (uri port = 80).
+self assert: (uri identifier = '/smith/home.html').
+self assert: (uri asString = 'http://abc.com/smith/home.html?a=1&b=2').! !
+
+!URIResolutionTest methodsFor: 'testing'!
+testCompositeAnswer
+	| resource request response |
+	resource := CompositeResource uriPattern: 'base'.
+	resource addResource: (HelloWorldResource uriPattern: 'hi').
+	request := HTTPGet request: 'base/hi'.
+	response := URIResolution resolveRequest: request startingAt: resource.
+	self assert: response statusCode = 200.
+	self assert: request resourcePath size = 2.
+	self assert: request resourcePath first = 'base'.
+	self assert: request resourcePath last = 'hi'! !
+
+!URIResolutionTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testCompositeItselfCannotAnswer
+	| resource request response |
+	resource := CompositeResource uriPattern: 'base'.
+	request := HTTPGet request: 'base'.
+	response := URIResolution resolveRequest: request startingAt: resource.
+	self assert: response isNil! !
+
+!URIResolutionTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testCompositeNoAnswer
+	| resource request response |
+	resource := CompositeResource uriPattern: 'base'.
+	resource addResource: (HelloWorldResource uriPattern: 'hi').
+	request := HTTPGet request: 'tail/hi'.
+	response := URIResolution resolveRequest: request startingAt: resource.
+	self assert: response isNil! !
+
+!URIResolutionTest methodsFor: 'testing'!
+testLeafAnswer
+	| resource request response |
+	resource := HelloWorldResource uriPattern: 'hi'.
+	request := HTTPGet request: 'hi'.
+	response := URIResolution resolveRequest: request startingAt: resource.
+	self assert: response statusCode = 200.
+	self assert: request resourcePath size = 1.
+	self assert: request resourcePath first = 'hi'! !
+
+!URIResolutionTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testNoAnswerWhenDisabled
+	| resource request response |
+	resource := HelloWorldResource uriPattern: 'hi'.
+	resource disable.
+	request := HTTPGet request: 'hi'.
+	response := URIResolution resolveRequest: request startingAt: resource.
+	self assert: response isNil! !
+
+!URIResolutionTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testResourcePath
+	| request resolution |
+	request := HTTPGet 
+				request: 'foo/bar/baz/quux'
+				from: 'localhost:1234'
+				at: '1.2.3.4'.
+	resolution := URIResolution new initializeRequest: request.
+	self assert: resolution resourcePath = #('foo') asOrderedCollection.
+	resolution advance.
+	self assert: resolution resourcePath = #('foo' 'bar') asOrderedCollection.
+	resolution advance.
+	self 
+		assert: resolution resourcePath = #('foo' 'bar' 'baz') asOrderedCollection.
+	resolution advance.
+	self assert: resolution resourcePath = #('foo' 'bar' 'baz' 'quux') asOrderedCollection! !
+
+!URIResolutionTest methodsFor: 'testing'!
+testSiteAnswer
+	| resource request response |
+	resource := SwazooSite new host: 'foo.com' ip: '1.2.3.4' port: 80.
+	resource addResource: (HelloWorldResource uriPattern: '/').
+	request := HTTPGet
+				request: '/'
+				from: 'foo.com'
+				at: '1.2.3.4'.
+	response := URIResolution resolveRequest: request startingAt: resource.
+	self assert: response statusCode = 200.
+	self assert: request resourcePath size = 1.
+	self assert: request resourcePath first = '/'! !
+
+!URIResolutionTest methodsFor: 'testing' stamp: 'jm 2/8/2009 13:59'!
+testSiteMatch
+	| request site visitor |
+	request := HTTPGet 
+				request: 'foo'
+				from: 'myhosthost:1234'
+				at: '1.2.3.4'.
+	visitor := URIResolution new initializeRequest: request.
+	site := SwazooSite new host: 'myhosthost' ip: '1.2.3.4' port: 1234.
+	self assert: (visitor siteMatch: site)! !
+
+!URIResolutionTest methodsFor: 'testing' stamp: 'jm 2/8/2009 13:59'!
+testSiteMismatch
+	| request site visitor |
+	request := HTTPGet 
+				request: 'foo'
+				from: 'localhost:1234'
+				at: '1.2.3.4'.
+	visitor := URIResolution new initializeRequest: request.
+	site := SwazooSite new host: 'remotehost' ip: '1.2.3.4' port: 1234.
+	self deny: (visitor siteMatch: site)! !
+
+!URIResolutionTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testStringMatch
+	| request visitor resource |
+	request := HTTPGet request: 'foo'.
+	visitor := URIResolution new initializeRequest: request.
+	resource := HelloWorldResource uriPattern: 'foo'.
+	self assert: (visitor stringMatch: resource)! !
+
+!URIResolutionTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testStringMismatch
+	| request visitor resource |
+	request := HTTPGet request: 'foo'.
+	visitor := URIResolution new initializeRequest: request.
+	resource := HelloWorldResource uriPattern: 'Foo'.
+	self deny: (visitor stringMatch: resource)! !
+
+!URIResolutionTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
+testTailPath
+	| request resolution |
+	request := HTTPGet 
+				request: 'foo/bar/baz/quux'
+				from: 'localhost:1234'
+				at: '1.2.3.4'.
+	resolution := URIResolution new initializeRequest: request.
+	self 
+		assert: resolution tailPath = #('bar' 'baz' 'quux') asOrderedCollection.
+	resolution advance.
+	self assert: resolution tailPath = #('baz' 'quux') asOrderedCollection.
+	resolution advance.
+	self assert: resolution tailPath = #('quux') asOrderedCollection.
+	resolution advance.
+	self assert: resolution tailPath isEmpty! !
+
+!WebSocketTest methodsFor: 'support' stamp: 'jm 11/29/2010 15:32'!
+arrayFromHexString: aString
+	| array stream lookup |
+	lookup := '123456789ABCDEF'.
+	array := ByteArray new: aString size // 2.
+	stream := aString readStream.
+	1 to: array size do: [ :i || h l |
+		h := stream next.
+		h := h = $0 ifTrue: [0] ifFalse: [lookup indexOf: h].
+		l := stream next.
+		l := l = $0 ifTrue: [0] ifFalse: [lookup indexOf: l].
+		array at: i put: ((h bitShift: 4) bitOr: l) ].
+	^array! !
+
+!WebSocketTest methodsFor: 'support'!
+challengeRequest
+	"to test challenge calculation"
+	| requestStream |
+	requestStream := SwazooStream on: String new.
+	requestStream
+		nextPutLine: 'GET / HTTP/1.1';
+		nextPutLine: 'Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==';
+		crlf.
+	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
+
+!WebSocketTest methodsFor: 'testing-internals'!
+testChallengeCalculation
+	| challenge |
+	challenge  := SwazooWebSocket new calculateAcceptValueFrom: self challengeRequest.
+	self assert: challenge = 's3pPLMBiTxaQ9kYGzzhZRbK+xOo='! !
+
+!WebSocketTest methodsFor: 'testing-internals'!
+testConnectionUpgrade
+	| connection |
+	connection := HTTPConnection new.
+	connection upgradeToWebSocket.
+	self assert: connection isWebSocketConnection.! !
+
+!WebSocketTest methodsFor: 'testing-internals' stamp: 'hmm 6/6/2012 15:47'!
+testFraming
+	| connection frame |
+	connection := WebSocketConnection new.
+	frame := connection frameString: '1234'.
+	self assert: frame = ((String with: 16r81 asCharacter with: 4 asCharacter), '1234')! !
+
+!WebSocketTest methodsFor: 'testing-internals'!
+testHandshake
+	| response |
+	response := SwazooWebSocket new answerTo: self upgradeRequest.
+	self assert: response isWebSocketHandshake.
+	self assert: response statusLine = '101 WebSocket Protocol Handshake'.
+	self assert: (response headerValueAt: 'Upgrade') = 'websocket'.
+	self assert: (response headerValueAt: 'Connection') connectionToken = 'Upgrade'.! !
+
+!WebSocketTest methodsFor: 'testing'!
+testWebSocket
+	"Shows a most common usage. More on http://www.swazoo.org/websocket"
+	| request webSocket response |
+	request := self upgradeRequest.
+	request isWebSocketRequest ifTrue:
+		["put here a check if allowed to upgrade, if not: ^HTTPResponse unauthorized"
+		webSocket := request webSocket.
+		response := webSocket answerTo: request].
+
+	self assert: request isWebSocketRequest.
+	self assert: response isWebSocketHandshake.! !
+
+!WebSocketTest methodsFor: 'support' stamp: 'hmm 6/6/2012 12:54'!
+upgradeRequest
+	"first request is a HTTP one to upgrade connection from HTTP to WebSocket protocol"
+	"exact request from protocol standard https://tools.ietf.org/html/rfc6455"
+	| requestStream request |
+	requestStream := SwazooStream on: String new.
+	requestStream
+		nextPutLine: 'GET /chat HTTP/1.1';
+		nextPutLine: 'Host: server.example.com';
+		nextPutLine: 'Upgrade: websocket';
+		nextPutLine: 'Connection: Upgrade';
+		nextPutLine: 'Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==';
+		nextPutLine: 'Origin: http://example.com';
+		nextPutLine: 'Sec-WebSocket-Protocol: chat, superchat';
+		nextPutLine: 'Sec-WebSocket-Version: 13';
+		crlf.
+	request := HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents).
+	request task: (SwazooTask newOn: request).
+	request task connection: HTTPConnection new.
+	^request! !
 
 !TestPseudoSocket methodsFor: 'socket stuff' stamp: ' 14/4/07 23:10'!
 acceptRetryingIfTransientErrors
@@ -9840,49 +10145,107 @@ typeMatch: anotherIdentifier
 valueMatch: anotherIdentifier 
 	^self subclassResponsibility! !
 
-!URIParsingTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-test05SimpleFullURI
+!SiteIdentifier methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
+currentUrl
+	| stream |
+	stream := WriteStream on: String new.
+	self printUrlOn: stream.
+	^stream contents! !
 
-|uri|
-uri := SwazooURI fromString: 'http://abc.com:8080/smith/home.html'.
-self assert: (uri protocol = 'http').
-self assert: (uri hostname = 'abc.com'). 
-self assert: (uri port = 8080).
-self assert: (uri identifier = '/smith/home.html').
-self assert: (uri asString = 'http://abc.com:8080/smith/home.html').! !
+!SiteIdentifier methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
+host
+	^host! !
 
-!URIParsingTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-test10SimpleFullURIWithQuery
+!SiteIdentifier methodsFor: 'private' stamp: ' 14/4/07 23:09'!
+host: aString
+	host := aString! !
 
-|uri|
-uri := SwazooURI fromString: 'http://abc.com:8080/smith/home.html?a=1&b=2'.
-self assert: (uri protocol = 'http').
-self assert: (uri hostname = 'abc.com'). 
-self assert: (uri port = 8080).
-self assert: (uri identifier = '/smith/home.html').
-self assert: (uri asString = 'http://abc.com:8080/smith/home.html?a=1&b=2').! !
+!SiteIdentifier methodsFor: 'initialize-release'!
+host:  hostName ip: anIP port: aPort
+	self host: hostName.
+	self ip: anIP.
+	self port: aPort.! !
 
-!URIParsingTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-test15SimpleFullURIWithPort80
+!SiteIdentifier methodsFor: 'private-comparing' stamp: 'janko 7/26/2008 13:23'!
+hostMatch: aSiteIdentifier
+	(self host asLowercase = aSiteIdentifier host asLowercase) ifTrue: [^true].
+	(self host = '*' or: [aSiteIdentifier host = '*']) ifTrue: [^true]. "is this always good?"
+ 	^false! !
 
-|uri|
-uri := SwazooURI fromString: 'http://abc.com:80/smith/home.html?a=1&b=2'.
-self assert: (uri protocol = 'http').
-self assert: (uri hostname = 'abc.com'). 
-self assert: (uri port = 80).
-self assert: (uri identifier = '/smith/home.html').
-self assert: (uri asString = 'http://abc.com/smith/home.html?a=1&b=2').! !
+!SiteIdentifier methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
+ip
+	^ip! !
 
-!URIParsingTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-test20SimpleFullURIWithNoPort
+!SiteIdentifier methodsFor: 'private' stamp: ' 14/4/07 23:09'!
+ip: aString
+	ip := aString! !
 
-|uri|
-uri := SwazooURI fromString: 'http://abc.com/smith/home.html?a=1&b=2'.
-self assert: (uri protocol = 'http').
-self assert: (uri hostname = 'abc.com'). 
-self assert: (uri port = 80).
-self assert: (uri identifier = '/smith/home.html').
-self assert: (uri asString = 'http://abc.com/smith/home.html?a=1&b=2').! !
+!SiteIdentifier methodsFor: 'private-comparing' stamp: 'mivsek 11/15/2007 13:53'!
+ipMatch: aSiteIdentifier
+	"ip can be in numbers or named!!"
+	| myIP otherIP |
+	self ip = aSiteIdentifier ip ifTrue: [^true].
+	(self ip = '*' or: [self ip = '0.0.0.0']) ifTrue: [^true].
+	(aSiteIdentifier ip = '*' or: [aSiteIdentifier ip = '0.0.0.0']) ifTrue: [^true]. 
+																"is this always good?"
+	myIP := SpIPAddress hostName: self ip port: self port.
+	otherIP := SpIPAddress hostName: aSiteIdentifier ip port: aSiteIdentifier port.
+	^myIP hostAddress = otherIP hostAddress! !
+
+!SiteIdentifier methodsFor: 'testing' stamp: 'jm 2/8/2009 14:50'!
+isEmpty
+	"host ip port empty or nil"
+	(host isNil or: [host isEmpty]) ifTrue: [^true].
+	(ip isNil or: [ip isEmpty]) ifTrue: [^true].
+	port isNil ifTrue: [^true].
+	^false! !
+
+!SiteIdentifier methodsFor: 'initialize-release' stamp: ' 14/4/07 23:09'!
+newServer
+	^ HTTPServer new ip: self ip;  port: self port! !
+
+!SiteIdentifier methodsFor: 'accessing' stamp: ' 14/4/07 23:09'!
+port
+	^port! !
+
+!SiteIdentifier methodsFor: 'private' stamp: ' 14/4/07 23:09'!
+port: aNumber
+	port := aNumber! !
+
+!SiteIdentifier methodsFor: 'private-comparing' stamp: 'mivsek 11/15/2007 13:53'!
+portMatch: aSiteIdentifier
+	"ih host can be anything then same goes for the port of request too"
+	self port = aSiteIdentifier port ifTrue: [^true].
+	(self host = '*' or: [aSiteIdentifier host = '*']) ifTrue: [^true].
+ 	^false! !
+
+!SiteIdentifier methodsFor: 'private' stamp: 'janko 7/26/2008 13:23'!
+printHostPortStringOn: stream 
+	stream nextPutAll: (self host notNil ifTrue: [self host] ifFalse: ['']).
+	self port = 80 ifFalse: [stream nextPut: $:; nextPutAll: self port printString]! !
+
+!SiteIdentifier methodsFor: 'private' stamp: ' 14/4/07 23:09'!
+printString
+	^'a Swazoo.SiteIndentifier
+	host: ', (self host isNil ifTrue: [''] ifFalse: [self host]), '
+	ip: ', (self ip isNil ifTrue: [''] ifFalse: [self ip]), '
+	port: ', self port printString! !
+
+!SiteIdentifier methodsFor: 'private' stamp: ' 14/4/07 23:09'!
+printUrlOn: aWriteStream 
+	aWriteStream nextPutAll: 'http://'.
+	self printHostPortStringOn: aWriteStream! !
+
+!SiteIdentifier methodsFor: 'private-comparing' stamp: 'mivsek 11/15/2007 13:53'!
+valueMatch: aSiteIdentifier
+	^(self portMatch: aSiteIdentifier)
+		and: [(self ipMatch: aSiteIdentifier)
+			and: [self hostMatch: aSiteIdentifier] ]! !
+
+!SiteIdentifier class methodsFor: 'instance creation'!
+host: hostName ip: anIP port: aPort 
+	^self new 
+		host: hostName ip: anIP port: aPort! !
 
 !URIResolution methodsFor: 'private' stamp: ' 14/4/07 23:09'!
 advance
@@ -10008,364 +10371,7 @@ visitResource: aResource
 !URIResolution class methodsFor: 'instance creation' stamp: ' 14/4/07 23:09'!
 resolveRequest: aRequest startingAt: aResource 
 	^(self new initializeRequest: aRequest) visitResource: aResource! !
-
-!URIResolutionTest methodsFor: 'testing'!
-testCompositeAnswer
-	| resource request response |
-	resource := CompositeResource uriPattern: 'base'.
-	resource addResource: (HelloWorldResource uriPattern: 'hi').
-	request := HTTPGet request: 'base/hi'.
-	response := URIResolution resolveRequest: request startingAt: resource.
-	self assert: response statusCode = 200.
-	self assert: request resourcePath size = 2.
-	self assert: request resourcePath first = 'base'.
-	self assert: request resourcePath last = 'hi'! !
-
-!URIResolutionTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testCompositeItselfCannotAnswer
-	| resource request response |
-	resource := CompositeResource uriPattern: 'base'.
-	request := HTTPGet request: 'base'.
-	response := URIResolution resolveRequest: request startingAt: resource.
-	self assert: response isNil! !
-
-!URIResolutionTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testCompositeNoAnswer
-	| resource request response |
-	resource := CompositeResource uriPattern: 'base'.
-	resource addResource: (HelloWorldResource uriPattern: 'hi').
-	request := HTTPGet request: 'tail/hi'.
-	response := URIResolution resolveRequest: request startingAt: resource.
-	self assert: response isNil! !
-
-!URIResolutionTest methodsFor: 'testing'!
-testLeafAnswer
-	| resource request response |
-	resource := HelloWorldResource uriPattern: 'hi'.
-	request := HTTPGet request: 'hi'.
-	response := URIResolution resolveRequest: request startingAt: resource.
-	self assert: response statusCode = 200.
-	self assert: request resourcePath size = 1.
-	self assert: request resourcePath first = 'hi'! !
-
-!URIResolutionTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testNoAnswerWhenDisabled
-	| resource request response |
-	resource := HelloWorldResource uriPattern: 'hi'.
-	resource disable.
-	request := HTTPGet request: 'hi'.
-	response := URIResolution resolveRequest: request startingAt: resource.
-	self assert: response isNil! !
-
-!URIResolutionTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testResourcePath
-	| request resolution |
-	request := HTTPGet 
-				request: 'foo/bar/baz/quux'
-				from: 'localhost:1234'
-				at: '1.2.3.4'.
-	resolution := URIResolution new initializeRequest: request.
-	self assert: resolution resourcePath = #('foo') asOrderedCollection.
-	resolution advance.
-	self assert: resolution resourcePath = #('foo' 'bar') asOrderedCollection.
-	resolution advance.
-	self 
-		assert: resolution resourcePath = #('foo' 'bar' 'baz') asOrderedCollection.
-	resolution advance.
-	self assert: resolution resourcePath = #('foo' 'bar' 'baz' 'quux') asOrderedCollection! !
-
-!URIResolutionTest methodsFor: 'testing'!
-testSiteAnswer
-	| resource request response |
-	resource := SwazooSite new host: 'foo.com' ip: '1.2.3.4' port: 80.
-	resource addResource: (HelloWorldResource uriPattern: '/').
-	request := HTTPGet
-				request: '/'
-				from: 'foo.com'
-				at: '1.2.3.4'.
-	response := URIResolution resolveRequest: request startingAt: resource.
-	self assert: response statusCode = 200.
-	self assert: request resourcePath size = 1.
-	self assert: request resourcePath first = '/'! !
-
-!URIResolutionTest methodsFor: 'testing' stamp: 'jm 2/8/2009 13:59'!
-testSiteMatch
-	| request site visitor |
-	request := HTTPGet 
-				request: 'foo'
-				from: 'myhosthost:1234'
-				at: '1.2.3.4'.
-	visitor := URIResolution new initializeRequest: request.
-	site := SwazooSite new host: 'myhosthost' ip: '1.2.3.4' port: 1234.
-	self assert: (visitor siteMatch: site)! !
-
-!URIResolutionTest methodsFor: 'testing' stamp: 'jm 2/8/2009 13:59'!
-testSiteMismatch
-	| request site visitor |
-	request := HTTPGet 
-				request: 'foo'
-				from: 'localhost:1234'
-				at: '1.2.3.4'.
-	visitor := URIResolution new initializeRequest: request.
-	site := SwazooSite new host: 'remotehost' ip: '1.2.3.4' port: 1234.
-	self deny: (visitor siteMatch: site)! !
-
-!URIResolutionTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testStringMatch
-	| request visitor resource |
-	request := HTTPGet request: 'foo'.
-	visitor := URIResolution new initializeRequest: request.
-	resource := HelloWorldResource uriPattern: 'foo'.
-	self assert: (visitor stringMatch: resource)! !
-
-!URIResolutionTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testStringMismatch
-	| request visitor resource |
-	request := HTTPGet request: 'foo'.
-	visitor := URIResolution new initializeRequest: request.
-	resource := HelloWorldResource uriPattern: 'Foo'.
-	self deny: (visitor stringMatch: resource)! !
-
-!URIResolutionTest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
-testTailPath
-	| request resolution |
-	request := HTTPGet 
-				request: 'foo/bar/baz/quux'
-				from: 'localhost:1234'
-				at: '1.2.3.4'.
-	resolution := URIResolution new initializeRequest: request.
-	self 
-		assert: resolution tailPath = #('bar' 'baz' 'quux') asOrderedCollection.
-	resolution advance.
-	self assert: resolution tailPath = #('baz' 'quux') asOrderedCollection.
-	resolution advance.
-	self assert: resolution tailPath = #('quux') asOrderedCollection.
-	resolution advance.
-	self assert: resolution tailPath isEmpty! !
-
-!WebSocketConnection methodsFor: 'private-framing'!
-frameString: aString
-	"This is currently only used to satisfy the unit test, actual framing is done differently (which should be reflected in the test soon)"
-	| out len utf8String |
-	utf8String := self toUtf8: aString.
-	out := WriteStream on: (String new: utf8String size + 16).
-	out nextPut: 129 asCharacter.	"text frame, FIN=1, RSV1,RSV2,RSV3 all zero"
-	len := utf8String size.
-	len <= 125
-		ifTrue: [out nextPut: len asCharacter.	"7 bits, MASK = 0"]
-		ifFalse: [
-			len < 65536
-				ifTrue: [out nextPut: 126 asCharacter; nextNumber: 2 put: len]
-				ifFalse: [out nextPut: 127 asCharacter; nextNumber: 8 put: len]].
-	out nextPutAll: utf8String.
-	^out contents! !
-
-!WebSocketConnection methodsFor: 'private-framing' stamp: 'gsa 1/24/2013 08:41'!
-fromUtf8: aString
-	"Squeak specific"
-
-	"gsa 14/01/2013 for Cuis port"
-	"^[aString convertFromEncoding: #utf8] on: Error do: [:ex | aString ]"
-
-	"Cuis specific"	
-	^ aString! !
-
-!WebSocketConnection methodsFor: 'private-serving' stamp: 'janko 7/13/2011 20:43'!
-getAndDispatchMessages
-	self stream anyDataReady  "wait for data and if anything read, proceed"
-		ifTrue:
-			[self receiveMessage]
-		ifFalse: 
-			[(Delay forMilliseconds: 100) wait. "to finish sending, if any"
-			self close].! !
-
-!WebSocketConnection methodsFor: 'sending-receiving' stamp: 'hmm 6/6/2012 16:00'!
-handleBinaryMessage: aByteString
-	self webSocket receiveBlock value: aByteString asByteArray! !
-
-!WebSocketConnection methodsFor: 'sending-receiving'!
-handleCloseMessage: aByteString
-	"not used right now"! !
-
-!WebSocketConnection methodsFor: 'sending-receiving' stamp: 'hmm 6/6/2012 16:11'!
-handleContinuationMessage: aByteString
-	"not used right now"! !
-
-!WebSocketConnection methodsFor: 'sending-receiving' stamp: 'hmm 6/6/2012 16:10'!
-handlePingMessage: aByteString
-	self sendFramedData: aByteString opcode: 10! !
-
-!WebSocketConnection methodsFor: 'sending-receiving' stamp: 'hmm 6/6/2012 16:10'!
-handlePongMessage: aByteString
-	"not used right now"! !
-
-!WebSocketConnection methodsFor: 'sending-receiving'!
-handleTextMessage: aByteString
-	self webSocket receiveBlock value: (self fromUtf8: aByteString)! !
-
-!WebSocketConnection methodsFor: 'testing'!
-isHTTPConnection
-	^false! !
-
-!WebSocketConnection methodsFor: 'testing'!
-isWebSocketConnection
-	^true! !
-
-!WebSocketConnection methodsFor: 'sending-receiving'!
-receiveMessage
-	| message flags maskingKey mask len b opc |
-	[
-		flags := self stream next asInteger.
-		len := self stream next asInteger.
-		mask := len >= 128.
-		len := len bitAnd: 127.
-		len > 125 ifTrue: [len := self stream nextNumber: (len = 126 ifTrue: [2] ifFalse: [8])].
-		mask ifTrue: [maskingKey := self stream next: 4].
-		flags < 128 ifTrue: [self close. self halt: 'FIN not set'].
-		message := self stream next: len.
-		mask ifTrue: [
-			1 to: len do: [:i |
-				b := message byteAt: i.
-				b := b bitXor: (maskingKey byteAt: i-1\\4+1).
-				message byteAt: i put: b]].
-		opc := flags bitAnd: 15.
-		opc = 0 ifTrue: [self handleContinuationMessage: message].
-		opc = 1 ifTrue: [self handleTextMessage: message].
-		opc = 2 ifTrue: [self handleBinaryMessage: message].
-		opc = 8 ifTrue: [self handleCloseMessage: message].
-		opc = 9 ifTrue: [self handlePingMessage: message].
-		opc = 10 ifTrue: [self handlePongMessage: message]
-	] 
-		on: Error 
-		do: [:ex | self close]! !
-
-!WebSocketConnection methodsFor: 'sending-receiving'!
-sendFramedData: data opcode: opc
-	| len |
-	[self stream nextPut: 128 + opc.
-	len := data size.
-	len <= 125
-		ifTrue: [self stream nextPut: len]
-		ifFalse: [
-			len < 65536
-				ifTrue: [self stream nextPut: 126; nextNumber: 2 put: len]
-				ifFalse: [self stream nextPut: 127; nextNumber: 8 put: len]].
-	[self stream nextPutAll: data; flush]
-		on: Error
-		do: [:ex | "ignore"]
-	]
-		ifCurtailed: [self close]! !
-
-!WebSocketConnection methodsFor: 'sending-receiving'!
-sendMessage: aStringOrByteArray
-	aStringOrByteArray isString
-		ifTrue: [self sendFramedData: (self toUtf8: aStringOrByteArray) opcode: 1]
-		ifFalse: [self sendFramedData: aStringOrByteArray opcode: 2]! !
-
-!WebSocketConnection methodsFor: 'private-framing' stamp: 'gsa 1/24/2013 08:41'!
-toUtf8: aString
-	"Squeak specific"
-"
-	| converter in out |
-	converter := UTF8TextConverter new.
-	in := aString readStream.
-	out := WriteStream on: ''.
-	[in atEnd] whileFalse: 
-		[converter nextPut: in next toStream: out].
-	^out contents
-"
-
-	"Cuis specific"
-	^ aString! !
-
-!WebSocketTest methodsFor: 'support' stamp: 'jm 11/29/2010 15:32'!
-arrayFromHexString: aString
-	| array stream lookup |
-	lookup := '123456789ABCDEF'.
-	array := ByteArray new: aString size // 2.
-	stream := aString readStream.
-	1 to: array size do: [ :i || h l |
-		h := stream next.
-		h := h = $0 ifTrue: [0] ifFalse: [lookup indexOf: h].
-		l := stream next.
-		l := l = $0 ifTrue: [0] ifFalse: [lookup indexOf: l].
-		array at: i put: ((h bitShift: 4) bitOr: l) ].
-	^array! !
-
-!WebSocketTest methodsFor: 'support'!
-challengeRequest
-	"to test challenge calculation"
-	| requestStream |
-	requestStream := SwazooStream on: String new.
-	requestStream
-		nextPutLine: 'GET / HTTP/1.1';
-		nextPutLine: 'Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==';
-		crlf.
-	^HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents)! !
-
-!WebSocketTest methodsFor: 'testing-internals'!
-testChallengeCalculation
-	| challenge |
-	challenge  := SwazooWebSocket new calculateAcceptValueFrom: self challengeRequest.
-	self assert: challenge = 's3pPLMBiTxaQ9kYGzzhZRbK+xOo='! !
-
-!WebSocketTest methodsFor: 'testing-internals'!
-testConnectionUpgrade
-	| connection |
-	connection := HTTPConnection new.
-	connection upgradeToWebSocket.
-	self assert: connection isWebSocketConnection.! !
-
-!WebSocketTest methodsFor: 'testing-internals' stamp: 'hmm 6/6/2012 15:47'!
-testFraming
-	| connection frame |
-	connection := WebSocketConnection new.
-	frame := connection frameString: '1234'.
-	self assert: frame = ((String with: 16r81 asCharacter with: 4 asCharacter), '1234')! !
-
-!WebSocketTest methodsFor: 'testing-internals'!
-testHandshake
-	| response |
-	response := SwazooWebSocket new answerTo: self upgradeRequest.
-	self assert: response isWebSocketHandshake.
-	self assert: response statusLine = '101 WebSocket Protocol Handshake'.
-	self assert: (response headerValueAt: 'Upgrade') = 'websocket'.
-	self assert: (response headerValueAt: 'Connection') connectionToken = 'Upgrade'.! !
-
-!WebSocketTest methodsFor: 'testing'!
-testWebSocket
-	"Shows a most common usage. More on http://www.swazoo.org/websocket"
-	| request webSocket response |
-	request := self upgradeRequest.
-	request isWebSocketRequest ifTrue:
-		["put here a check if allowed to upgrade, if not: ^HTTPResponse unauthorized"
-		webSocket := request webSocket.
-		response := webSocket answerTo: request].
-
-	self assert: request isWebSocketRequest.
-	self assert: response isWebSocketHandshake.! !
-
-!WebSocketTest methodsFor: 'support' stamp: 'hmm 6/6/2012 12:54'!
-upgradeRequest
-	"first request is a HTTP one to upgrade connection from HTTP to WebSocket protocol"
-	"exact request from protocol standard https://tools.ietf.org/html/rfc6455"
-	| requestStream request |
-	requestStream := SwazooStream on: String new.
-	requestStream
-		nextPutLine: 'GET /chat HTTP/1.1';
-		nextPutLine: 'Host: server.example.com';
-		nextPutLine: 'Upgrade: websocket';
-		nextPutLine: 'Connection: Upgrade';
-		nextPutLine: 'Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==';
-		nextPutLine: 'Origin: http://example.com';
-		nextPutLine: 'Sec-WebSocket-Protocol: chat, superchat';
-		nextPutLine: 'Sec-WebSocket-Version: 13';
-		crlf.
-	request := HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents).
-	request task: (SwazooTask newOn: request).
-	request task connection: HTTPConnection new.
-	^request! !
-FileResource initialize!
 HTTPResponse initialize!
 HTTPServer initialize!
+FileResource initialize!
 SwazooServer initialize!
