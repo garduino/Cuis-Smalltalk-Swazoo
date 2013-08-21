@@ -1,32 +1,13 @@
 Cuis-Swazoo
 ===========
 
-Swazoo for Cuis 4.1
+Swazoo for Cuis 4.2
 
-Other repositories needed:
 
-*   https://github.com/garduino/Cuis-Cryptography.git  
-*   https://github.com/garduino/Cuis-Pharo14CompatibilityLayer.git
-*   https://github.com/garduino/Cuis-Sport.git
-
-Clone them into sibling directories of your Cuis and Cuis-Swazoo directories 
-
-Then to install evaluate:
-
-    | slash  |
-    slash _ FileDirectory slash.
-    {
-    '..', slash, 'Cuis-Cryptography', slash, 'Cuis-System-Hashing.pck.st' .
-    '..', slash, 'Cuis-CompatibilityWithOtherSmalltalks', slash, 'Cuis-CompatibilityWithOtherSmalltalks.pck.st' .
-    '..', slash, 'Cuis-Pharo14CompatibilityLayer', slash, 'Cuis-Network-Protocols.pck.st' .
-    '..', slash, 'Cuis-Pharo14CompatibilityLayer', slash, 'Cuis-Network-Url.pck.st' .
-    '..', slash, 'Cuis-Sport', slash, 'Sport.pck.st' .
-    '..', slash, 'Cuis-Swazoo', slash, 'Swazoo.pck.st' .
-    }
-    do:
-    [ :fileName | CodePackageFile installPackageStream:
-        (FileStream concreteStream readOnlyFileNamed: fileName)
-    ].
+To load the package
+````Smalltalk
+	Feature require: 'Swazoo'
+````
     
 Ported from:
 
