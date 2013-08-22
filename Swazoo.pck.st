@@ -1,11 +1,11 @@
-'From Cuis 4.2 of 25 July 2013 [latest update: #1806] on 21 August 2013 at 6:31:57.001705 pm'!
+'From Cuis 4.2 of 25 July 2013 [latest update: #1806] on 22 August 2013 at 2:49:55.438653 pm'!
 'Description Please enter a description for this package '!
-!provides: 'Swazoo' 1 0!
+!provides: 'Swazoo' 1 1!
 !requires: 'Cuis-System-Hashing' 1 0 nil!
 !requires: 'Cuis-CompatibilityWithOtherSmalltalks' 1 0 nil!
-!requires: 'Cuis-Network-Protocols' 1 0 nil!
 !requires: 'Cuis-Network-Url' 1 0 nil!
 !requires: 'Sport' 1 0 nil!
+!requires: 'Cuis-Network-Protocols' 1 0 nil!
 !classDefinition: #HTTPException category: #'Swazoo-Exceptions'!
 Error subclass: #HTTPException
 	instanceVariableNames: 'response'
@@ -2638,11 +2638,11 @@ isClose
 				ifNone: [nil].
 	^connectionField notNil and: [connectionField connectionTokenIsClose]! !
 
-!HTTPRequest methodsFor: 'testing' stamp: 'janko 10/31/2012 17:30'!
+!HTTPRequest methodsFor: 'testing' stamp: 'gsa 8/22/2013 14:48'!
 isConnectionUpgrade
 	((self headerAt: 'Connection' ifAbsent: [^false]) 
-		connectionToken tokensBasedOn: $,) do: [:each |
-			each trimBlanks = 'Upgrade' ifTrue: [^true]].
+		connectionToken tokensBasedOn: $,) do: [:each |			
+			each withBlanksTrimmed = 'Upgrade' ifTrue: [^true]].
 	^ false! !
 
 !HTTPRequest methodsFor: 'testing' stamp: ' 14/4/07 23:10'!
