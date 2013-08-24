@@ -6,7 +6,7 @@ Swazoo for Cuis 4.2
 
 To load the package
 ````Smalltalk
-	Feature require: 'Swazoo'
+	Feature require: 'Swazoo-Installer'
 ````
     
 Ported from:
